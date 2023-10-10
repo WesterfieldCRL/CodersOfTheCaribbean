@@ -28,7 +28,12 @@ public class Room {
 
     public double getDailyRate() //TODO: determine method for calculating daily rate
     {
-        return 1.0;
+        // THIS IS NOT RIGHT
+        double x = 0;
+        if (quality == Quality.EXECUTIVE) {
+            x = 3.2;
+        }
+        return x;
     }
     public void modifyInfo() //TODO: implement function
     {
