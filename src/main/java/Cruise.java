@@ -6,9 +6,9 @@ public class Cruise
     public Cruise(String name)
     {
         this.name = name;
-        roomList = new Room[main.numRooms];
+        roomList = new Room[CruiseApp.numRooms];
         travelPath = new TravelPath();
-        for (int i = 0; i < main.numRooms; i++)
+        for (int i = 0; i < CruiseApp.numRooms; i++)
         {
             int randomQuality = (int) (Math.random() * 4) + 1;
             roomList[i].setNumBeds(randomQuality);
