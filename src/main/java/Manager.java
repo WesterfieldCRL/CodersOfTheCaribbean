@@ -1,10 +1,6 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 public class Manager extends Person{
 
@@ -19,17 +15,13 @@ public class Manager extends Person{
 
     public static Collection<Manager> getManagerList()
     {
-        Collection<Manager> outputList = new ArrayList<Manager>();
+        Collection<Manager> outputList = new ArrayList<>();
         try {
-            // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = Person.class.getResourceAsStream("/managerLogin.txt");
-            if (resourceStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    outputList.add(new Manager(parts[0], parts[1], "temp", "temp", "temp"));
-                }
+            BufferedReader reader = new BufferedReader(new FileReader("managerLogin.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                outputList.add(new Manager(parts[0], parts[1], "temp", "temp", "temp"));
             }
         } catch (IOException e) {
             e.printStackTrace();

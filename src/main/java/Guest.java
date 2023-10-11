@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -19,23 +16,63 @@ public class Guest extends Person {
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
     
-    public static Collection<Guest> getGuestList()
-    {
-        Collection<Guest> outputList = new ArrayList<Guest>();
+    public static Collection<Guest> getGuestList() {
+        Collection<Guest> outputList = new ArrayList<>();
         try {
-            // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = Person.class.getResourceAsStream("/guestsLogin.txt");
-            if (resourceStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    outputList.add(new Guest(parts[0], parts[1], "temp", "temp", "temp", "temp", new Date()));
-                }
+            BufferedReader reader = new BufferedReader(new FileReader("guestsLogin.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                outputList.add(new Guest(parts[0], parts[1], "temp", "temp", "temp", "temp", new Date()));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return outputList;
     }
+
+    //WARNING: File must end in a newline for this to work
+    //TODO: check for newline at end of file
+    public static void createNewGuest(String username, String password)
+    {
+        String data = username + "," + password + "\n";
+
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter("guestsLogin.txt", true);
+
+            // Write the data to the file
+            fileWriter.write(data);
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createNewGuest(String username, String password, Collection<Person> personCollection)
+    {
+        String data = username + "," + password + "\n";
+
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter("guestsLogin.txt", true);
+
+            // Write the data to the file
+            fileWriter.write(data);
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Guest guest = new Guest(username, password, "temp", "temp", "temp", "temp", new Date());
+        personCollection.add(guest);
+
+    }
+
 }

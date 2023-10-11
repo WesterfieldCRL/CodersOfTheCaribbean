@@ -1,9 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 public class Admin extends Person {
     public Admin(String username, String password, String name, String address, String email) {
@@ -14,20 +12,60 @@ public class Admin extends Person {
     {
         Collection<Admin> outputList = new ArrayList<Admin>();
         try {
-            // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = Person.class.getResourceAsStream("/adminLogin.txt");
-            if (resourceStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    outputList.add(new Admin(parts[0], parts[1], "temp", "temp", "temp"));
-                }
+            BufferedReader reader = new BufferedReader(new FileReader("adminLogin.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                outputList.add(new Admin(parts[0], parts[1], "temp", "temp", "temp"));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return outputList;
     }
+
+    public static void createNewTravelAgent(String username, String password)
+    {
+        String data = username + "," + password + "\n";
+
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter("travelAgentLogin.txt", true);
+
+            // Write the data to the file
+            fileWriter.write(data);
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void createNewTravelAgent(String username, String password, Collection<Person> personCollection)
+    {
+        String data = username + "," + password + "\n";
+
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter("travelAgentLogin.txt", true);
+
+            // Write the data to the file
+            fileWriter.write(data);
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        TravelAgent tav = new TravelAgent(username, password, "temp", "temp", "temp");
+        personCollection.add(tav);
+
+    }
+
 }
 
