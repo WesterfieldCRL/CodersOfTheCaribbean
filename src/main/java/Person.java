@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Person {
     private String username;
@@ -23,28 +21,33 @@ public class Person {
     }
 
     public boolean login(String username, String password) {
-
-        /*try {
-            // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = getClass().getResourceAsStream("/guestsLogin.txt");
-            if (resourceStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts[0].equals(username) && parts[1].equals(password))
-                    {
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         return this.username.equals(username) && this.password.equals(password);
     }
 
+    //use .isPresent() to check if not null, and .get() to get the value when not null
+    public static Optional<Person> getPerson(Collection<Person> list, String username, String password)
+    {
+        for (Person person : list)
+        {
+            if (person.login(username, password))
+            {
+                return Optional.of(person);
+            }
+        }
+        return Optional.empty();
+    }
 
+    public static Collection<Person> populateList()
+    {
+        Collection<Person> outputList = new ArrayList<Person>();
+
+        outputList.addAll(Guest.getGuestList());
+        outputList.addAll(Admin.getAdminList());
+        outputList.addAll(Manager.getManagerList());
+        outputList.addAll(TravelAgent.getTravelAgentList());
+
+        return outputList;
+    }
 
     public String getUsername() {
         return username;
