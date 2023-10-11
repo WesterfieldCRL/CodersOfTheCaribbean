@@ -1,3 +1,11 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class Person {
     private String username;
     private String password;
@@ -13,6 +21,30 @@ public class Person {
         this.address = address;
         this.email = email;
     }
+
+    public boolean login(String username, String password) {
+
+        /*try {
+            // Load the text file from resources, assumes file contains valid data
+            InputStream resourceStream = getClass().getResourceAsStream("/guestsLogin.txt");
+            if (resourceStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    if (parts[0].equals(username) && parts[1].equals(password))
+                    {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        return this.username.equals(username) && this.password.equals(password);
+    }
+
+
 
     public String getUsername() {
         return username;
