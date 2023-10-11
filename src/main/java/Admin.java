@@ -15,7 +15,7 @@ public class Admin extends Person {
         Collection<Admin> outputList = new ArrayList<Admin>();
         try {
             // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = Person.class.getResourceAsStream("/guestsLogin.txt");
+            InputStream resourceStream = Person.class.getResourceAsStream("/adminLogin.txt");
             if (resourceStream != null) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
                 String line;

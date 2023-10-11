@@ -16,7 +16,7 @@ public class TravelAgent extends Person {
         Collection<TravelAgent> outputList = new ArrayList<TravelAgent>();
         try {
             // Load the text file from resources, assumes file contains valid data
-            InputStream resourceStream = Person.class.getResourceAsStream("/guestsLogin.txt");
+            InputStream resourceStream = Person.class.getResourceAsStream("/travelAgentLogin.txt");
             if (resourceStream != null) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream));
                 String line;
