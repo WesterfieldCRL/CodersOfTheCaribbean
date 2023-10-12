@@ -1,3 +1,5 @@
+import Person.Guest;
+
 import java.util.Date;
 
 public class Reservation {
