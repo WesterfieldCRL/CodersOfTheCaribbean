@@ -34,12 +34,33 @@ public class Manager extends Person{
         return Optional.empty();
     }
 
-    public static void createNewManager(String username, String password, String name, String address, String email)
+    /**
+     * createNewManager
+     *
+     * takes the given information and adds a line in the appropriate file
+     * corresponding to that information.
+     *
+     * Will first check to see if the given information is valid, and not
+     * a duplicate
+     *
+     * If a duplicate, or contains commas, function will return false
+     *
+     * Parameters:
+     *   self-explanatory
+     *
+     * Return value: boolean
+     */
+    public static boolean createNewManager(String username, String password, String name, String address, String email)
     {
+        if (username.contains(",") || password.contains(",") || name.contains(",") || address.contains(",") || email.contains(","))
+        {
+            return false;
+        }
         if (conflictChecker(username, password, "managerLogin.txt")) {
             String data = username + "," + password + "," + name + "," + address + "," + email + "\n";
 
-            Manager.fileWriter(data, "managerLogin.txt");
+            return Manager.fileWriter(data, "managerLogin.txt");
         }
+        return false;
     }
 }

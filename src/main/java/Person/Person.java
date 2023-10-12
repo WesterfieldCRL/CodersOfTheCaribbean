@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Person {
@@ -43,7 +44,7 @@ public class Person {
         return true;
     }
 
-    protected static void fileWriter(String data, String fileName)
+    protected static boolean fileWriter(String data, String fileName)
     {
         try {
             // Set the second argument to 'true' to enable appending
@@ -53,6 +54,10 @@ public class Person {
             if (!fileEndsWithNewline(fileName)) {
                 // If not, add a newline character
                 fileWriter.write(System.lineSeparator());
+            }
+            else
+            {
+                return false;
             }
 
             // Write the data to the file
@@ -64,6 +69,7 @@ public class Person {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     protected static boolean fileEndsWithNewline(String fileName) {
@@ -81,6 +87,28 @@ public class Person {
         }
     }
 
+    /**
+     * login
+     *
+     * takes a username and password, and checks if they match
+     * information in the database. Returns an Optional<Person>.
+     * Example for use:
+     * Optional<Person> temp = login("username","password");
+     *
+     * User temp.isPresent() to check if login was successful
+     *
+     * to check for class, use getClass, ex:
+     * temp.get().getClass() == TravelAgent.class
+     *
+     * Can then be assigned to variable, ex:
+     * TravelAgent tav = (TravelAgent) temp.get();
+     *
+     * Parameters:
+     *   username - username input
+     *   password - password input
+     *
+     * Return value: Optional<Person>
+     */
     public static Optional<Person> login(String username, String password)
     {
 
