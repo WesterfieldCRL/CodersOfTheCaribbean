@@ -1,7 +1,6 @@
+package Person;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Optional;
 
 public class Admin extends Person {
@@ -9,32 +8,7 @@ public class Admin extends Person {
         super(username, password, name, address, email);
     }
 
-    public void createNewTravelAgent(String username, String password)
-    {
-        String data = username + "," + password + "\n";
-
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("travelAgentLogin.txt", true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void resetGuest(Guest guest)
-    {
-
-    }
-
-    public static Optional<Admin> searchAdminList(String username, String password)
+    protected static Optional<Admin> searchAdminList(String username, String password)
     {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("adminLogin.txt"));
@@ -51,6 +25,22 @@ public class Admin extends Person {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public void createNewTravelAgent(String username, String password)
+    {
+        if (conflictChecker(username, password, "adminLogin.txt")) {
+
+            String data = username + "," + password + "\n";
+
+            Admin.fileWriter(data, "adminLogin.txt");
+        }
+
+    }
+
+    public void resetGuest(Guest guest)
+    {
+
     }
 
 }

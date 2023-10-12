@@ -1,6 +1,6 @@
+package Person;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ public class Guest extends Person {
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
 
-    public static Optional<Guest> searchGuestList(String username, String password)
+    protected static Optional<Guest> searchGuestList(String username, String password)
     {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("guestsLogin.txt"));
@@ -38,23 +38,12 @@ public class Guest extends Person {
 
     //WARNING: File must end in a newline for this to work
     //TODO: check for newline at end of file
-    //TODO: check for duplicates
     public static void createNewGuest(String username, String password)
     {
-        String data = username + "," + password + "\n";
+        if (conflictChecker(username, password, "guestsLogin.txt")) {
+            String data = username + "," + password + "\n";
 
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("guestsLogin.txt", true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            Guest.fileWriter(data, "guestsLogin.txt");
         }
     }
 

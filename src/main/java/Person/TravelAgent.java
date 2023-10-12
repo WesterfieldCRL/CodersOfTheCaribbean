@@ -1,9 +1,6 @@
-import com.sun.source.tree.TreeVisitor;
+package Person;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Optional;
 
 public class TravelAgent extends Person {
@@ -11,7 +8,7 @@ public class TravelAgent extends Person {
         super(username, password, name, address, email);
     }
 
-    public static Optional<TravelAgent> searchTravelAgentList(String username, String password)
+    protected static Optional<TravelAgent> searchTravelAgentList(String username, String password)
     {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("travelAgentLogin.txt"));
@@ -32,20 +29,10 @@ public class TravelAgent extends Person {
 
     public static void createNewTravelAgent(String username, String password, String name, String address, String email)
     {
-        String data = username + "," + password + "," + name + "," + address + "," + email + "\n";
+        if (conflictChecker(username, password, "travelAgentLogin.txt")) {
+            String data = username + "," + password + "," + name + "," + address + "," + email + "\n";
 
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("travelAgentLogin.txt", true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            TravelAgent.fileWriter(data, "travelAgentLogin.txt");
         }
     }
 
