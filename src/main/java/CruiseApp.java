@@ -2,53 +2,54 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CruiseApp {
-    private JFrame frame;
-    private JPanel mainPanel;
-    private JLabel cruiseLabel;
-    private JList<Room> roomsList;
-    private JTextArea travelPathArea;
-
-    public CruiseApp(Cruise cruise) {
-        frame = new JFrame("Cruise Details");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        cruiseLabel = new JLabel("Cruise Name: " + cruise.getName());
-        mainPanel.add(cruiseLabel);
-
-        // Display rooms
-        DefaultListModel<Room> listModel = new DefaultListModel<>();
-        for (Room room : cruise.getRoomList()) {
-            listModel.addElement(room);
-        }
-        roomsList = new JList<>(listModel);
-        roomsList.setCellRenderer(new RoomRenderer());
-        mainPanel.add(new JScrollPane(roomsList));
-
-        // Display travel path
-        travelPathArea = new JTextArea(cruise.getTravelPath().toString());
-        travelPathArea.setEditable(false);
-        mainPanel.add(new JScrollPane(travelPathArea));
-
-        frame.add(mainPanel);
-        frame.setVisible(true);
-    }
-
-    // Custom list renderer for Room
-    class RoomRenderer extends JLabel implements ListCellRenderer<Room> {
-        @Override
-        public Component getListCellRendererComponent(JList<? extends Room> list, Room room, int index, boolean isSelected, boolean cellHasFocus) {
-            setText("ID: " + room.getID() + ", Quality: " + room.getQuality() + ", Beds: " + room.getNumBeds() + ", Bed Type: " + room.getBedType());
-            return this;
-        }
-    }
 
     public static void main(String[] args) {
-        // Initialize Cruise object and pass to app
-        Cruise cruise = new Cruise("Titanic"); // or your cruise object
-        new CruiseApp(cruise);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Cruise Booking System");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
+            frame.setLayout(new CardLayout());
+
+            // Landing Page Panel
+            JPanel landingPagePanel = new JPanel(new GridLayout(4, 1, 10, 10));
+            landingPagePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            JButton loginButton = new JButton("Login");
+            landingPagePanel.add(new JLabel("Cruise 1"));
+            landingPagePanel.add(new JLabel("Cruise 2"));
+            landingPagePanel.add(new JLabel("Cruise 3"));
+            landingPagePanel.add(loginButton);
+
+            // Login Panel
+            JPanel loginPanel = new JPanel();
+            loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+            loginPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            JPanel fieldsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+            fieldsPanel.add(new JLabel("Username:"));
+            fieldsPanel.add(new JTextField(15));
+            fieldsPanel.add(new JLabel("Password:"));
+            fieldsPanel.add(new JPasswordField(15));
+
+            JPanel buttonsPanel = new JPanel(new FlowLayout());
+            JButton loginSubmitButton = new JButton("Login");
+            JButton createAccountButton = new JButton("Create Account");
+            buttonsPanel.add(loginSubmitButton);
+            buttonsPanel.add(createAccountButton);
+
+            loginPanel.add(fieldsPanel);
+            loginPanel.add(buttonsPanel);
+
+            // Add panels to frame
+            frame.add(landingPagePanel, "Landing Page");
+            frame.add(loginPanel, "Login");
+
+            // Show Landing Page by default
+            ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), "Landing Page");
+
+            // Action to switch to Login Panel
+            loginButton.addActionListener(e -> ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), "Login"));
+
+            frame.setVisible(true);
+        });
     }
 }
