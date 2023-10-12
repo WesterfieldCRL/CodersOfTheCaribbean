@@ -14,26 +14,6 @@ public class Manager extends Person{
         //TODO: figure out what to do with this
     }
 
-    protected static Optional<Manager> searchManagerList(String username, String password)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("managerLogin.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
-                {
-                    Manager manager = new Manager(parts[0], parts[1], parts[2], parts[3], parts[4]);
-                    return Optional.of(manager);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.empty();
-    }
-
     /**
      * createNewManager
      *
@@ -56,10 +36,10 @@ public class Manager extends Person{
         {
             return false;
         }
-        if (conflictChecker(username, password, "managerLogin.txt")) {
-            String data = username + "," + password + "," + name + "," + address + "," + email + "\n";
+        if (conflictChecker(username, password)) {
+            String data = username + "," + password + "MANAGER" + "," + "," + name + "," + address + "," + email + "\n";
 
-            return Manager.fileWriter(data, "managerLogin.txt");
+            return Manager.fileWriter(data);
         }
         return false;
     }

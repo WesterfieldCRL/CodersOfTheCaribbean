@@ -22,10 +22,10 @@ public class Person {
         this.email = email;
     }
 
-    protected static boolean conflictChecker(String username, String password, String fileName)
+    protected static boolean conflictChecker(String username, String password)
     {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
 
             String line;
             while ((line = reader.readLine()) != null)
@@ -44,14 +44,14 @@ public class Person {
         return true;
     }
 
-    protected static boolean fileWriter(String data, String fileName)
+    protected static boolean fileWriter(String data)
     {
         try {
             // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter(fileName, true);
+            FileWriter fileWriter = new FileWriter("loginData.txt", true);
 
             //check for newline
-            if (!fileEndsWithNewline(fileName)) {
+            if (!fileEndsWithNewline("loginData.txt")) {
                 // If not, add a newline character
                 fileWriter.write(System.lineSeparator());
             }
@@ -112,31 +112,35 @@ public class Person {
     public static Optional<Person> login(String username, String password)
     {
 
-        Optional<Guest> guest = Guest.searchGuestList(username, password);
-
-        if (guest.isPresent())
-        {
-            return Optional.of(guest.get());
-        }
-
-        Optional<Admin> admin = Admin.searchAdminList(username, password);
-
-        if (admin.isPresent())
-        {
-            return Optional.of(admin.get());
-        }
-
-        Optional<Manager> manager = Manager.searchManagerList(username, password);
-
-        if (manager.isPresent())
-        {
-            return Optional.of(manager.get());
-        }
-
-        Optional<TravelAgent> tav = TravelAgent.searchTravelAgentList(username, password);
-        if (tav.isPresent())
-        {
-            return Optional.of(tav.get());
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts[0].equals(username) && parts[1].equals(password))
+                {
+                    switch (parts[2])
+                    {
+                        case "GUEST" :
+                            Guest guest = new Guest(parts[0], parts[1], parts[3], parts[4], parts[5], parts[6], parts[7]);
+                            return Optional.of(guest);
+                        case "TRAVELAGENT" :
+                            TravelAgent tav = new TravelAgent(parts[0], parts[1], parts[3], parts[4], parts[5]);
+                            return Optional.of(tav);
+                        case "MANAGER" :
+                            Manager manager = new Manager(parts[0], parts[1], parts[3], parts[4], parts[4]);
+                            return Optional.of(manager);
+                        case "ADMIN" :
+                            Admin admin = new Admin(parts[0], parts[1], parts[3], parts[4], parts[5]);
+                            return Optional.of(admin);
+                        default:
+                            System.out.println("An unexpected value was found while reading loginData");
+                            break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return Optional.empty();

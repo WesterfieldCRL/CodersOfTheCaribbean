@@ -17,25 +17,6 @@ public class Guest extends Person {
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
 
-    protected static Optional<Guest> searchGuestList(String username, String password)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("guestsLogin.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
-                {
-                    Guest guest = new Guest(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]);
-                    return Optional.of(guest);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
-
     /**
      * createNewGuest
      *
@@ -62,11 +43,11 @@ public class Guest extends Person {
             return false;
         }
 
-        if (conflictChecker(username, password, "guestsLogin.txt")) {
-            String data = username + "," + password + "," + name + "," + address + "," + email
+        if (conflictChecker(username, password)) {
+            String data = username + "," + password + "," + "GUEST" + "," + name + "," + address + "," + email
                     + creditCardNumber + creditCardExpirationDate + "\n";
 
-            return Guest.fileWriter(data, "guestsLogin.txt");
+            return Guest.fileWriter(data);
         }
         return false;
     }

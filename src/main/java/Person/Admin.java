@@ -8,25 +8,6 @@ public class Admin extends Person {
         super(username, password, name, address, email);
     }
 
-    protected static Optional<Admin> searchAdminList(String username, String password)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("adminLogin.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
-                {
-                    Admin admin = new Admin(parts[0], parts[1], parts[2], parts[3], parts[4]);
-                    return Optional.of(admin);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
-
     /**
      * createNewAdmin
      *
@@ -49,11 +30,11 @@ public class Admin extends Person {
         {
             return false;
         }
-        if (conflictChecker(username, password, "adminLogin.txt")) {
+        if (conflictChecker(username, password)) {
 
-            String data = username + "," + password + "\n";
+            String data = username + "," + password + "ADMIN" + "," + "," + name + "," + address + "," + email + "\n";
 
-            return Admin.fileWriter(data, "adminLogin.txt");
+            return Admin.fileWriter(data);
         }
         return false;
 

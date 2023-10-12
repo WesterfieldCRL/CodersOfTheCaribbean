@@ -8,25 +8,6 @@ public class TravelAgent extends Person {
         super(username, password, name, address, email);
     }
 
-    protected static Optional<TravelAgent> searchTravelAgentList(String username, String password)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("travelAgentLogin.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
-                {
-                    TravelAgent tav = new TravelAgent(parts[0], parts[1], parts[2], parts[3], parts[4]);
-                    return Optional.of(tav);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
-
     /**
      * createNewTravelAgent
      *
@@ -49,10 +30,10 @@ public class TravelAgent extends Person {
         {
             return false;
         }
-        if (conflictChecker(username, password, "travelAgentLogin.txt")) {
-            String data = username + "," + password + "," + name + "," + address + "," + email + "\n";
+        if (conflictChecker(username, password)) {
+            String data = username + "," + password + "TRAVELAGENT" + "," + "," + name + "," + address + "," + email + "\n";
 
-            return TravelAgent.fileWriter(data, "travelAgentLogin.txt");
+            return TravelAgent.fileWriter(data);
         }
         return false;
     }
