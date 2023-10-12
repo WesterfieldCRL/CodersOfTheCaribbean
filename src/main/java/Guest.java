@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
@@ -15,24 +16,29 @@ public class Guest extends Person {
         this.creditCardNumber = creditCardNumber;
         this.creditCardExpirationDate = creditCardExpirationDate;
     }
-    
-    public static Collection<Guest> getGuestList() {
-        Collection<Guest> outputList = new ArrayList<>();
+
+    public static Optional<Guest> searchGuestList(String username, String password)
+    {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("guestsLogin.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                outputList.add(new Guest(parts[0], parts[1], "temp", "temp", "temp", "temp", new Date()));
+                if (parts[0].equals(username) && parts[1].equals(password))
+                {
+                    Guest guest = new Guest(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], new Date());
+                    return Optional.of(guest);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return outputList;
+        return Optional.empty();
     }
 
     //WARNING: File must end in a newline for this to work
     //TODO: check for newline at end of file
+    //TODO: check for duplicates
     public static void createNewGuest(String username, String password)
     {
         String data = username + "," + password + "\n";
@@ -52,27 +58,5 @@ public class Guest extends Person {
         }
     }
 
-    public static void createNewGuest(String username, String password, Collection<Person> personCollection)
-    {
-        String data = username + "," + password + "\n";
-
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("guestsLogin.txt", true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Guest guest = new Guest(username, password, "temp", "temp", "temp", "temp", new Date());
-        personCollection.add(guest);
-
-    }
 
 }

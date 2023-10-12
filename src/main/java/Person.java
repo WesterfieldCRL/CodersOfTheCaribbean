@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Person {
@@ -7,7 +11,6 @@ public class Person {
     private String address;
     private String email;
 
-    // Constructor
     public Person(String username, String password, String name, String address, String email) {
         this.username = username;
         this.password = password;
@@ -16,33 +19,39 @@ public class Person {
         this.email = email;
     }
 
-    public boolean login(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
-    }
 
-    //use .isPresent() to check if not null, and .get() to get the value when not null
-    public static Optional<Person> getPerson(Collection<Person> list, String username, String password)
+
+    public Optional<Person> login(String username, String password)
     {
-        for (Person person : list)
+
+        Optional<Guest> guest = Guest.searchGuestList(username, password);
+
+        if (guest.isPresent())
         {
-            if (person.login(username, password))
-            {
-                return Optional.of(person);
-            }
+            return Optional.of(guest.get());
         }
+
+        Optional<Admin> admin = Admin.searchAdminList(username, password);
+
+        if (admin.isPresent())
+        {
+            return Optional.of(admin.get());
+        }
+
+        Optional<Manager> manager = Manager.searchManagerList(username, password);
+
+        if (manager.isPresent())
+        {
+            return Optional.of(manager.get());
+        }
+
+        Optional<TravelAgent> tav = TravelAgent.searchTravelAgentList(username, password);
+        if (tav.isPresent())
+        {
+            return Optional.of(tav.get());
+        }
+
         return Optional.empty();
-    }
-
-    public static Collection<Person> populateList()
-    {
-        Collection<Person> outputList = new ArrayList<Person>();
-
-        outputList.addAll(Guest.getGuestList());
-        outputList.addAll(Admin.getAdminList());
-        outputList.addAll(Manager.getManagerList());
-        outputList.addAll(TravelAgent.getTravelAgentList());
-
-        return outputList;
     }
 
     public String getUsername() {
