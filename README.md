@@ -2,7 +2,7 @@
 Repository for the Travel in Cruise group project
 
 Roles:
-Project Manager: Will Lindner
+Project Person.Manager: Will Lindner
 Requirements Engineer: Cameron Armijo
 Design Engineer: Alex Baratta
 Quality Assurance Engineer: Wesley Anastasi
