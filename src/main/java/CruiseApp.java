@@ -1,10 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
+import Person.Person;
+import java.util.Optional;
 
 public class CruiseApp {
+    private static void handleLogin(JTextField usernameField, JPasswordField passwordField) {
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+
+        Optional<Person> user = Person.login(username, password);
+
+        if (user.isPresent()) {
+            JOptionPane.showMessageDialog(null, "Login Successful. User type: " + user.get().getClass().getSimpleName());
+            //TODO
+            // if(user.get().getClass() == Admin.class) {
+            //     showAdminPanel();
+            // }
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     public static void main(String[] args) {
-        // Set the look and feel to the system's default
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -18,8 +36,8 @@ public class CruiseApp {
             frame.setLayout(new CardLayout());
 
             // Styling
-            Color backgroundColor = new Color(240, 248, 255);  // AliceBlue
-            Color buttonColor = new Color(100, 149, 237);      // CornflowerBlue
+            Color backgroundColor = new Color(240, 248, 255);
+            Color buttonColor = new Color(100, 149, 237);
             Font labelFont = new Font("Arial", Font.BOLD, 16);
             Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
@@ -46,10 +64,15 @@ public class CruiseApp {
             JPanel fieldsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
             fieldsPanel.setBackground(backgroundColor);
 
+            JTextField usernameField = new JTextField(15);
+            JPasswordField passwordField = new JPasswordField(15);
+
             fieldsPanel.add(getStyledLabel("Username:", labelFont, backgroundColor));
-            fieldsPanel.add(new JTextField(15));
+            fieldsPanel.add(usernameField);
             fieldsPanel.add(getStyledLabel("Password:", labelFont, backgroundColor));
-            fieldsPanel.add(new JPasswordField(15));
+            fieldsPanel.add(passwordField);
+
+
 
             JPanel buttonsPanel = new JPanel(new FlowLayout());
             buttonsPanel.setBackground(backgroundColor);
@@ -70,6 +93,8 @@ public class CruiseApp {
             // Add panels to frame
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
+
+            loginSubmitButton.addActionListener(e -> handleLogin(usernameField, passwordField));
 
             // Show Landing Page by default
             ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), "Landing Page");
@@ -93,3 +118,4 @@ public class CruiseApp {
         return label;
     }
 }
+
