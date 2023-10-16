@@ -1,4 +1,5 @@
-public class Expense{
+import java.util.*;
+public class Expenses{
   private Double price;
   private String name;
   private Set<String> errorDescription;
@@ -10,7 +11,7 @@ public class Expense{
   public Expense(String tName, Integer tDate, Double tPrice){
     errorDescription = new HashSet<>();
     name = tName;
-    date = tDate
+    date = tDate;
     price = tPrice;
   }
   public void addError(String error){
