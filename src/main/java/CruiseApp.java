@@ -105,7 +105,7 @@ public class CruiseApp {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10,10,10,10); // Padding
                                     //modify this to your path_to_logo.png if different
-        ImageIcon originalIcon = new ImageIcon("logo.png");
+        ImageIcon originalIcon = new ImageIcon("logo.png");//assuming you have "Coders of the Caribbean" logo stored locally
         // Scale the image
         Image scaledImage = originalIcon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
