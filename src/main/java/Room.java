@@ -129,4 +129,12 @@ public class Room {
         roomStatus = rs;
     }
 
+    public void setRoomNum(int roomNum){
+        this.roomNum = roomNum;
+    }
+
+    public int getRoomNum(){
+        return this.roomNum;
+    }
+
 }
