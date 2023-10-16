@@ -171,9 +171,15 @@ public class CruiseApp {
     }
 
     private static void handleLogin(JTextField usernameField, JPasswordField passwordField) {
-        ImageIcon emptyImage = new ImageIcon("ErrorImage.png");
-        Image scaledImage = emptyImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
+        ImageIcon errorImage = new ImageIcon("ErrorImage.png");
+        Image scaledImage = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
         ImageIcon scaledErrorImage =  new ImageIcon(scaledImage);
+
+        ImageIcon successIcon = new ImageIcon("SuccessIcon.png");
+        Image scaledInstance = successIcon.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
+        ImageIcon scaledSuccessIcon =  new ImageIcon(scaledInstance);
+
+
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
@@ -181,7 +187,7 @@ public class CruiseApp {
 
         if (user.isPresent()) {
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
-                    + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,emptyImage);
+                    + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
             //TODO
             // if(user.get().getClass() == Admin.class) {
             //     showAdminPanel();
