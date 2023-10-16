@@ -41,7 +41,7 @@ public class CruiseApp {
     }
 
     private static JFrame setupMainFrame() {
-        JFrame frame = new JFrame("Cruise Booking System");
+        JFrame frame = new JFrame("Cruise.Cruise Booking System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLayout(new CardLayout());
@@ -71,21 +71,21 @@ public class CruiseApp {
         panel.add(logoLabel, gbc);
 
         //! PLACHOLDERS
-        JButton cruise1Button = createStyledButton("Cruise 1", BUTTON_FONT, BUTTON_COLOR);
-        cruise1Button.addActionListener(e -> {/* Handle Cruise 1 selection */});
+        JButton cruise1Button = createStyledButton("Cruise.Cruise 1", BUTTON_FONT, BUTTON_COLOR);
+        cruise1Button.addActionListener(e -> {/* Handle Cruise.Cruise 1 selection */});
         gbc.gridx = 0;
         gbc.gridy = 1;
 //        gbc.gridwidth = 1;
         panel.add(cruise1Button, gbc);
 
-        JButton cruise2Button = createStyledButton("Cruise 2", BUTTON_FONT, BUTTON_COLOR);
-        cruise2Button.addActionListener(e -> {/* Handle Cruise 2 selection */});
+        JButton cruise2Button = createStyledButton("Cruise.Cruise 2", BUTTON_FONT, BUTTON_COLOR);
+        cruise2Button.addActionListener(e -> {/* Handle Cruise.Cruise 2 selection */});
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(cruise2Button, gbc);
 
-        JButton cruise3Button = createStyledButton("Cruise 3", BUTTON_FONT, BUTTON_COLOR);
-        cruise3Button.addActionListener(e -> {/* Handle Cruise 3 selection */});
+        JButton cruise3Button = createStyledButton("Cruise.Cruise 3", BUTTON_FONT, BUTTON_COLOR);
+        cruise3Button.addActionListener(e -> {/* Handle Cruise.Cruise 3 selection */});
         gbc.gridx = 0;
         gbc.gridy = 3;
 //        gbc.gridwidth = 2;

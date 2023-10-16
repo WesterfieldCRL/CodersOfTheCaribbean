@@ -1,3 +1,5 @@
+package Cruise;
+
 public class Room {
 
     public enum Quality {
@@ -41,7 +43,7 @@ public class Room {
         System.out.println(roomNum);
         System.out.println("  # of Beds: " + numBeds);
         System.out.println("  Bed Type: " + bedType);
-        System.out.println("  Room Quality: " + quality);
+        System.out.println("  Cruise.Room Quality: " + quality);
         if (!isSmoking) {
             System.out.println("  Non-Smoking");
         }
