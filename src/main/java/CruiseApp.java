@@ -171,7 +171,9 @@ public class CruiseApp {
     }
 
     private static void handleLogin(JTextField usernameField, JPasswordField passwordField) {
-        ImageIcon emptyImage = new ImageIcon() ;
+        ImageIcon emptyImage = new ImageIcon("ErrorImage.png");
+        Image scaledImage = emptyImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
+        ImageIcon scaledErrorImage =  new ImageIcon(scaledImage);
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
@@ -186,7 +188,7 @@ public class CruiseApp {
             // }
         } else {
             JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Error",
-                    JOptionPane.ERROR_MESSAGE,emptyImage);
+                    JOptionPane.ERROR_MESSAGE,scaledErrorImage);
         }
     }
 
