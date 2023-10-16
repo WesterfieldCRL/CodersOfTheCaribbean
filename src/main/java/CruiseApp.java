@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import Person.Person;
+
+import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 public class CruiseApp {
@@ -169,19 +171,22 @@ public class CruiseApp {
     }
 
     private static void handleLogin(JTextField usernameField, JPasswordField passwordField) {
+        ImageIcon emptyImage = new ImageIcon() ;
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
         Optional<Person> user = Person.login(username, password);
 
         if (user.isPresent()) {
-            JOptionPane.showMessageDialog(null, "Login Successful. User type: " + user.get().getClass().getSimpleName());
+            JOptionPane.showMessageDialog(null, "Login Successful. User type: "
+                    + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,emptyImage);
             //TODO
             // if(user.get().getClass() == Admin.class) {
             //     showAdminPanel();
             // }
         } else {
-            JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Error",
+                    JOptionPane.ERROR_MESSAGE,emptyImage);
         }
     }
 
