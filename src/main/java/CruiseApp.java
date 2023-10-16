@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public class CruiseApp {
 
+    //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
+
     private static final Color BACKGROUND_COLOR = new Color(240, 248, 255);  // AliceBlue
     private static final Color BUTTON_COLOR = new Color(100, 149, 237);      // CornflowerBlue
     private static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 16);
