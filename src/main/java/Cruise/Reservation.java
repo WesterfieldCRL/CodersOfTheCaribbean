@@ -1,3 +1,5 @@
+package Cruise;
+
 import Person.Guest;
 
 import java.util.ArrayList;
@@ -141,7 +143,7 @@ public class Reservation {
         //this.setStartDate(nights[0]); uncomment when picking room is implemented
        // this.setEndDate(nights[nights.length - 1]); uncomment when picking room is implemented
 
-      //  room.setReserved(Room.RoomStatus.RESERVED); uncomment when picking room is implemented
+      //  room.setReserved(Cruise.Room.RoomStatus.RESERVED); uncomment when picking room is implemented
 
         System.out.println(this.printReceipt(cost));
     }

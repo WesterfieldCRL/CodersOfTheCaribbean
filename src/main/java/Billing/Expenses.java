@@ -1,3 +1,5 @@
+package Billing;
+
 import java.util.*;
 public class Expenses{
   private Double price;
