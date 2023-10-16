@@ -1,5 +1,6 @@
 import Person.Guest;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Reservation {
@@ -74,5 +75,74 @@ public class Reservation {
 
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public String printReceipt(double cost){
+        StringBuilder sb = new StringBuilder();
+        String receipt;
+
+        sb.append("-----RECEIPT-----");
+        sb.append('\n');
+        sb.append("NAME: " + this.getGuest().getName());
+        sb.append('\n');
+        sb.append("COST: " + cost);
+        sb.append('\n');
+        //System.out.println("CRUISE: " + cruise.getName()); uncomment when pickCruise implemented
+        sb.append('\n');
+        sb.append("NIGHTS: " /*nights here*/);
+        sb.append('\n');
+        sb.append("ROOM: " + this.getRoom().getRoomNum());
+
+        receipt = sb.toString();
+
+        return receipt;
+    }
+
+    //specifically for guest making their own reservation
+    public void makeReservation(Guest guest){
+        //PREREQS: already completed "createGuestAccount()"
+        //this function is not entirely finished
+
+        Room room;
+        Date nights[];
+        Double cost;
+        Cruise cruise;
+        ArrayList<Room> roomList = new ArrayList<Room>();
+        String creditCardNum, expDate;
+
+        //cruise = pickCruise();   allows guest to pick their cruise
+
+        System.out.println("Please select nights to stay:");
+
+      //  roomList = cruise.getRoomList(); uncomment when pickCruise implemented
+        //**ADD UI**
+        //drop down menu to select dates (or any other way of displaying dates)
+        //when chosen, nights = the array of dates chosen
+
+        //payment stuff
+        System.out.println("Input Credit Card Number: ");
+
+        System.out.println("Input Expiration Date: ");
+
+        this.setGuest(guest);
+
+        cost = calculateTotalCost();
+        //System.out.println("TOTAL COST: " + cost); uncomment when calculateTotalCost implemented
+
+      /*  if(!isCorporate){
+            //payment and generate billing
+        }
+        else{
+            //bill to corporation
+        }*/
+
+       // this.setRoom(room); uncomment when picking room is implemented
+        //this.setCruise(cruise); uncomment when pickCruise implemented
+        //this.setStartDate(nights[0]); uncomment when picking room is implemented
+       // this.setEndDate(nights[nights.length - 1]); uncomment when picking room is implemented
+
+      //  room.setReserved(Room.RoomStatus.RESERVED); uncomment when picking room is implemented
+
+        System.out.println(this.printReceipt(cost));
     }
 }
