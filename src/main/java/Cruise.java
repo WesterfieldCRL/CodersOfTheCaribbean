@@ -1,11 +1,56 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class Cruise {
     private String name;
     private ArrayList<Room> roomList;
     private TravelPath travelPath;
+
+    private Room.Quality getQualityEnum(Integer quality) {
+        switch (quality) {
+            case 0:
+                return Room.Quality.ECONOMY;
+            case 1:
+                return Room.Quality.COMFORT;
+            case 2:
+                return Room.Quality.BUSINESS;
+            case 3:
+                return Room.Quality.EXECUTIVE;
+            default:
+                throw new IllegalArgumentException("Invalid Quality: " + quality);
+        }
+    }
+
+    private Room.BedType getBedTypeEnum(Integer bedType) {
+        switch (bedType) {
+            case 0:
+                return Room.BedType.TWIN;
+            case 1:
+                return Room.BedType.FULL;
+            case 2:
+                return Room.BedType.QUEEN;
+            case 3:
+                return Room.BedType.KING;
+            default:
+                throw new IllegalArgumentException("Invalid Bed Type: " + bedType);
+        }
+    }
+
+    private Room.RoomStatus getRoomStatusEnum(Integer status) {
+        switch (status) {
+            case 0:
+                return Room.RoomStatus.NOT_RESERVED;
+            case 1:
+                return Room.RoomStatus.RESERVED;
+            case 2:
+                return Room.RoomStatus.ON_BOARD;
+            case 3:
+                return Room.RoomStatus.DONE;
+            default:
+                throw new IllegalArgumentException("Invalid Room Status: " + status);
+        }
+    }
+
     public Cruise(String name) {
         this.name = name;
         roomList = new ArrayList<>();
@@ -18,11 +63,13 @@ public class Cruise {
 
         try {
             scanner = new Scanner(f);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         this.name = scanner.nextLine();
+        scanner.nextLine();
         scanner.nextLine();
         // TODO: TRAVEL PATH
         //this.travelPath = getTravelPath(); implemented later
@@ -33,12 +80,16 @@ public class Cruise {
 
             int roomNum = Integer.parseInt(col[0]);
             int numBeds = Integer.parseInt(col[1]);
-            Room.BedType bedType = Room.BedType.valueOf(col[2]);
-            Room.Quality quality = Room.Quality.valueOf(col[3]);
+            Integer bt = Integer.parseInt(col[2]);
+            Integer q = Integer.parseInt(col[3]);
             boolean isSmoking = Boolean.parseBoolean(col[4]);
-            Room.RoomStatus status = Room.RoomStatus.valueOf(col[5]);
+            Integer s = Integer.parseInt(col[5]);
 
-            Room r = new Room(quality, bedType, isSmoking, roomNum, numBeds, status);
+            Room.Quality quality = getQualityEnum(q);
+            Room.BedType bedType = getBedTypeEnum(bt);
+            Room.RoomStatus status = getRoomStatusEnum(s);
+
+            Room r = new Room(roomNum, numBeds, bedType, quality, isSmoking, status);
 
             roomList.add(r);
         }
@@ -51,7 +102,6 @@ public class Cruise {
             r.printRoomInfo();
         }
     }
-
 
     public String getName() {
         return name;
@@ -77,33 +127,3 @@ public class Cruise {
         this.travelPath = travelPath;
     }
 }
-
-// RANDOM METHOD OF MAKING ROOMS ON CRUISE
-        /*
-        for (int i = 0; i < main.numRooms; i++)
-        {
-            int randomQuality = (int) (Math.random() * 4) + 1;
-            roomList[i].setNumBeds(randomQuality);
-            roomList[i].setID(i+1);
-            switch (randomQuality) {
-                case 1 -> {
-                    roomList[i].setQuality(Room.Quality.EXECUTIVE);
-                    roomList[i].setBedType(Room.BedType.KING);
-                }
-                case 2 -> {
-                    roomList[i].setQuality(Room.Quality.BUSINESS);
-                    roomList[i].setBedType(Room.BedType.QUEEN);
-                }
-                case 3 -> {
-                    roomList[i].setQuality(Room.Quality.COMFORT);
-                    roomList[i].setBedType(Room.BedType.FULL);
-                }
-                case 4 -> {
-                    roomList[i].setQuality(Room.Quality.ECONOMY);
-                    roomList[i].setBedType(Room.BedType.TWIN);
-                }
-                default -> throw new IllegalStateException("Unexpected value: " + randomQuality);
-            }
-        }
-         */
-
