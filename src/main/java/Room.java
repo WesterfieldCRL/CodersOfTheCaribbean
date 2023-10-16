@@ -20,14 +20,15 @@ public class Room {
         DONE
     }
 
-    private Room.Quality quality;
-    private Room.BedType bedType;
     private int roomNum;
-    private boolean isSmoking;
     private int numBeds;
+    private Room.BedType bedType;
+    private Room.Quality quality;
+    private boolean isSmoking;
     private Room.RoomStatus roomStatus;
-    public Room(Room.Quality quality, Room.BedType bedType, boolean isSmoking,
-                int ID, int numBeds, Room.RoomStatus rs) {
+
+    public Room(int ID, int numBeds, Room.BedType bedType, Room.Quality quality,
+                boolean isSmoking, Room.RoomStatus rs) {
         this.quality = quality;
         this.bedType = bedType;
         this.isSmoking = isSmoking;
@@ -50,27 +51,44 @@ public class Room {
         System.out.println("  Status: " + roomStatus);
     }
 
-    public double getDailyRate()  { //TODO: determine method for calculating daily rate
-        double dailyRate = 0.0;
+    public double getMaximumDailyRate() {
+        double maxDailyRate = 0.0, factor = 0.0, total = 0.0;
         if (this.quality == Quality.ECONOMY) {
-
+            maxDailyRate = 1699.99;
         }
         else if (this.quality == Quality.COMFORT) {
-
+            maxDailyRate = 2999.99;
         }
         else if (this.quality == Quality.BUSINESS) {
-
+            maxDailyRate = 4499.99;
         }
         else {
-
+            maxDailyRate = 8000.00;
         }
 
-        return dailyRate;
+        total = maxDailyRate;
+        factor = numBedsFactor();
+        maxDailyRate *= factor;
+        total += maxDailyRate;
+
+        return total;
     }
 
-    public double calculateNumBeds() {
+    public double numBedsFactor() {
+        double factor = 0.0;
 
-        return 0.0;
+        switch (numBeds) {
+            case 0:
+                factor = 0.09;
+            case 1:
+                factor = 0.10;
+            case 2:
+                factor = 0.11;
+            case 3:
+                factor = 0.12;
+        }
+
+        return factor;
     }
 
 
