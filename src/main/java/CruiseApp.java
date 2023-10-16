@@ -43,19 +43,56 @@ public class CruiseApp {
     }
 
     private static JPanel createLandingPagePanel(JFrame frame) {
-        JPanel panel = new JPanel(new GridLayout(4, 1, 10, 10));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10,10,10,10);
+                                                            //modify this to your path_to_logo.png if different
+        ImageIcon originalIcon = new ImageIcon("logo.png");
+        // Scale the image
+        Image scaledImage = originalIcon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        JLabel logoLabel = new JLabel(scaledIcon);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2; // Span two columns
+        panel.add(logoLabel, gbc);
+
+        //! PLACHOLDERS
+        JButton cruise1Button = createStyledButton("Cruise 1", BUTTON_FONT, BUTTON_COLOR);
+        cruise1Button.addActionListener(e -> {/* Handle Cruise 1 selection */});
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+//        gbc.gridwidth = 1;
+        panel.add(cruise1Button, gbc);
+
+        JButton cruise2Button = createStyledButton("Cruise 2", BUTTON_FONT, BUTTON_COLOR);
+        cruise2Button.addActionListener(e -> {/* Handle Cruise 2 selection */});
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(cruise2Button, gbc);
+
+        JButton cruise3Button = createStyledButton("Cruise 3", BUTTON_FONT, BUTTON_COLOR);
+        cruise3Button.addActionListener(e -> {/* Handle Cruise 3 selection */});
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+//        gbc.gridwidth = 2;
+        panel.add(cruise3Button, gbc);
+
         JButton loginButton = createStyledButton("Login", BUTTON_FONT, BUTTON_COLOR);
         loginButton.addActionListener(e -> switchToPanel(frame, "Login"));
-
-        panel.add(createStyledLabel("Cruise 1", LABEL_FONT));
-        panel.add(createStyledLabel("Cruise 2", LABEL_FONT));
-        panel.add(createStyledLabel("Cruise 3", LABEL_FONT));
-        panel.add(loginButton);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+//        gbc.gridwidth = 2;
+        panel.add(loginButton, gbc);
 
         return panel;
+
     }
 
     private static JPanel createLoginPanel() {
@@ -67,15 +104,19 @@ public class CruiseApp {
         GridBagConstraints gbc = new GridBagConstraints(); // GridBagConstraints for positioning
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10,10,10,10); // Padding
+                                    //modify this to your path_to_logo.png if different
+        ImageIcon originalIcon = new ImageIcon("logo.png");
+        // Scale the image
+        Image scaledImage = originalIcon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
-        JLabel logoLabel = new JLabel(new ImageIcon("path_to_logo.png")); // Assuming you have the "Coders of Caribbean" logo saved locally
+        JLabel logoLabel = new JLabel(scaledIcon);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2; // Span two columns
         panel.add(logoLabel, gbc);
 
-        gbc.gridwidth = 1; // Reset to default
-
+        gbc.gridwidth = 1;
         JTextField usernameField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
 
