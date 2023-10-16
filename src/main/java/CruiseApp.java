@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import Person.Person;
+import Person.*;
 
 import java.awt.image.BufferedImage;
 import java.util.Optional;
@@ -18,10 +19,14 @@ public class CruiseApp {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = setupMainFrame();
             JPanel landingPagePanel = createLandingPagePanel(frame);
-            JPanel loginPanel = createLoginPanel();
+            JPanel loginPanel = createLoginPanel(frame);
+            JPanel accountPanel = createAccountPanel(frame);
+
 
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
+            frame.add(accountPanel, "Create Account");
+
 
             frame.setVisible(true);
         });
@@ -97,7 +102,7 @@ public class CruiseApp {
 
     }
 
-    private static JPanel createLoginPanel() {
+    private static JPanel createLoginPanel(JFrame frame) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout()); // Changed to GridBagLayout for better positioning
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -144,6 +149,8 @@ public class CruiseApp {
         JButton createAccountButton = createStyledButton("Create Account", BUTTON_FONT, BUTTON_COLOR);
 
         loginSubmitButton.addActionListener(e -> handleLogin(usernameField, passwordField));
+        createAccountButton.addActionListener(e -> switchToPanel(frame, "Create Account"));
+
 
         buttonsPanel.add(loginSubmitButton);
         buttonsPanel.add(createAccountButton);
@@ -154,6 +161,68 @@ public class CruiseApp {
         panel.add(buttonsPanel, gbc);
 
         return panel;
+    }
+
+    private static JPanel createAccountPanel(JFrame frame) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        panel.setBackground(BACKGROUND_COLOR);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10,10,10,10);
+
+        JLabel titleLabel = createStyledLabel("Create New Guest Account", LABEL_FONT);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titleLabel,gbc);
+
+        gbc.gridwidth = 1;
+
+        JTextField usernameField = new JTextField(15);
+        JPasswordField passwordField = new JPasswordField(15);
+        JTextField nameField = new JTextField(15);
+        JTextField addressField = new JTextField(15);
+        JTextField emailField = new JTextField(15);
+        JTextField creditCardNumberField = new JTextField(15);
+        JTextField creditCardExpirationDateField = new JTextField(15);
+
+        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:", "Credit Card Number:", "Credit Card Expiration Date:"};
+        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField, creditCardNumberField, creditCardExpirationDateField};
+
+        for (int i = 0; i < labels.length; i++) {
+            gbc.gridx = 0;
+            gbc.gridy = i + 1;
+            panel.add(createStyledLabel(labels[i], LABEL_FONT), gbc);
+
+            gbc.gridx = 1;
+            panel.add(fields[i], gbc);
+        }
+
+        JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
+        submitButton.addActionListener(e -> {
+            boolean success = Guest.createNewGuest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
+                    addressField.getText(), emailField.getText(), creditCardNumberField.getText(),
+                    creditCardExpirationDateField.getText());
+            if (success) {
+                JOptionPane.showMessageDialog(null, "Account created successfully!");
+                switchToPanel(frame, "Login");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error creating account. Please ensure your details are correct and try again.");
+            }
+        });
+
+        gbc.gridx = 0;
+        gbc.gridy = labels.length + 1;
+        gbc.gridwidth = 2;
+        panel.add(submitButton, gbc);
+
+        return panel;
+
+
+
     }
     private static JLabel createStyledLabel(String text, Font font) {
         JLabel label = new JLabel(text);
