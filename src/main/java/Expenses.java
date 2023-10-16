@@ -5,10 +5,10 @@ public class Expenses{
   private Set<String> errorDescription;
   private Integer date;
   
-  public Expense(){
+  public Expenses(){
     errorDescription = new HashSet<>();
   }
-  public Expense(String tName, Integer tDate, Double tPrice){
+  public Expenses(String tName, Integer tDate, Double tPrice){
     errorDescription = new HashSet<>();
     name = tName;
     date = tDate;
@@ -18,13 +18,13 @@ public class Expenses{
     errorDescription.add(error);
   }
   public String removeError(String error){
-    if (errorDescription.remove(error){
+    if (errorDescription.remove(error)){
       return "Error: " + error + " was removed";
     }else{
       return "Error: " + error + " was not found";
     }
   }
-  public void Set<String> getErrors {
+  public  Set<String> getErrors() {
     return errorDescription;
   }
   public void setPrice(Double newPrice){
@@ -40,4 +40,4 @@ public class Expenses{
   }
   public Integer getDate(){return date;}
   
-};
+}
