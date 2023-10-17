@@ -165,7 +165,7 @@ public class Person {
      */
     protected boolean createGenericAccount(String accountType)
     {
-        if (username.contains(",") || password.contains(",") || name.contains(",") || address.contains(",") || email.contains(","))
+        if (!checkData())
         {
             return false;
         }
@@ -175,6 +175,12 @@ public class Person {
             return fileWriter(data);
         }
         return false;
+    }
+
+    protected boolean checkData()
+    {
+        return !username.contains(",") && !password.contains(",") && !name.contains(",") && !address.contains(",") && !email.contains(",")
+                && !username.isEmpty() && !password.isEmpty() && !name.isEmpty() && !address.isEmpty() && !email.isEmpty();
     }
 
     public String getUsername() {
