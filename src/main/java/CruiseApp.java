@@ -14,7 +14,7 @@ public class CruiseApp {
     private static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);
 
     public static void main(String[] args) {
-        setSystemLookAndFeel();
+        //setSystemLookAndFeel();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = setupMainFrame();
@@ -189,8 +189,8 @@ public class CruiseApp {
         JTextField creditCardNumberField = new JTextField(15);
         JTextField creditCardExpirationDateField = new JTextField(15);
 
-        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:", "Credit Card Number:", "Credit Card Expiration Date:"};
-        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField, creditCardNumberField, creditCardExpirationDateField};
+        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"/*, "Credit Card Number:", "Credit Card Expiration Date:"*/};
+        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField/*, creditCardNumberField, creditCardExpirationDateField*/};
 
         for (int i = 0; i < labels.length; i++) {
             gbc.gridx = 0;
@@ -203,9 +203,9 @@ public class CruiseApp {
 
         JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
         submitButton.addActionListener(e -> {
-            boolean success = Guest.createNewGuest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
-                    addressField.getText(), emailField.getText(), creditCardNumberField.getText(),
-                    creditCardExpirationDateField.getText());
+            Guest guest = new Guest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
+                    addressField.getText(), emailField.getText());
+            boolean success = guest.createAccount();
             if (success) {
                 JOptionPane.showMessageDialog(null, "Account created successfully!");
                 switchToPanel(frame, "Login");
