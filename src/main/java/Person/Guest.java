@@ -45,7 +45,7 @@ public class Guest extends Person {
 
         if (conflictChecker(username, password)) {
             String data = username + "," + password + "," + "GUEST" + "," + name + "," + address + "," + email
-                    + "," + creditCardNumber + "," +creditCardExpirationDate;
+                    + "," + creditCardNumber + "," +creditCardExpirationDate + "\n";
 
             return Guest.fileWriter(data);
         }
