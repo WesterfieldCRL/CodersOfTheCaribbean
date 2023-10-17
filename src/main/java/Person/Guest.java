@@ -1,9 +1,5 @@
 package Person;
 
-import java.io.*;
-import java.util.Date;
-import java.util.Optional;
-
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
     private String creditCardNumber;
@@ -19,18 +15,18 @@ public class Guest extends Person {
 
     /**
      * createNewGuest
-     *
+     * <p>
      * takes the given information and adds a line in the appropriate file
      * corresponding to that information.
-     *
+     * <p>
      * Will first check to see if the given information is valid, and not
      * a duplicate
-     *
+     * <p>
      * If a duplicate, or contains commas, function will return false
-     *
+     * <p>
      * Parameters:
      *   self-explanatory
-     *
+     * <p>
      * Return value: boolean
      */
     public static boolean createNewGuest(String username, String password, String name, String address, String email,

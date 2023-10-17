@@ -31,7 +31,7 @@ public class Person {
             while ((line = reader.readLine()) != null)
             {
                 String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
+                if (parts[0].equals(username) /*&& parts[1].equals(password)*/)
                 {
                     return false;
                 }
@@ -89,24 +89,24 @@ public class Person {
 
     /**
      * login
-     *
+     * <p>
      * takes a username and password, and checks if they match
      * information in the database. Returns an Optional<Person>.
-     * Example for use:
+     * Example for use:<p>
      * Optional<Person> temp = login("username","password");
-     *
+     * <p>
      * User temp.isPresent() to check if login was successful
-     *
+     * <p>
      * to check for class, use getClass, ex:
-     * temp.get().getClass() == TravelAgent.class
-     *
+     * temp.get().getClass() == TravelAgent.Class
+     * <p>
      * Can then be assigned to variable, ex:
      * TravelAgent tav = (TravelAgent) temp.get();
-     *
+     * <p>
      * Parameters:
      *   username - username input
      *   password - password input
-     *
+     * <p>
      * Return value: Optional<Person>
      */
     public static Optional<Person> login(String username, String password)
