@@ -6,15 +6,23 @@ import java.util.Optional;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
+    private String creditCardHolderName;
+    
     private String creditCardNumber;
     private String creditCardExpirationDate;
-
+    private String creditCardSecurityCode;
+    private String creditCardPostalCode
     // Constructor
-    public Guest(String username, String password, String name, String address, String email,
-                 String creditCardNumber, String creditCardExpirationDate) {
+    public Guest(String username, String password, String name, String address, String email, 
+                 String creditCardHolderName, String creditCardNumber, String creditCardExpirationDate,
+                String creditCardSecurityCode, String creditCardPostalCode) {
         super(username, password, name, address, email);
+        this.creditCardHolderName = creditCardHolderName;
         this.creditCardNumber = creditCardNumber;
         this.creditCardExpirationDate = creditCardExpirationDate;
+        this.creditCardSecurityCode = creditCardSecurityCode;
+        this.creditCardPostalCode = creditCardPostalCode;
+        
     }
 
     /**
@@ -34,18 +42,20 @@ public class Guest extends Person {
      * Return value: boolean
      */
     public static boolean createNewGuest(String username, String password, String name, String address, String email,
-                                         String creditCardNumber, String creditCardExpirationDate)
+        String creditCardHolderName,  String creditCardNumber, String creditCardExpirationDate, 
+        String creditCardSecurityCode, String creditCardPostalCode)
     {
 
         if (username.contains(",") || password.contains(",") || name.contains(",") || address.contains(",") ||
-                email.contains(",") || creditCardNumber.contains(",") || creditCardExpirationDate.contains(","))
+                email.contains(",") || creditCardHolderName.contains(",") || creditCardNumber.contains(",") || creditCardExpirationDate.contains(",")
+           || creditCardSecurityCode.contains(",") || creditCardPostalCode(","))
         {
             return false;
         }
 
         if (conflictChecker(username, password)) {
             String data = username + "," + password + "," + "GUEST" + "," + name + "," + address + "," + email
-                    + "," + creditCardNumber + "," +creditCardExpirationDate + "\n";
+                    + "," + creditCardHolderName + "," + creditCardNumber + "," +creditCardExpirationDate + "," +creditCardSecurityCode + "," +creditCardPostalCode+ "\n";
 
             return Guest.fileWriter(data);
         }
