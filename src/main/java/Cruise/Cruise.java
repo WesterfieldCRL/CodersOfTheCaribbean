@@ -1,3 +1,5 @@
+package Cruise;
+
 import java.io.*;
 import java.util.*;
 
@@ -47,7 +49,7 @@ public class Cruise {
             case 3:
                 return Room.RoomStatus.DONE;
             default:
-                throw new IllegalArgumentException("Invalid Room Status: " + status);
+                throw new IllegalArgumentException("Invalid Cruise.Room Status: " + status);
         }
     }
 

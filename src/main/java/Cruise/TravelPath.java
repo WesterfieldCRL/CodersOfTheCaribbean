@@ -1,3 +1,5 @@
+package Cruise;
+
 import java.util.ArrayList;
 
 public class TravelPath {

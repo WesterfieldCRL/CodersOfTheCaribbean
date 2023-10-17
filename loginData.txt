@@ -4,3 +4,4 @@ username,password,GUEST,name,addr,email@gmail.com,123412341234,03/23
 test1,test,GUEST,test,test,test,12312312312,1231
 gguy,guygug,GUEST,ugugu,guy,gu,gu,gug
 123123,12312,GUEST,3f,fwefw,wef,guwefwef,wefwef
+,,GUEST,,,,,
