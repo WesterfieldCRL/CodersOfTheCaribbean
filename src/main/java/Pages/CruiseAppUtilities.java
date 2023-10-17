@@ -28,7 +28,7 @@ public class CruiseAppUtilities {
         return button;
     }
 
-    public static void handleLogin(JTextField usernameField, JPasswordField passwordField) {
+    public static void handleLogin(JTextField usernameField, JPasswordField passwordField, JFrame frame) {
         ImageIcon errorImage = new ImageIcon("ErrorImage.png");
         Image scaledImage = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
         ImageIcon scaledErrorImage =  new ImageIcon(scaledImage);
@@ -44,12 +44,11 @@ public class CruiseAppUtilities {
         Optional<Person> user = Person.login(username, password);
 
         if (user.isPresent()) {
+            if (user.get().getClass().getSimpleName().equals("Guest")) {
+                switchToPanel(frame, "Guest View");
+            }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
-            //TODO
-            // if(user.get().getClass() == Admin.class) {
-            //     showAdminPanel();
-            // }
         } else {
             JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Error",
                     JOptionPane.ERROR_MESSAGE,scaledErrorImage);
