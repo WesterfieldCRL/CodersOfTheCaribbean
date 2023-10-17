@@ -22,7 +22,7 @@ public class Person {
         this.email = email;
     }
 
-    protected static boolean conflictChecker(String username, String password)
+    protected boolean conflictChecker(String username, String password)
     {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
@@ -44,21 +44,22 @@ public class Person {
         return true;
     }
 
-    protected static boolean fileWriter(String data)
+    protected boolean fileWriter(String data)
     {
         try {
             // Set the second argument to 'true' to enable appending
             FileWriter fileWriter = new FileWriter("loginData.txt", true);
 
             //check for newline
-            if (!fileEndsWithNewline("loginData.txt")) {
+            /*if (!fileEndsWithNewline("loginData.txt")) {
                 // If not, add a newline character
                 fileWriter.write(System.lineSeparator());
             }
             else
             {
                 return false;
-            }
+            }*/
+            //Removed for the moment as it was adding an extra newline
 
             // Write the data to the file
             fileWriter.write(data);
@@ -72,7 +73,7 @@ public class Person {
         return true;
     }
 
-    protected static boolean fileEndsWithNewline(String fileName) {
+    protected boolean fileEndsWithNewline(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             String lastLine = "";
@@ -122,7 +123,7 @@ public class Person {
                     switch (parts[2])
                     {
                         case "GUEST" :
-                            Guest guest = new Guest(parts[0], parts[1], parts[3], parts[4], parts[5], parts[6], parts[7]);
+                            Guest guest = new Guest(parts[0], parts[1], parts[3], parts[4], parts[5]);
                             return Optional.of(guest);
                         case "TRAVELAGENT" :
                             TravelAgent tav = new TravelAgent(parts[0], parts[1], parts[3], parts[4], parts[5]);
@@ -144,6 +145,36 @@ public class Person {
         }
 
         return Optional.empty();
+    }
+
+    /**
+     * createAccount
+     * <p>
+     * takes the given information and adds a line in the appropriate file
+     * corresponding to that information.
+     * <p>
+     * Will first check to see if the given information is valid, and not
+     * a duplicate
+     * <p>
+     * If a duplicate, or contains commas, function will return false
+     * <p>
+     * Parameters:
+     *   self-explanatory
+     * <p>
+     * Return value: boolean
+     */
+    protected boolean createGenericAccount(String accountType)
+    {
+        if (username.contains(",") || password.contains(",") || name.contains(",") || address.contains(",") || email.contains(","))
+        {
+            return false;
+        }
+        if (conflictChecker(username, password)) {
+            String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email + "\n";
+
+            return fileWriter(data);
+        }
+        return false;
     }
 
     public String getUsername() {
