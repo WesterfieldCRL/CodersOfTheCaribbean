@@ -1,8 +1,5 @@
 package Cruise;
 
-import java.util.Date;
-import java.util.Optional;
-
 public class Room {
 
     public enum Quality {
@@ -94,13 +91,6 @@ public class Room {
         }
 
         return factor;
-    }
-
-    public static Optional<Room> isRoomAvailable(BedType bedType, Quality quality, int numBeds,
-                                                 boolean isSmoking, Date startDate, Date endDate)
-    {
-        //How are we storing reservations?
-        return Optional.empty();
     }
 
     //Getters and setters
