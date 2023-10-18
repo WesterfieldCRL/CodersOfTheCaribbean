@@ -93,13 +93,6 @@ public class Room {
         return factor;
     }
 
-
-    public void modifyInfo() //TODO: implement function
-    {
-
-    }
-
-
     //Getters and setters
     public Quality getQuality() {
         return quality;
