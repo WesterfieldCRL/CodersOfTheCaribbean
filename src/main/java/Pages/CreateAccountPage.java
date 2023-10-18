@@ -48,9 +48,9 @@ public class CreateAccountPage {
 
         JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
         submitButton.addActionListener(e -> {
-            boolean success = Guest.createNewGuest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
-                    addressField.getText(), emailField.getText(), creditCardNumberField.getText(),
-                    creditCardExpirationDateField.getText());
+            Guest guest = new Guest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
+                    addressField.getText(), emailField.getText());
+            boolean success = guest.createAccount();
             if (success) {
                 JOptionPane.showMessageDialog(null, "Account created successfully!");
                 switchToPanel(frame, "Login");
