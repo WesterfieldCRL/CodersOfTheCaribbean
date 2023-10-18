@@ -19,61 +19,6 @@ public class Person {
         this.email = email;
     }
 
-    protected boolean conflictChecker(String data, String filename)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                String[] parts = line.split(",");
-                if (parts[0].equals(data))
-                {
-                    return false;
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-    }
-
-    protected boolean fileWriter(String data)
-    {
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("loginData.txt", true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    protected boolean fileEndsWithNewline(String fileName) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            String lastLine = "";
-            while ((line = reader.readLine()) != null) {
-                lastLine = line;
-            }
-            // Check if the last line is empty or contains only whitespace
-            return lastLine.trim().isEmpty();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false; // Return false on any error
-        }
-    }
-
     /**
      * login
      * <p>
@@ -156,15 +101,70 @@ public class Person {
             return false;
         }
         if (conflictChecker(username, "loginData.txt")) {
-            String data = formatData(accountType);
+            String data = formatData(accountType) + "\n";
             return fileWriter(data);
         }
         return false;
     }
 
+    protected boolean conflictChecker(String data, String filename)
+    {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                String[] parts = line.split(",");
+                if (parts[0].equals(data))
+                {
+                    return false;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    protected boolean fileWriter(String data)
+    {
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter("loginData.txt", true);
+
+            // Write the data to the file
+            fileWriter.write(data);
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    protected boolean fileEndsWithNewline(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            String lastLine = "";
+            while ((line = reader.readLine()) != null) {
+                lastLine = line;
+            }
+            // Check if the last line is empty or contains only whitespace
+            return lastLine.trim().isEmpty();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Return false on any error
+        }
+    }
+
     protected String formatData(String accountType)
     {
-        String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email + "\n";
+        String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email;
         return data;
     }
 
