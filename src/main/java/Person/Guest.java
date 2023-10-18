@@ -20,19 +20,26 @@ public class Guest extends Person {
 
     public void requestPasswordReset()
     {
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("resetRequests", true);
+        if (conflictChecker(this.getUsername(), "resetRequests.txt")) {
+            try {
+                // Set the second argument to 'true' to enable appending
+                FileWriter fileWriter = new FileWriter("resetRequests.txt", true);
 
-            // Write the data to the file
-            fileWriter.write(this.getUsername() + "\n");
+                // Write the data to the file
+                fileWriter.write(this.getUsername() + "\n");
 
-            // Close the file writer
-            fileWriter.close();
+                // Close the file writer
+                fileWriter.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void updateLoginData()
+    {
+        this.updateLoginInfo("GUEST");
     }
 
 

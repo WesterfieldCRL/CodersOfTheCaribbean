@@ -1,9 +1,6 @@
 package Person;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -22,16 +19,16 @@ public class Person {
         this.email = email;
     }
 
-    protected boolean conflictChecker(String username, String password)
+    protected boolean conflictChecker(String data, String filename)
     {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
 
             String line;
             while ((line = reader.readLine()) != null)
             {
                 String[] parts = line.split(",");
-                if (parts[0].equals(username) /*&& parts[1].equals(password)*/)
+                if (parts[0].equals(data))
                 {
                     return false;
                 }
@@ -49,17 +46,6 @@ public class Person {
         try {
             // Set the second argument to 'true' to enable appending
             FileWriter fileWriter = new FileWriter("loginData.txt", true);
-
-            //check for newline
-            /*if (!fileEndsWithNewline("loginData.txt")) {
-                // If not, add a newline character
-                fileWriter.write(System.lineSeparator());
-            }
-            else
-            {
-                return false;
-            }*/
-            //Removed for the moment as it was adding an extra newline
 
             // Write the data to the file
             fileWriter.write(data);
@@ -169,18 +155,78 @@ public class Person {
         {
             return false;
         }
-        if (conflictChecker(username, password)) {
-            String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email + "\n";
-
+        if (conflictChecker(username, "loginData.txt")) {
+            String data = formatData(accountType);
             return fileWriter(data);
         }
         return false;
+    }
+
+    protected String formatData(String accountType)
+    {
+        String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email + "\n";
+        return data;
     }
 
     protected boolean checkData()
     {
         return !username.contains(",") && !password.contains(",") && !name.contains(",") && !address.contains(",") && !email.contains(",")
                 && !username.isEmpty() && !password.isEmpty() && !name.isEmpty() && !address.isEmpty() && !email.isEmpty();
+    }
+
+    protected void updateLoginInfo(String accountType)
+    {
+        String formatedData = "";
+        ArrayList<String> data = readFile("loginData.txt");
+        for (String line : data)
+        {
+            String[] parsedData = line.split(",");
+            if (parsedData[0].equals(this.username) && parsedData[2].equals(accountType))
+            {
+                formatedData = formatData(accountType);
+                data.remove(line);
+                break;
+            }
+        }
+        data.add(formatedData);
+
+        overwriteFile("loginData.txt", data);
+
+    }
+
+    protected ArrayList<String> readFile(String filename)
+    {
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                data.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    protected void overwriteFile(String filename, ArrayList<String> data)
+    {
+        try {
+            // Set the second argument to 'true' to enable appending
+            FileWriter fileWriter = new FileWriter(filename);
+
+            // Write the data to the file
+            for (String tempData : data)
+            {
+                fileWriter.write(tempData + "\n");
+            }
+
+            // Close the file writer
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUsername() {
