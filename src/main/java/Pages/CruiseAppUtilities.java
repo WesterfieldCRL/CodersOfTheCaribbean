@@ -37,7 +37,6 @@ public class CruiseAppUtilities {
         Image scaledInstance = successIcon.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
         ImageIcon scaledSuccessIcon =  new ImageIcon(scaledInstance);
 
-
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 

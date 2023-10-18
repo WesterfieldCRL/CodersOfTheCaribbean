@@ -48,6 +48,7 @@ public class CreateAccountPage {
 
         JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
         submitButton.addActionListener(e -> {
+
             boolean success = Guest.createNewGuest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
                     addressField.getText(), emailField.getText(), creditCardNumberField.getText(),
                     creditCardExpirationDateField.getText());
@@ -65,9 +66,6 @@ public class CreateAccountPage {
         panel.add(submitButton, gbc);
 
         return panel;
-
-
-
     }
 
 }

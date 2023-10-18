@@ -8,7 +8,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class GuestAccountPage {
-
     public static JPanel createGuestViewPanel(JFrame frame) {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -22,7 +21,13 @@ public class GuestAccountPage {
         model.addColumn("Ship Name");
         model.addColumn("Price");
         //fix so the images actually show
-        model.addRow(new Object[]{new ImageIcon("Cruise1.png"), "Name", "Nights", "Ship", "$42242424"});
+
+        ImageIcon cruise1Image = new ImageIcon("Cruise1.png");
+        Image scaledImage = cruise1Image.getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
+
+        ImageIcon cruise1Icon = new ImageIcon(scaledImage);
+
+        model.addRow(new Object[]{cruise1Icon, "Name", "Nights", "Ship", "$42242424"});
         model.addRow(new Object[]{new ImageIcon("Cruise2.png"), "Name", "Nights", "Ship", "$424242"});
 
         // Create table and customize
@@ -58,8 +63,5 @@ public class GuestAccountPage {
         panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
-
-
     }
-
 }

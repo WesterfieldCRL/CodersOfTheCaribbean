@@ -8,7 +8,6 @@ import static Pages.CreateAccountPage.*;
 import static Pages.GuestAccountPage.*;
 
 public class CruiseApp {
-
     //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
 
     public static void main(String[] args) {
