@@ -51,7 +51,21 @@ public class Room {
             System.out.println("  Smoking");
         }
         System.out.println("  Status: " + roomStatus);
+
     }
+    public String getRoomInfo() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(roomNum).append("\n");
+        sb.append("  # of Beds: ").append(numBeds).append("\n");
+        sb.append("  Bed Type: ").append(bedType).append("\n");
+        sb.append("  Cruise.Room Quality: ").append(quality).append("\n");
+        sb.append(isSmoking ? "  Smoking" : "  Non-Smoking").append("\n");
+        sb.append("  Status: ").append(roomStatus);
+
+        return sb.toString();
+    }
+
 
     public double getMaximumDailyRate() {
         double maxDailyRate = 0.0, factor = 0.0, total = 0.0;

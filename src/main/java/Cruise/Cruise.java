@@ -145,13 +145,13 @@ public class Cruise {
             String[] cruiseNames = line.split(",");
 
             Cruise c1 = new Cruise(cruiseNames[0]);
-            c1.readCruiseRooms(cruiseNames[0] + ".txt");
+            c1.readCruiseRooms(cruiseNames[0] + ".csv");
 
             Cruise c2 = new Cruise(cruiseNames[1]);
-            c2.readCruiseRooms(cruiseNames[1] + ".txt");
+            c2.readCruiseRooms(cruiseNames[1] + ".csv");
 
             Cruise c3 = new Cruise(cruiseNames[2]);
-            c3.readCruiseRooms(cruiseNames[2] + ".txt");
+            c3.readCruiseRooms(cruiseNames[2] + ".csv");
 
             if(c1.getName().equalsIgnoreCase(requested)){
                 return c1;
