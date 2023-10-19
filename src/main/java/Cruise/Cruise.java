@@ -128,4 +128,44 @@ public class Cruise {
     public void setTravelPath(TravelPath travelPath) {
         this.travelPath = travelPath;
     }
+
+    public static Cruise searchCruise(String cruiseFile, String requested) {
+        File f = new File(cruiseFile);
+        Scanner scanner = null;
+
+        try {
+            scanner = new Scanner(f);
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] cruiseNames = line.split(",");
+
+            Cruise c1 = new Cruise(cruiseNames[0]);
+            c1.readCruiseRooms(cruiseNames[0] + ".txt");
+
+            Cruise c2 = new Cruise(cruiseNames[1]);
+            c2.readCruiseRooms(cruiseNames[1] + ".txt");
+
+            Cruise c3 = new Cruise(cruiseNames[2]);
+            c3.readCruiseRooms(cruiseNames[2] + ".txt");
+
+            if(c1.getName().equalsIgnoreCase(requested)){
+                return c1;
+            }
+
+            if(c2.getName().equalsIgnoreCase(requested)){
+                return c2;
+            }
+
+            if(c3.getName().equalsIgnoreCase(requested)){
+                return c3;
+            }
+        }
+
+        return null;
+    }
 }
