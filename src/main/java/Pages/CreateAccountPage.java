@@ -9,6 +9,7 @@ import static Pages.CruiseAppUtilities.*;
 
 public class CreateAccountPage {
     public static JPanel createAccountPanel(JFrame frame) {
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
@@ -58,6 +59,18 @@ public class CreateAccountPage {
                 JOptionPane.showMessageDialog(null, "Error creating account. Please ensure your details are correct and try again.");
             }
         });
+
+        //TODO: POSITION THIS BETETR
+        // Create the back button
+        JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
+
+        // Add action listener to switch back to the login panel
+        backButton.addActionListener(e -> {
+            switchToPanel(frame, "Login");
+        });
+
+        panel.add(backButton);
+
 
         gbc.gridx = 0;
         gbc.gridy = labels.length + 1;
