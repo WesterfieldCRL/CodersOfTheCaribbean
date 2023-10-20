@@ -2,6 +2,9 @@ package Pages;
 
 import javax.swing.*;
 import java.awt.*;
+
+import Cruise.Room;
+import Cruise.Cruise;
 import Person.Person;
 import Person.*;
 
@@ -18,22 +21,10 @@ public class CruiseApp {
     //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
 
     public static void main(String[] args) {
-        setSystemLookAndFeel();
-
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = setupMainFrame();
-            JPanel landingPagePanel = createLandingPagePanel(frame);
-            JPanel loginPanel = createLoginPanel(frame);
-            JPanel accountPanel = createAccountPanel(frame);
-
-
-            frame.add(landingPagePanel, "Landing Page");
-            frame.add(loginPanel, "Login");
-            frame.add(accountPanel, "Create Account");
-
-
-            frame.setVisible(true);
-        });
+        Cruise c = new Cruise("cool cruise");
+        c.readCruiseRooms("cruise1.csv");
+        Room room = new Room(1, 1, Room.BedType.KING, Room.Quality.ECONOMY, false, Room.RoomStatus.NOT_RESERVED);
+        c.addRoom(room, "cruise1.csv");
     }
 
     private static void setSystemLookAndFeel() {
