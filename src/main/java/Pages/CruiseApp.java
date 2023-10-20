@@ -34,7 +34,6 @@ public class CruiseApp {
             frame.add(loginPanel, "Login");
             frame.add(accountPanel, "Create Account");
 
-
             frame.setVisible(true);
         });
     }
