@@ -2,6 +2,9 @@ package Pages;
 
 import javax.swing.*;
 import java.awt.*;
+
+import Cruise.Room;
+import Cruise.Cruise;
 import Person.Person;
 import Person.*;
 
@@ -30,7 +33,6 @@ public class CruiseApp {
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
             frame.add(accountPanel, "Create Account");
-
 
             frame.setVisible(true);
         });
