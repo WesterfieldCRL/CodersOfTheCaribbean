@@ -8,45 +8,45 @@ public class Cruise {
     private ArrayList<Room> roomList;
     private TravelPath travelPath;
 
-    private Room.Quality getQualityEnum(Integer quality) {
+    private Room.Quality getQualityEnum(String quality) {
         switch (quality) {
-            case 0:
+            case "ECONOMY":
                 return Room.Quality.ECONOMY;
-            case 1:
+            case "COMFORT":
                 return Room.Quality.COMFORT;
-            case 2:
+            case "BUSINESS":
                 return Room.Quality.BUSINESS;
-            case 3:
+            case "EXECUTIVE":
                 return Room.Quality.EXECUTIVE;
             default:
                 throw new IllegalArgumentException("Invalid Quality: " + quality);
         }
     }
 
-    private Room.BedType getBedTypeEnum(Integer bedType) {
+    private Room.BedType getBedTypeEnum(String bedType) {
         switch (bedType) {
-            case 0:
+            case "TWIN":
                 return Room.BedType.TWIN;
-            case 1:
+            case "FULL":
                 return Room.BedType.FULL;
-            case 2:
+            case "QUEEN":
                 return Room.BedType.QUEEN;
-            case 3:
+            case "KING":
                 return Room.BedType.KING;
             default:
                 throw new IllegalArgumentException("Invalid Bed Type: " + bedType);
         }
     }
 
-    private Room.RoomStatus getRoomStatusEnum(Integer status) {
+    private Room.RoomStatus getRoomStatusEnum(String status) {
         switch (status) {
-            case 0:
+            case "NOT_RESERVED":
                 return Room.RoomStatus.NOT_RESERVED;
-            case 1:
+            case "RESERVED":
                 return Room.RoomStatus.RESERVED;
-            case 2:
+            case "ON_BOARD":
                 return Room.RoomStatus.ON_BOARD;
-            case 3:
+            case "DONE":
                 return Room.RoomStatus.DONE;
             default:
                 throw new IllegalArgumentException("Invalid Cruise.Room Status: " + status);
@@ -82,10 +82,10 @@ public class Cruise {
 
             int roomNum = Integer.parseInt(col[0]);
             int numBeds = Integer.parseInt(col[1]);
-            Integer bt = Integer.parseInt(col[2]);
-            Integer q = Integer.parseInt(col[3]);
+            String bt = col[2];
+            String q = col[3];
             boolean isSmoking = Boolean.parseBoolean(col[4]);
-            Integer s = Integer.parseInt(col[5]);
+            String s = col[5];
 
             Room.Quality quality = getQualityEnum(q);
             Room.BedType bedType = getBedTypeEnum(bt);
@@ -103,6 +103,20 @@ public class Cruise {
         for (Room r : roomList) {
             r.printRoomInfo();
         }
+    }
+
+    public void addRoom(Room room, String fileName) {
+        roomList.add(room);
+
+        try (FileWriter fw = new FileWriter(fileName, true)) {
+            fw.append("\n" + room.getRoomNum() + "," + room.getNumBeds() + "," + room.getBedType() +
+                      "," + room.getQuality() + "," + room.getSmokingStatus() + "," +
+                      room.isReserved());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public String getName() {
