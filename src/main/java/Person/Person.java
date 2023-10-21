@@ -102,7 +102,7 @@ public class Person {
         }
         if (conflictChecker(username, "loginData.txt")) {
             String data = formatData(accountType) + "\n";
-            return fileWriter(data);
+            return fileWriter("loginData.txt", data);
         }
         return false;
     }
@@ -129,11 +129,11 @@ public class Person {
         return true;
     }
 
-    protected boolean fileWriter(String data)
+    protected boolean fileWriter(String filename, String data)
     {
         try {
             // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter("loginData.txt", true);
+            FileWriter fileWriter = new FileWriter(filename, true);
 
             // Write the data to the file
             fileWriter.write(data);
@@ -142,7 +142,8 @@ public class Person {
             fileWriter.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return false;
         }
         return true;
     }

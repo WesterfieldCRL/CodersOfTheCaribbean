@@ -1,56 +1,100 @@
 package Person;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Scanner;
+
+import Cruise.Room;
+import Cruise.Cruise;
+import Cruise.Reservation;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
     private String creditCardNumber;
     private String creditCardExpirationDate;
+    private ArrayList<Reservation> reservations;
 
     // Constructor
-    public Guest(String username, String password, String name, String address, String email,
-                 String creditCardNumber, String creditCardExpirationDate) {
+    public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
-        this.creditCardNumber = creditCardNumber;
-        this.creditCardExpirationDate = creditCardExpirationDate;
+
+        this.reservations = new ArrayList<Reservation>();
     }
 
-    /**
-     * createNewGuest
-     *
-     * takes the given information and adds a line in the appropriate file
-     * corresponding to that information.
-     *
-     * Will first check to see if the given information is valid, and not
-     * a duplicate
-     *
-     * If a duplicate, or contains commas, function will return false
-     *
-     * Parameters:
-     *   self-explanatory
-     *
-     * Return value: boolean
-     */
-    public static boolean createNewGuest(String username, String password, String name, String address, String email,
-                                         String creditCardNumber, String creditCardExpirationDate)
+    public boolean createAccount()
     {
+        return createGenericAccount("GUEST");
+    }
 
-        if (username.contains(",") || password.contains(",") || name.contains(",") || address.contains(",") ||
-                email.contains(",") || creditCardNumber.contains(",") || creditCardExpirationDate.contains(","))
-        {
-            return false;
+    public void requestPasswordReset()
+    {
+        if (conflictChecker(this.getUsername(), "resetRequests.txt")) {
+            try {
+                // Set the second argument to 'true' to enable appending
+                FileWriter fileWriter = new FileWriter("resetRequests.txt", true);
+
+                // Write the data to the file
+                fileWriter.write(this.getUsername() + "\n");
+
+                // Close the file writer
+                fileWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
-        if (conflictChecker(username, password)) {
-            String data = username + "," + password + "," + "GUEST" + "," + name + "," + address + "," + email
-                    + creditCardNumber + creditCardExpirationDate + "\n";
+    public void updateLoginData()
+    {
+        this.updateLoginInfo("GUEST");
+    }
 
-            return Guest.fileWriter(data);
-        }
-        return false;
+    public boolean writeReservation(String filename, Guest guest, Date start, Date end, Cruise cruise, Room room){
+        StringBuilder sb = new StringBuilder();
+        String data;
+        String pattern = "MM/dd/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String currDate = simpleDateFormat.format(new Date());
+        String startDate = simpleDateFormat.format(start);
+        String endDate = simpleDateFormat.format(end);
+
+
+        sb.append("-----RESERVATION-----");
+        sb.append('\n');
+        sb.append("NAME: " + guest.getName());
+        sb.append('\n');
+        sb.append("ROOM #: " + room.getRoomNum());
+        sb.append('\n');
+        sb.append("COST: $" + room.getMaximumDailyRate());
+        sb.append('\n');
+        sb.append("CRUISE: " + cruise.getName());
+        sb.append('\n');
+        sb.append("DATE MADE: " + currDate);
+        sb.append('\n');
+        sb.append("START DATE: " + startDate);
+        sb.append('\n');
+        sb.append("END DATE: " + endDate);
+        sb.append('\n');
+        sb.append('\n');
+
+        data = sb.toString();
+
+        return fileWriter("Reservations.txt", data);
     }
 
 
+    public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
+        Reservation r = new Reservation(this, cruise, room, start, end);
+
+        this.reservations.add(r);
+
+        return writeReservation("Reservations.txt", this, start, end, cruise, room);
+    }
+    public void cancelReservation(int indexOfReservation){
+
+    }
 }
