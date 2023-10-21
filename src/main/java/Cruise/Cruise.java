@@ -6,6 +6,8 @@ import Person.Manager;
 import Person.TravelAgent;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Cruise {
@@ -23,24 +25,29 @@ public class Cruise {
                                                  boolean isSmoking, Date startDate, Date endDate)
     {
         //Get first room that matches criteria
-        Optional<Room> optionalRoom = getRoom(quality, numBeds, bedType, isSmoking);
+        /*Optional<Room> optionalRoom = getRoom(quality, numBeds, bedType, isSmoking);
 
         if (optionalRoom.isPresent())
         {
-            //Check to see if the room is reserved
 
-
+            if (!isRoomReserved(optionalRoom.get(), startDate, endDate))
+            {
+                return optionalRoom;
+            }
 
             //Check to see if dates work with travel path
 
-        }
-        return optionalRoom;
+        }*/
+
+
+
+        return Optional.empty();
     }
 
-    protected Optional<Room> getRoom(Room.Quality quality, int numBeds, Room.BedType bedType, boolean isSmoking)
+    private Optional<Room> getRoom(Room.Quality quality, int numBeds, Room.BedType bedType, boolean isSmoking)
     {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader( this.name + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader( name + ".csv"));
             String line;
             reader.readLine(); //TODO: get travel path here
             while ((line = reader.readLine()) != null) {
@@ -53,14 +60,16 @@ public class Cruise {
                 }
             }
         } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Invalid data in " + name + ".csv");
             return Optional.empty();
         }
         return Optional.empty();
     }
 
     //return true if room is reserved
-    protected boolean isRoomReserved(Room room, Date startDate, Date endDate)
+    private boolean isRoomReserved(Room room, Date startDate, Date endDate)
     {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
             BufferedReader reader = new BufferedReader(new FileReader( "Reservations.txt"));
             String line;
@@ -68,10 +77,17 @@ public class Cruise {
                 String[] col = line.split(",");
                 if (Integer.parseInt(col[1]) == room.getID())
                 {
+                    Date reservedStart = simpleDateFormat.parse(col[5]);
+                    Date reservedEnd = simpleDateFormat.parse(col[6]);
+
+                    if (reservedStart.before(endDate) || reservedEnd.after(startDate))
+                    {
+                        return true;
+                    }
 
                 }
             }
-        } catch (IOException | IllegalArgumentException e) {
+        } catch (IOException | IllegalArgumentException | ParseException e) {
             System.out.println("Invalid data in Reservations.txt");
             return true;
         }
@@ -140,6 +156,15 @@ public class Cruise {
         } catch (IOException | IllegalArgumentException e) {
             return Optional.empty();
         }
+    }
+
+    public class Destination {
+        Date arrival;
+        Date departure;
+        String location;
+
+
+
     }
 
 }

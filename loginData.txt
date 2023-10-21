@@ -6,5 +6,3 @@ gguy,guygug,GUEST,ugugu,guy,gu,gu,gug
 123123,12312,GUEST,3f,fwefw,wef,guwefwef,wefwef
 SuperAdmin42,SecretPassword123,ADMIN,MegaAdministrator,Cloud Nine,admin@fantasyland.com
 johndoe123,D. B. Cooper,GUEST,John Doe,123 Main St,johndoe@example.com
-a,b,GUEST,c,d,e
-god,has,GUEST,cursed,me,for

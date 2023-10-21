@@ -20,7 +20,6 @@ public class Guest extends Person {
     // Constructor
     public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
-
         this.reservations = new ArrayList<Reservation>();
     }
 
