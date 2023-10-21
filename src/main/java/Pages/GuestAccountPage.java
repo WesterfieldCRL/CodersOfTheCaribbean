@@ -11,11 +11,10 @@ import java.util.Optional;
 
 import Cruise.Cruise;
 import Cruise.Room;
-import Person.Guest;
+import Cruise.Reservation;
 
 import static Pages.CruiseAppUtilities.*;
 import static Cruise.Cruise.*;
-import static Person.Guest.*;
 
 public class GuestAccountPage {
 
@@ -84,10 +83,7 @@ public class GuestAccountPage {
             }
         });
 
-
-
-
-
+        //i know its repetitive ill fix later
         btnCruise1.addActionListener((ActionEvent e) -> {
             updateRoomList("cruise1", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
             Optional<Cruise> optionalCruise = getCruise("cruise1");
@@ -98,10 +94,18 @@ public class GuestAccountPage {
 
         btnCruise2.addActionListener((ActionEvent e) -> {
             updateRoomList("cruise2", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+            Optional<Cruise> optionalCruise = getCruise("cruise2");
+            if (optionalCruise.isPresent()) {
+                currentCruise = optionalCruise.get();
+            }
         });
 
         btnCruise3.addActionListener((ActionEvent e) -> {
             updateRoomList("cruise3", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+            Optional<Cruise> optionalCruise = getCruise("cruise3");
+            if (optionalCruise.isPresent()) {
+                currentCruise = optionalCruise.get();
+            }
         });
 
         roomList.addMouseListener(new MouseAdapter() {
@@ -151,47 +155,33 @@ public class GuestAccountPage {
         }
     }
 
-
-//    private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox, JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
-//                                       JCheckBox isSmokingCheckBox, JFormattedTextField startDateField, JFormattedTextField endDateField, DefaultListModel<String> roomListModel) {
-//        Optional<Cruise> cruise = getCruise(cruiseName);
-//        if (cruise.isPresent()) {
-//            Optional<Room> room = cruise.get().isRoomAvailable(
-//                    (Room.Quality) qualityComboBox.getSelectedItem(),
-//                    (Integer) numBedsComboBox.getSelectedItem(),
-//                    (Room.BedType) bedTypeComboBox.getSelectedItem(),
-//                    isSmokingCheckBox.isSelected(),
-//                    (Date) startDateField.getValue(),
-//                    (Date) endDateField.getValue()
-//            );
-//
-//            roomListModel.clear();
-//            room.ifPresent(r -> roomListModel.addElement("Room ID: " + r.getID()));  // Adjust later
-//        }
-//    }
-
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField, JFormattedTextField endDateField, Cruise cruise) {
         // Create a new JFrame for the reservation detail panel
         JFrame reservationFrame = new JFrame("Reservation Details");
         reservationFrame.setSize(400, 300);
+
+        Date start = (Date) startDateField.getValue();
+        Date end = (Date) endDateField.getValue();
 
         JPanel panel = new JPanel(new BorderLayout());
 
         JTextArea detailArea = new JTextArea();
         detailArea.setEditable(false);
         detailArea.setText("Room Details: " + room.toString() + "\n" + "Start Date: " + startDateField.getText() + "\n" + "End Date: " + endDateField.getText()); // add more details if needed
+        Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
+        double totalReservationCost = reservation.getTotalCost();
+        detailArea.append("\nTotal Cost: " + totalReservationCost);
+
         JScrollPane scrollPane = new JScrollPane(detailArea);
 
         JButton makeReservationButton = new JButton("Make Reservation");
         makeReservationButton.addActionListener(e -> {
-            Date start = (Date) startDateField.getValue();
-            Date end = (Date) endDateField.getValue();
-
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
 
             if (success) {
                 JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!");
+
             } else {
                 JOptionPane.showMessageDialog(reservationFrame, "Failed to make a reservation.", "Error", JOptionPane.ERROR_MESSAGE);
             }
