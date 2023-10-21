@@ -66,7 +66,7 @@ public class Guest extends Person {
         sb.append(",");
         sb.append(room.getID());
         sb.append(",");
-        sb.append(room.getMaximumDailyRate());
+        sb.append(room.getTotalCost(start,end));
         sb.append(",");
         sb.append(cruise.getName());
         sb.append(",");
