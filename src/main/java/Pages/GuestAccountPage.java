@@ -3,7 +3,9 @@ package Pages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Optional;
 
 import Cruise.Cruise;
 import Cruise.Room;
@@ -11,14 +13,41 @@ import Cruise.Room;
 import static Pages.CruiseAppUtilities.*;
 import static Cruise.Cruise.*;
 
-
 public class GuestAccountPage {
-    private static final String CRUISE_FILE = "cruiseList.txt";  // Adjust this path
+
+    private static final String CRUISE_FILE = "cruiseList.txt";
 
     public static JPanel createGuestViewPanel(JFrame frame) {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
+
+        // Drop downs and date fields
+        JComboBox<Room.Quality> qualityComboBox = new JComboBox<>(Room.Quality.values());
+        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});// Possibly Adjust
+        JComboBox<Room.BedType> bedTypeComboBox = new JComboBox<>(Room.BedType.values());
+        JCheckBox isSmokingCheckBox = new JCheckBox("Smoking?");
+        JFormattedTextField startDateField = new JFormattedTextField(new SimpleDateFormat("MM/dd/yyyy"));
+        JFormattedTextField endDateField = new JFormattedTextField(new SimpleDateFormat("MM/dd/yyyy"));
+
+        Dimension dateFieldSize = new Dimension(100, 24);
+
+        startDateField.setPreferredSize(dateFieldSize);
+        endDateField.setPreferredSize(dateFieldSize);
+
+        // Organize above components in a panel
+        JPanel filterPanel = new JPanel();
+        filterPanel.add(new JLabel("Quality:"));
+        filterPanel.add(qualityComboBox);
+        filterPanel.add(new JLabel("Num Beds:"));
+        filterPanel.add(numBedsComboBox);
+        filterPanel.add(new JLabel("Bed Type:"));
+        filterPanel.add(bedTypeComboBox);
+        filterPanel.add(isSmokingCheckBox);
+        filterPanel.add(new JLabel("Start Date:"));
+        filterPanel.add(startDateField);
+        filterPanel.add(new JLabel("End Date:"));
+        filterPanel.add(endDateField);
 
         // Buttons for cruise search
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -26,80 +55,52 @@ public class GuestAccountPage {
         JButton btnCruise2 = new JButton("Cruise2");
         JButton btnCruise3 = new JButton("Cruise3");
 
-//        JTextArea textArea = new JTextArea(10, 40); // adjust size as needed
-//// add the text area to your frame or panel
-//
-//        btnCruise1.addActionListener((ActionEvent e) -> {
-//            Cruise cruise = searchCruise(CRUISE_FILE, "cruise1");
-//            StringBuilder displayInfo = new StringBuilder();
-//            if (cruise != null) {
-//                ArrayList<Room> rooms = cruise.getRoomList();
-//                displayInfo.append("Rooms for Cruise1:\n");
-//                for (Room room : rooms) {
-//                    displayInfo.append(room.getRoomInfo()).append("\n\n");
-//                }
-//            } else {
-//                displayInfo.append("Cruise1 not found.");
-//            }
-//            textArea.setText(displayInfo.toString());
-//        });
-        // Create the model and JList
+        // Model and JList
         DefaultListModel<String> roomListModel = new DefaultListModel<>();
         JList<String> roomList = new JList<>(roomListModel);
-        roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // ensure single selection
-        roomList.setEnabled(false); // disable item selection
+        roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        roomList.setEnabled(false);
 
-        // Wrap the JList in a JScrollPane for scrolling
         JScrollPane scrollPane = new JScrollPane(roomList);
 
         btnCruise1.addActionListener((ActionEvent e) -> {
-            Cruise cruise = searchCruise(CRUISE_FILE, "cruise1");
-            roomListModel.clear(); // clear the previous data
-            if (cruise != null) {
-                ArrayList<Room> rooms = cruise.getRoomList();
-                roomListModel.addElement("Rooms for Cruise1:");
-                for (Room room : rooms) {
-                    roomListModel.addElement(room.getRoomInfo());
-                }
-            } else {
-                roomListModel.addElement("Cruise1 not found.");
-            }
+            updateRoomList("cruise1", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
         });
 
         btnCruise2.addActionListener((ActionEvent e) -> {
-            Cruise cruise = searchCruise(CRUISE_FILE, "cruise2");
-            roomListModel.clear(); // clear the previous data
-            if (cruise != null) {
-                ArrayList<Room> rooms = cruise.getRoomList();
-                roomListModel.addElement("Rooms for Cruise3:");
-                for (Room room : rooms) {
-                    roomListModel.addElement(room.getRoomInfo());
-                }
-            } else {
-                roomListModel.addElement("Cruise3 not found.");
-            }        });
+            updateRoomList("cruise2", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+        });
 
         btnCruise3.addActionListener((ActionEvent e) -> {
-            Cruise cruise = searchCruise(CRUISE_FILE, "cruise3");
-            roomListModel.clear(); // clear the previous data
-            if (cruise != null) {
-                ArrayList<Room> rooms = cruise.getRoomList();
-                roomListModel.addElement("Rooms for Cruise3:");
-                for (Room room : rooms) {
-                    roomListModel.addElement(room.getRoomInfo());
-                }
-            } else {
-                roomListModel.addElement("Cruise3 not found.");
-            }        });
+            updateRoomList("cruise3", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+        });
 
         buttonPanel.add(btnCruise1);
         buttonPanel.add(btnCruise2);
         buttonPanel.add(btnCruise3);
 
-
-        panel.add(buttonPanel, BorderLayout.NORTH);
-        panel.add(scrollPane);
+        panel.add(filterPanel, BorderLayout.NORTH);
+        panel.add(buttonPanel, BorderLayout.CENTER);
+        panel.add(scrollPane, BorderLayout.SOUTH);
 
         return panel;
+    }
+
+    private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox, JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
+                                       JCheckBox isSmokingCheckBox, JFormattedTextField startDateField, JFormattedTextField endDateField, DefaultListModel<String> roomListModel) {
+        Optional<Cruise> cruise = getCruise(cruiseName);
+        if (cruise.isPresent()) {
+            Optional<Room> room = cruise.get().isRoomAvailable(
+                    (Room.Quality) qualityComboBox.getSelectedItem(),
+                    (Integer) numBedsComboBox.getSelectedItem(),
+                    (Room.BedType) bedTypeComboBox.getSelectedItem(),
+                    isSmokingCheckBox.isSelected(),
+                    (Date) startDateField.getValue(),
+                    (Date) endDateField.getValue()
+            );
+
+            roomListModel.clear();
+            room.ifPresent(r -> roomListModel.addElement("Room ID: " + r.getID()));  // Adjust later
+        }
     }
 }

@@ -20,7 +20,6 @@ public class Guest extends Person {
     // Constructor
     public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
-
         this.reservations = new ArrayList<Reservation>();
     }
 
@@ -53,6 +52,7 @@ public class Guest extends Person {
         this.updateLoginInfo("GUEST");
     }
 
+    //Format: guestName, roomID, cost, cruiseName, currDate, startDate, endDate
     public boolean writeReservation(String filename, Guest guest, Date start, Date end, Cruise cruise, Room room){
         StringBuilder sb = new StringBuilder();
         String data;
@@ -62,24 +62,20 @@ public class Guest extends Person {
         String startDate = simpleDateFormat.format(start);
         String endDate = simpleDateFormat.format(end);
 
-
-        sb.append("-----RESERVATION-----");
-        sb.append('\n');
-        sb.append("NAME: " + guest.getName());
-        sb.append('\n');
-        sb.append("ROOM #: " + room.getRoomNum());
-        sb.append('\n');
-        sb.append("COST: $" + room.getMaximumDailyRate());
-        sb.append('\n');
-        sb.append("CRUISE: " + cruise.getName());
-        sb.append('\n');
-        sb.append("DATE MADE: " + currDate);
-        sb.append('\n');
-        sb.append("START DATE: " + startDate);
-        sb.append('\n');
-        sb.append("END DATE: " + endDate);
-        sb.append('\n');
-        sb.append('\n');
+        sb.append(guest.getName());
+        sb.append(",");
+        sb.append(room.getID());
+        sb.append(",");
+        sb.append(room.getMaximumDailyRate());
+        sb.append(",");
+        sb.append(cruise.getName());
+        sb.append(",");
+        sb.append(currDate);
+        sb.append(",");
+        sb.append(startDate);
+        sb.append(",");
+        sb.append(endDate);
+        sb.append("\n");
 
         data = sb.toString();
 

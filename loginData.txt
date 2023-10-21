@@ -1,12 +1,6 @@
 john_doe24,mynameisjeff,TRAVELAGENT,john doe,92 Devonian Rd.,johndoe@gmail.com
 thanos,1234,TRAVELAGENT,destroyer,hell,snap@aol.airbud
 username,password,GUEST,name,addr,email@gmail.com,123412341234,03/23
-test1,test,GUEST,test,test,test,12312312312,1231
+test,test,GUEST,test,test,test,12312312312,1231
 gguy,guygug,GUEST,ugugu,guy,gu,gu,gug
-123123,12312,GUEST,3f,fwefw,wef,guwefwef,wefwef
-SuperAdmin42,SecretPassword123,ADMIN,MegaAdministrator,Cloud Nine,admin@fantasyland.com
-johndoe123,db cooper,GUEST,John Doe,123 Main St,johndoe@example.com
-test,test,GUEST,test,test,test
->>>>>>> main
-testing,testing,GUEST,testing,trsgin,tirsn
-imtesting,supertest,GUEST,testname,testaddy,testemail@gmail.com
+123123,12312,GUEST,3f,fwefw,wef,guwefwef,wefweftest,test,GUEST,testname,testadd,test@123.com
