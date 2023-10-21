@@ -36,7 +36,7 @@ public class GuestAccountPage {
         endDateField.setPreferredSize(dateFieldSize);
 
         // Organize above components in a panel
-        JPanel filterPanel = new JPanel();
+        JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         filterPanel.add(new JLabel("Quality:"));
         filterPanel.add(qualityComboBox);
         filterPanel.add(new JLabel("Num Beds:"));
@@ -54,6 +54,7 @@ public class GuestAccountPage {
         JButton btnCruise1 = new JButton("Cruise1");
         JButton btnCruise2 = new JButton("Cruise2");
         JButton btnCruise3 = new JButton("Cruise3");
+
 
         // Model and JList
         DefaultListModel<String> roomListModel = new DefaultListModel<>();
@@ -79,9 +80,15 @@ public class GuestAccountPage {
         buttonPanel.add(btnCruise2);
         buttonPanel.add(btnCruise3);
 
-        panel.add(filterPanel, BorderLayout.NORTH);
-        panel.add(buttonPanel, BorderLayout.CENTER);
-        panel.add(scrollPane, BorderLayout.SOUTH);
+        Dimension buttonPanelDimensions = new Dimension(100, 100);
+        buttonPanel.setPreferredSize(buttonPanelDimensions);
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(filterPanel, BorderLayout.NORTH);
+        topPanel.add(buttonPanel, BorderLayout.CENTER);
+
+
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER); // Put the list in the center so it gets more space
 
         return panel;
     }
