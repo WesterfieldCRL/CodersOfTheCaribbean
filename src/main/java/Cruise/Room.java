@@ -1,5 +1,7 @@
 package Cruise;
 
+import java.util.Date;
+
 public class Room {
 
     public enum Quality {
@@ -56,16 +58,16 @@ public class Room {
     public double getMaximumDailyRate() {
         double maxDailyRate = 0.0, factor = 0.0, total = 0.0;
         if (this.quality == Quality.ECONOMY) {
-            maxDailyRate = 1699.99;
+            maxDailyRate = 154.99;
         }
         else if (this.quality == Quality.COMFORT) {
-            maxDailyRate = 2999.99;
+            maxDailyRate = 324.99;
         }
         else if (this.quality == Quality.BUSINESS) {
-            maxDailyRate = 4499.99;
+            maxDailyRate = 549.99;
         }
         else {
-            maxDailyRate = 8000.00;
+            maxDailyRate = 720.00;
         }
 
         total = maxDailyRate;
@@ -92,6 +94,8 @@ public class Room {
 
         return factor;
     }
+
+    // Modify room counts as getters and setters, or a new function can be added later
 
     //Getters and setters
     public Quality getQuality() {
@@ -148,6 +152,14 @@ public class Room {
 
     public int getRoomNum(){
         return this.roomNum;
+    }
+
+    public void setSmokingStatus(boolean isSmoking) {
+        this.isSmoking = isSmoking;
+    }
+
+    public boolean getSmokingStatus() {
+        return this.isSmoking;
     }
 
 }
