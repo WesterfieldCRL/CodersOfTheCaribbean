@@ -1,6 +1,7 @@
 package Cruise;
 
 import java.util.Date;
+import java.util.Optional;
 
 public class Room {
 
@@ -17,28 +18,28 @@ public class Room {
         KING
     }
 
-    public enum RoomStatus {
+    /*public enum RoomStatus {
         NOT_RESERVED,
         RESERVED,
         ON_BOARD,
         DONE
-    }
+    }*/
 
     private int roomNum;
     private int numBeds;
     private Room.BedType bedType;
     private Room.Quality quality;
     private boolean isSmoking;
-    private Room.RoomStatus roomStatus;
+    //private Room.RoomStatus roomStatus;
 
     public Room(int ID, int numBeds, Room.BedType bedType, Room.Quality quality,
-                boolean isSmoking, Room.RoomStatus rs) {
+                boolean isSmoking/*, Room.RoomStatus rs*/) {
         this.quality = quality;
         this.bedType = bedType;
         this.isSmoking = isSmoking;
         this.roomNum = ID;
         this.numBeds = numBeds;
-        this.roomStatus = rs;
+        //this.roomStatus = rs;
     }
 
     public void printRoomInfo() {
@@ -52,7 +53,6 @@ public class Room {
         else {
             System.out.println("  Smoking");
         }
-        System.out.println("  Status: " + roomStatus);
     }
 
     public double getMaximumDailyRate() {
@@ -95,8 +95,6 @@ public class Room {
         return factor;
     }
 
-    // Modify room counts as getters and setters, or a new function can be added later
-
     //Getters and setters
     public Quality getQuality() {
         return quality;
@@ -137,29 +135,4 @@ public class Room {
     public void setNumBeds(int numBeds) {
         this.numBeds = numBeds;
     }
-
-    public RoomStatus isReserved() {
-        return roomStatus;
-    }
-
-    public void setReserved(RoomStatus rs) {
-        roomStatus = rs;
-    }
-
-    public void setRoomNum(int roomNum){
-        this.roomNum = roomNum;
-    }
-
-    public int getRoomNum(){
-        return this.roomNum;
-    }
-
-    public void setSmokingStatus(boolean isSmoking) {
-        this.isSmoking = isSmoking;
-    }
-
-    public boolean getSmokingStatus() {
-        return this.isSmoking;
-    }
-
 }
