@@ -1,10 +1,12 @@
 package Pages;
 
 import Person.Person;
+import Person.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Optional;
+
 
 public class CruiseAppUtilities {
 
@@ -12,6 +14,7 @@ public class CruiseAppUtilities {
     static final Color BUTTON_COLOR = new Color(100, 149, 237);      // CornflowerBlue
     static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 16);
     static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);
+    public static Guest currentGuest;
 
     public static JLabel createStyledLabel(String text, Font font) {
         JLabel label = new JLabel(text);
@@ -45,6 +48,7 @@ public class CruiseAppUtilities {
         if (user.isPresent()) {
             if (user.get().getClass().getSimpleName().equals("Guest")) {
                 switchToPanel(frame, "Guest View");
+                currentGuest = (Guest) user.get();
             }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
