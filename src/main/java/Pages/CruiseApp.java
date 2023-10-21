@@ -12,7 +12,7 @@ public class CruiseApp {
     //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
 
     public static void main(String[] args) {
-        setSystemLookAndFeel();
+//        setSystemLookAndFeel();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = setupMainFrame();

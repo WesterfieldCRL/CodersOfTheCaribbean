@@ -23,6 +23,7 @@ public class GuestAccountPage {
     public static Cruise currentCruise;
 
     public static JPanel createGuestViewPanel(JFrame frame) {
+
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
@@ -54,12 +55,15 @@ public class GuestAccountPage {
         filterPanel.add(new JLabel("End Date:"));
         filterPanel.add(endDateField);
 
+        for (Component comp : filterPanel.getComponents()) {
+            comp.setFont(DEFAULT_FONT);
+        }
+
         // Buttons for cruise search
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton btnCruise1 = new JButton("Cruise1");
-        JButton btnCruise2 = new JButton("Cruise2");
-        JButton btnCruise3 = new JButton("Cruise3");
-
+        JButton btnCruise1 = createStyledButton("Cruise1", DEFAULT_FONT, BUTTON_COLOR);
+        JButton btnCruise2 = createStyledButton("Cruise2", DEFAULT_FONT, BUTTON_COLOR);
+        JButton btnCruise3 = createStyledButton("Cruise3", DEFAULT_FONT, BUTTON_COLOR);
 
 
         // Model and JList
@@ -69,25 +73,36 @@ public class GuestAccountPage {
 
         roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         roomList.setEnabled(true);
-
-
-
         JScrollPane scrollPane = new JScrollPane(roomList);
         roomList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                if (value == NO_ROOMS_FOUND) {
-                    return super.getListCellRendererComponent(list, "No Rooms Found", index, isSelected, cellHasFocus);
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                // Set the default background and foreground colors
+                label.setBackground(Color.WHITE);
+                label.setForeground(Color.BLACK);
+                label.setOpaque(true);
+
+                // For selected items
+                if (isSelected) {
+                    label.setBackground(Color.BLUE);
+                    label.setForeground(Color.WHITE);
                 }
-                if (value instanceof Room) {
+
+                label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+                if (value == NO_ROOMS_FOUND) {
+                    label.setText("No Rooms Found");
+                } else if (value instanceof Room) {
                     Room room = (Room) value;
-                    return super.getListCellRendererComponent(list,"Room Quality: " + room.getQuality()
+                    label.setText("Room Quality: " + room.getQuality()
                             + " Number of Beds: " + room.getNumBeds()
                             + " Type of Beds: " + room.getBedType()
-                            + " Smoking Status: " + room.isSmoking(), index, isSelected, cellHasFocus);
-
+                            + " Smoking Status: " + room.isSmoking());
                 }
-                return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                return label;
             }
         });
 
@@ -98,16 +113,10 @@ public class GuestAccountPage {
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
-//
-//            updateRoomList("cruise1", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
-//            Optional<Cruise> optionalCruise = getCruise("cruise1");
-//            if (optionalCruise.isPresent()) {
-//                currentCruise = optionalCruise.get();
-//            }
         });
 
         btnCruise2.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise1", roomListModel);
+            updateAllRoomsForCruise("cruise2", roomListModel);
             Optional<Cruise> optionalCruise = getCruise("cruise1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
@@ -115,16 +124,17 @@ public class GuestAccountPage {
         });
 
         btnCruise3.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise1", roomListModel);
+            updateAllRoomsForCruise("cruise3", roomListModel);
             Optional<Cruise> optionalCruise = getCruise("cruise1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
         });
 
-        JButton applyFiltersButton = new JButton("Apply Filters");
+        JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
-            updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+            updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
+                    isSmokingCheckBox, startDateField, endDateField, roomListModel);
         });
         filterPanel.add(applyFiltersButton);
 
@@ -140,7 +150,6 @@ public class GuestAccountPage {
             }
         });
 
-
         JLabel displayInstructions = new JLabel("Display rooms for:");
         buttonPanel.add(displayInstructions);
 
@@ -150,15 +159,17 @@ public class GuestAccountPage {
         buttonPanel.add(btnCruise3);
 
 
-
-
         Dimension buttonPanelDimensions = new Dimension(100, 100);
         buttonPanel.setPreferredSize(buttonPanelDimensions);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        JLabel usageInstructions = new JLabel("First Select a Cruise to Display. Then use the filters to select your choice of " +
-                "room. YOU MUST SELECT A VALID START AND END DATE");
-        topPanel.add(usageInstructions, BorderLayout.SOUTH);
+        topPanel.setBackground(new Color(240, 240, 240));
+        JLabel usageInstructions = new JLabel("First Select a Cruise to Display. Then use the filters to select " +
+                "your choice of room. YOU MUST SELECT A VALID START AND END DATE. Reserve by double click");
+        usageInstructions.setFont(new Font("Arial", Font.BOLD, 12));
+        usageInstructions.setForeground(new Color(50, 50, 50));
+        usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
 
         topPanel.add(filterPanel, BorderLayout.NORTH);
         topPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -183,8 +194,10 @@ public class GuestAccountPage {
     }
 
 
-    private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox, JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
-                                       JCheckBox isSmokingCheckBox, JFormattedTextField startDateField, JFormattedTextField endDateField, DefaultListModel<Room> roomListModel) {
+    private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox,
+                                       JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
+                                       JCheckBox isSmokingCheckBox, JFormattedTextField startDateField,
+                                       JFormattedTextField endDateField, DefaultListModel<Room> roomListModel) {
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
             Optional<Room> room = cruise.get().isRoomAvailable(
@@ -204,7 +217,8 @@ public class GuestAccountPage {
         }
     }
 
-    private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField, JFormattedTextField endDateField, Cruise cruise) {
+    private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
+                                                   JFormattedTextField endDateField, Cruise cruise) {
         // Create a new JFrame for the reservation detail panel
         JFrame reservationFrame = new JFrame("Reservation Details");
         reservationFrame.setSize(400, 300);
@@ -216,7 +230,8 @@ public class GuestAccountPage {
 
         JTextArea detailArea = new JTextArea();
         detailArea.setEditable(false);
-        detailArea.setText("Room Details: " + room.toString() + "\n" + "Start Date: " + startDateField.getText() + "\n" + "End Date: " + endDateField.getText()); // add more details if needed
+        detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
+                + "\n" + "End Date: " + endDateField.getText()); // add more details if needed
         Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
         double totalReservationCost = reservation.getTotalCost();
         detailArea.append("\nTotal Cost: " + totalReservationCost);
@@ -229,10 +244,12 @@ public class GuestAccountPage {
 
 
             if (success) {
-                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!");
+                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
+                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
 
             } else {
-                JOptionPane.showMessageDialog(reservationFrame, "Failed to make a reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(reservationFrame, "Failed to make a reservation.", "Error",
+                        JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
 
             reservationFrame.dispose(); // close the reservation frame
