@@ -53,7 +53,7 @@ public class Guest extends Person {
     }
 
     //Format: guestName, roomID, cost, cruiseName, currDate, startDate, endDate
-    public boolean writeReservation(String filename, Guest guest, Date start, Date end, Cruise cruise, Room room){
+    public boolean writeReservation(Guest guest, Date start, Date end, Cruise cruise, Room room){
         StringBuilder sb = new StringBuilder();
         String data;
         String pattern = "MM/dd/yyyy";
@@ -62,7 +62,7 @@ public class Guest extends Person {
         String startDate = simpleDateFormat.format(start);
         String endDate = simpleDateFormat.format(end);
 
-        sb.append(guest.getName());
+        sb.append(guest.getUsername());
         sb.append(",");
         sb.append(room.getID());
         sb.append(",");
@@ -88,9 +88,6 @@ public class Guest extends Person {
 
         this.reservations.add(r);
 
-        return writeReservation("Reservations.txt", this, start, end, cruise, room);
-    }
-    public void cancelReservation(int indexOfReservation){
-
+        return writeReservation(this, start, end, cruise, room);
     }
 }
