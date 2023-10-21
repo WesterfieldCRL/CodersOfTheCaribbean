@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -77,7 +78,11 @@ public class GuestAccountPage {
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 if (value instanceof Room) {
                     Room room = (Room) value;
-                    return super.getListCellRendererComponent(list, "Room ID: " + room.getID(), index, isSelected, cellHasFocus);
+                    return super.getListCellRendererComponent(list,"Room Quality: " + room.getQuality()
+                            + " Number of Beds: " + room.getNumBeds()
+                            + " Type of Beds: " + room.getBedType()
+                            + " Smoking Status: " + room.isSmoking(), index, isSelected, cellHasFocus);
+
                 }
                 return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             }
@@ -85,11 +90,17 @@ public class GuestAccountPage {
 
         //i know its repetitive ill fix later
         btnCruise1.addActionListener((ActionEvent e) -> {
-            updateRoomList("cruise1", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+            updateAllRoomsForCruise("cruise1", roomListModel);
             Optional<Cruise> optionalCruise = getCruise("cruise1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
+//
+//            updateRoomList("cruise1", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+//            Optional<Cruise> optionalCruise = getCruise("cruise1");
+//            if (optionalCruise.isPresent()) {
+//                currentCruise = optionalCruise.get();
+//            }
         });
 
         btnCruise2.addActionListener((ActionEvent e) -> {
@@ -107,6 +118,12 @@ public class GuestAccountPage {
                 currentCruise = optionalCruise.get();
             }
         });
+
+        JButton applyFiltersButton = new JButton("Apply Filters");
+        applyFiltersButton.addActionListener((ActionEvent e) -> {
+            updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
+        });
+        filterPanel.add(applyFiltersButton);
 
         roomList.addMouseListener(new MouseAdapter() {
             @Override
@@ -136,6 +153,19 @@ public class GuestAccountPage {
 
         return panel;
     }
+
+    //testing
+    private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
+        Optional<Cruise> cruise = getCruise(cruiseName);
+        if (cruise.isPresent()) {
+            ArrayList<Room> rooms = cruise.get().getRoomList();
+            roomListModel.clear();
+            for (Room room : rooms) {
+                roomListModel.addElement(room);
+            }
+        }
+    }
+
 
     private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox, JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
                                        JCheckBox isSmokingCheckBox, JFormattedTextField startDateField, JFormattedTextField endDateField, DefaultListModel<Room> roomListModel) {

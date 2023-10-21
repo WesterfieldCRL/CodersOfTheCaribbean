@@ -27,27 +27,29 @@ public class LandingPage {
         gbc.gridwidth = 2; // Span two columns
         panel.add(logoLabel, gbc);
 
+        //TODO: MAYBE UPDATE LATER
+
         //! PLACHOLDERS
-        JButton cruise1Button = createStyledButton("Cruise 1", BUTTON_FONT, BUTTON_COLOR);
-        cruise1Button.addActionListener(e -> {/* Handle Cruise.Cruise 1 selection */});
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-//        gbc.gridwidth = 1;
-        panel.add(cruise1Button, gbc);
-
-        JButton cruise2Button = createStyledButton("Cruise 2", BUTTON_FONT, BUTTON_COLOR);
-        cruise2Button.addActionListener(e -> {/* Handle Cruise.Cruise 2 selection */});
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(cruise2Button, gbc);
-
-        JButton cruise3Button = createStyledButton("Cruise 3", BUTTON_FONT, BUTTON_COLOR);
-        cruise3Button.addActionListener(e -> {/* Handle Cruise.Cruise 3 selection */});
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-//        gbc.gridwidth = 2;
-        panel.add(cruise3Button, gbc);
-
+//        JButton cruise1Button = createStyledButton("Cruise 1", BUTTON_FONT, BUTTON_COLOR);
+//        cruise1Button.addActionListener(e -> {/* Handle Cruise.Cruise 1 selection */});
+//        gbc.gridx = 0;
+//        gbc.gridy = 1;
+////        gbc.gridwidth = 1;
+//        panel.add(cruise1Button, gbc);
+//
+//        JButton cruise2Button = createStyledButton("Cruise 2", BUTTON_FONT, BUTTON_COLOR);
+//        cruise2Button.addActionListener(e -> {/* Handle Cruise.Cruise 2 selection */});
+//        gbc.gridx = 0;
+//        gbc.gridy = 2;
+//        panel.add(cruise2Button, gbc);
+//
+//        JButton cruise3Button = createStyledButton("Cruise 3", BUTTON_FONT, BUTTON_COLOR);
+//        cruise3Button.addActionListener(e -> {/* Handle Cruise.Cruise 3 selection */});
+//        gbc.gridx = 0;
+//        gbc.gridy = 3;
+////        gbc.gridwidth = 2;
+//        panel.add(cruise3Button, gbc);
+//
         JButton loginButton = createStyledButton("Login", BUTTON_FONT, BUTTON_COLOR);
         loginButton.addActionListener(e -> switchToPanel(frame, "Login"));
         gbc.gridx = 0;
