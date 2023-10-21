@@ -13,7 +13,7 @@ public class testMain {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-        Date startDate = simpleDateFormat.parse("10/21/2024");
+        Date startDate = simpleDateFormat.parse("10/21/2023");
         Date endDate = simpleDateFormat.parse("10/24/2024");
 
         Optional<Person> optionalGuest = Person.login("gguy", "guygug");
@@ -33,7 +33,7 @@ public class testMain {
                     if (optionalRoom.isPresent())
                     {
                         Room room = optionalRoom.get();
-
+                        room.getTotalCost(startDate, endDate);
                         guest.makeReservation(room, startDate, endDate, cruise);
 
                     }
