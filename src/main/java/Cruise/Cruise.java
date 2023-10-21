@@ -22,7 +22,7 @@ public class Cruise {
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
-                                                 boolean isSmoking, Date startDate, Date endDate)
+                                          boolean isSmoking, Date startDate, Date endDate)
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
@@ -93,7 +93,7 @@ public class Cruise {
 
         try (FileWriter fw = new FileWriter(fileName, true)) {
             fw.append("\n" + room.getID() + "," + room.getNumBeds() + "," + room.getBedType() +
-                      "," + room.getQuality() + "," + room.isSmoking());
+                    "," + room.getQuality() + "," + room.isSmoking());
         }
         catch (IOException e) {
             throw new RuntimeException(e);

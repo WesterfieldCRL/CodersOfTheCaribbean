@@ -6,6 +6,10 @@ import java.util.Optional;
 
 public class Room {
 
+    //added this for no room display. pls no remove
+    public Room() {
+    }
+
     public enum Quality {
         ECONOMY,
         COMFORT,
