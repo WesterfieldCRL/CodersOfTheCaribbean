@@ -1,5 +1,7 @@
 package Cruise;
 
+import java.util.Date;
+
 public class Room {
 
     public enum Quality {
