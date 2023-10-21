@@ -20,7 +20,7 @@ public class Reservation {
         this.room = room;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.totalCost = room.getMaximumDailyRate();
+        this.totalCost = room.getTotalCost(startDate, endDate);
     }
 
     public Guest getGuest() {

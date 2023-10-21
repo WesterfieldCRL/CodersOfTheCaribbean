@@ -66,7 +66,10 @@ public class Cruise {
                     Date reservedStart = simpleDateFormat.parse(col2[5]);
                     Date reservedEnd = simpleDateFormat.parse(col2[6]);
 
-                    return !reservedStart.after(endDate) && !reservedEnd.before(startDate);
+                    if(!reservedStart.after(endDate) && !reservedEnd.before(startDate))
+                    {
+                        return true;
+                    }
 
                 }
             }
