@@ -24,28 +24,7 @@ public class Cruise {
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
                                                  boolean isSmoking, Date startDate, Date endDate)
     {
-        //Get first room that matches criteria
-        /*Optional<Room> optionalRoom = getRoom(quality, numBeds, bedType, isSmoking);
-
-        if (optionalRoom.isPresent())
-        {
-
-            if (!isRoomReserved(optionalRoom.get(), startDate, endDate))
-            {
-                return optionalRoom;
-            }
-
-            //Check to see if dates work with travel path
-
-        }*/
-
-
-
-        return Optional.empty();
-    }
-
-    private Optional<Room> getRoom(Room.Quality quality, int numBeds, Room.BedType bedType, boolean isSmoking)
-    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
             BufferedReader reader = new BufferedReader(new FileReader( name + ".csv"));
             String line;
@@ -54,15 +33,22 @@ public class Cruise {
                 String[] col = line.split(",");
                 if (Integer.parseInt(col[1]) == numBeds && Room.BedType.valueOf(col[2]).equals(bedType)
                         && Room.Quality.valueOf(col[3]).equals(quality) && Boolean.parseBoolean(col[4]) == isSmoking)
-                {
+                {   //Find next room matching criteria
                     Room room = new Room(Integer.parseInt(col[0]), numBeds, bedType, quality, isSmoking);
-                    return Optional.of(room);
+
+                    if (!isRoomReserved(room, startDate, endDate))
+                    {
+                        return Optional.of(room);
+                    }
                 }
             }
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Invalid data in " + name + ".csv");
             return Optional.empty();
         }
+
+
+
         return Optional.empty();
     }
 
@@ -71,19 +57,16 @@ public class Cruise {
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader( "Reservations.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] col = line.split(",");
-                if (Integer.parseInt(col[1]) == room.getID())
+            BufferedReader reader2 = new BufferedReader(new FileReader( "Reservations.txt"));
+            String line2;
+            while ((line2 = reader2.readLine()) != null) {
+                String[] col2 = line2.split(",");
+                if (col2[3].equals(name) && Integer.parseInt(col2[1]) == room.getID())
                 {
-                    Date reservedStart = simpleDateFormat.parse(col[5]);
-                    Date reservedEnd = simpleDateFormat.parse(col[6]);
+                    Date reservedStart = simpleDateFormat.parse(col2[5]);
+                    Date reservedEnd = simpleDateFormat.parse(col2[6]);
 
-                    if (reservedStart.before(endDate) || reservedEnd.after(startDate))
-                    {
-                        return true;
-                    }
+                    return !reservedStart.after(endDate) && !reservedEnd.before(startDate);
 
                 }
             }

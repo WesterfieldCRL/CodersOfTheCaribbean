@@ -13,8 +13,8 @@ public class testMain {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-        Date startDate = simpleDateFormat.parse("10/21/2023");
-        Date endDate = simpleDateFormat.parse("10/24/2023");
+        Date startDate = simpleDateFormat.parse("10/21/2024");
+        Date endDate = simpleDateFormat.parse("10/24/2024");
 
         Optional<Person> optionalGuest = Person.login("gguy", "guygug");
 
@@ -22,7 +22,7 @@ public class testMain {
         {
             if(optionalGuest.get().getClass() == Guest.class) {
                 Guest guest = (Guest) optionalGuest.get();
-                Optional<Cruise> optionalCruise = Cruise.getCruise("cruise1");
+                Optional<Cruise> optionalCruise = Cruise.getCruise("cruise2");
 
                 if (optionalCruise.isPresent())
                 {
