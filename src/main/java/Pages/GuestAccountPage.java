@@ -19,7 +19,7 @@ import static Cruise.Cruise.*;
 
 public class GuestAccountPage {
 
-    private static final String CRUISE_FILE = "cruiseList.txt";
+    private static Room NO_ROOMS_FOUND = new Room();
     public static Cruise currentCruise;
 
     public static JPanel createGuestViewPanel(JFrame frame) {
@@ -61,6 +61,7 @@ public class GuestAccountPage {
         JButton btnCruise3 = new JButton("Cruise3");
 
 
+
         // Model and JList
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
         JList<Room> roomList = new JList<>(roomListModel);
@@ -72,10 +73,12 @@ public class GuestAccountPage {
 
 
         JScrollPane scrollPane = new JScrollPane(roomList);
-        panel.add(scrollPane);
         roomList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                if (value == NO_ROOMS_FOUND) {
+                    return super.getListCellRendererComponent(list, "No Rooms Found", index, isSelected, cellHasFocus);
+                }
                 if (value instanceof Room) {
                     Room room = (Room) value;
                     return super.getListCellRendererComponent(list,"Room Quality: " + room.getQuality()
@@ -104,16 +107,16 @@ public class GuestAccountPage {
         });
 
         btnCruise2.addActionListener((ActionEvent e) -> {
-            updateRoomList("cruise2", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise2");
+            updateAllRoomsForCruise("cruise1", roomListModel);
+            Optional<Cruise> optionalCruise = getCruise("cruise1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
         });
 
         btnCruise3.addActionListener((ActionEvent e) -> {
-            updateRoomList("cruise3", qualityComboBox, numBedsComboBox, bedTypeComboBox, isSmokingCheckBox, startDateField, endDateField, roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise3");
+            updateAllRoomsForCruise("cruise1", roomListModel);
+            Optional<Cruise> optionalCruise = getCruise("cruise1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
@@ -137,13 +140,26 @@ public class GuestAccountPage {
             }
         });
 
+
+        JLabel displayInstructions = new JLabel("Display rooms for:");
+        buttonPanel.add(displayInstructions);
+
+
         buttonPanel.add(btnCruise1);
         buttonPanel.add(btnCruise2);
         buttonPanel.add(btnCruise3);
 
+
+
+
         Dimension buttonPanelDimensions = new Dimension(100, 100);
         buttonPanel.setPreferredSize(buttonPanelDimensions);
+
         JPanel topPanel = new JPanel(new BorderLayout());
+        JLabel usageInstructions = new JLabel("First Select a Cruise to Display. Then use the filters to select your choice of " +
+                "room. YOU MUST SELECT A VALID START AND END DATE");
+        topPanel.add(usageInstructions, BorderLayout.SOUTH);
+
         topPanel.add(filterPanel, BorderLayout.NORTH);
         topPanel.add(buttonPanel, BorderLayout.CENTER);
 
@@ -182,6 +198,9 @@ public class GuestAccountPage {
 
             roomListModel.clear();
             room.ifPresent(roomListModel::addElement); // Directly add the Room object
+            if (roomListModel.isEmpty()){
+                roomListModel.addElement(NO_ROOMS_FOUND);
+            }
         }
     }
 

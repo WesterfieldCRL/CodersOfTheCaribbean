@@ -42,7 +42,7 @@ public class CruiseApp {
     private static JFrame setupMainFrame() {
         JFrame frame = new JFrame("Cruise Booking System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 800);
+        frame.setSize(1200, 800);
         frame.setLayout(new CardLayout());
         frame.setLocationRelativeTo(null);
         return frame;
