@@ -7,12 +7,12 @@ import static Pages.LandingPage.*;
 import static Pages.LoginPage.*;
 import static Pages.CreateAccountPage.*;
 import static Pages.GuestAccountPage.*;
+import static Pages.TravelAgentAccountPage.*;
 
 public class CruiseApp {
     //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
 
     public static void main(String[] args) {
-//        setSystemLookAndFeel();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = setupMainFrame();
@@ -20,25 +20,18 @@ public class CruiseApp {
             JPanel loginPanel = createLoginPanel(frame);
             JPanel accountPanel = createAccountPanel(frame);
             JPanel guestViewPanel = createGuestViewPanel(frame);
+            JPanel travelAgentViewPanel = createTravelAgentViewPane(frame);
 
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
             frame.add(accountPanel, "Create Account");
             frame.add(guestViewPanel, "Guest View");
+            frame.add(travelAgentViewPanel, "Travel Agent");
 
 
             frame.setVisible(true);
         });
     }
-
-    private static void setSystemLookAndFeel() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private static JFrame setupMainFrame() {
         JFrame frame = new JFrame("Cruise Booking System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
