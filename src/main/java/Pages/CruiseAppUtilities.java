@@ -51,9 +51,12 @@ public class CruiseAppUtilities {
         Optional<Person> user = Person.login(username, password);
 
         if (user.isPresent()) {
-            if (user.get().getClass().getSimpleName().equals("Guest")) {
+            if (user.get().getClass().getSimpleName().equalsIgnoreCase("Guest")) {
                 switchToPanel(frame, "Guest View");
                 currentGuest = (Guest) user.get();
+            }
+            else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
+                switchToPanel(frame, "Travel Agent");
             }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
