@@ -15,7 +15,7 @@ public class TravelAgentAccountPage {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
 
         // Add a JComboBox for cruise selection
-        String[] cruiseOptions = {"Cruise1", "Cruise2", "Cruise3"};
+        String[] cruiseOptions = {"CRUISE1", "CRUISE2", "CRUISE3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
         panel.add(cruiseComboBox, BorderLayout.CENTER);
 

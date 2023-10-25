@@ -50,7 +50,7 @@ public class Person {
 
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"loginData\" WHERE USERNAME = ? AND PASSWORD = ?");
+                    "SELECT * FROM LOGINDATA WHERE USERNAME = ? AND PASSWORD = ?");
             statement.setString(1, username);
             statement.setString(2, password);
 
@@ -131,7 +131,7 @@ public class Person {
 
             //Check if account exists
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"loginData\" WHERE USERNAME = ? AND PASSWORD = ?");
+                    "SELECT * FROM LOGINDATA WHERE USERNAME = ? AND PASSWORD = ?");
             statement.setString(1, username);
             statement.setString(2, password);
 
@@ -139,7 +139,7 @@ public class Person {
 
             if (!rs.next())
             {
-                PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO \"loginData\" " +
+                PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO LOGINDATA " +
                         "(USERNAME, PASSWORD, NAME, EMAIL, ADDRESS, \"AccountType\") " +
                         "VALUES (?, ?, ?, ?, ?, ?)");
                 insertQuery.setString(1, username);

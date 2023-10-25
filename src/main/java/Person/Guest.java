@@ -79,7 +79,6 @@ public class Guest extends Person {
 
         data = sb.toString();
 
-        //return fileWriter("Reservations.txt", data);
         return false;
     }
 
