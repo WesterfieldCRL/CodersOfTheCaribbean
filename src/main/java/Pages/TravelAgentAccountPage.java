@@ -15,7 +15,7 @@ public class TravelAgentAccountPage {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
 
         // Add a JComboBox for cruise selection
-        String[] cruiseOptions = {"cruise1", "cruise2", "cruise3"};
+        String[] cruiseOptions = {"Cruise1", "Cruise2", "Cruise3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
         panel.add(cruiseComboBox, BorderLayout.CENTER);
 
@@ -43,8 +43,8 @@ public class TravelAgentAccountPage {
         addRoomDialog.setLayout(new GridLayout(7, 2));
 
         // Components for Room ID
-        JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
-        JTextField idField = new JTextField();
+        //JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
+        //JTextField idField = new JTextField();
 
         // Components for Number of Beds
         JLabel numOfBedsLabel = createStyledLabel("Number of Beds:", new Font("Arial", Font.PLAIN, 12));
@@ -65,24 +65,22 @@ public class TravelAgentAccountPage {
         // Submit Button
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            int roomId = Integer.parseInt(idField.getText());
+            //int roomId = Integer.parseInt(idField.getText());
             int numBeds = (int) numOfBedsDropdown.getSelectedItem();
             Room.BedType bedType = (Room.BedType) bedTypeDropdown.getSelectedItem();
             Room.Quality quality = (Room.Quality) qualityDropdown.getSelectedItem();
             boolean isSmoking = smokingCheckbox.isSelected();
 
-            Room newRoom = new Room(roomId, numBeds, bedType, quality, isSmoking);
+            Room newRoom = new Room(0, numBeds, bedType, quality, isSmoking);
 
-            String filename = cruiseInstance.getName() + ".csv";
-
-            cruiseInstance.addRoom(newRoom, filename);
+            cruiseInstance.addRoom(newRoom);
 
             addRoomDialog.dispose();
         });
 
         // Add components to the dialog
-        addRoomDialog.add(idLabel);
-        addRoomDialog.add(idField);
+        //addRoomDialog.add(idLabel);
+        //addRoomDialog.add(idField);
         addRoomDialog.add(numOfBedsLabel);
         addRoomDialog.add(numOfBedsDropdown);
         addRoomDialog.add(bedTypeLabel);

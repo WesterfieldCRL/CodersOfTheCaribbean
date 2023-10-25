@@ -1,14 +1,13 @@
 package Cruise;
 
-import Person.Admin;
-import Person.Guest;
-import Person.Manager;
-import Person.TravelAgent;
+
 
 import java.io.*;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class Cruise {
     private String name;
@@ -88,15 +87,29 @@ public class Cruise {
         }
     }
 
-    public void addRoom(Room room, String fileName) {
-        roomList.add(room);
+    public void addRoom(Room room) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-        try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.append("\n" + room.getID() + "," + room.getNumBeds() + "," + room.getBedType() +
-                    "," + room.getQuality() + "," + room.isSmoking());
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO \"" + name + "\"" +
+                            "(BEDNUMBER, BEDTYPE, ROOMTYPE, ISSMOKING) " +
+                            "VALUES(?, ?, ?, ?)");
+
+            statement.setInt(1, room.getNumBeds());
+            statement.setString(2, room.getBedType().toString());
+            statement.setString(3, room.getQuality().toString());
+            statement.setBoolean(4, room.isSmoking());
+
+            statement.executeUpdate();
+
+
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
         }
 
     }
@@ -120,28 +133,38 @@ public class Cruise {
     public static Optional<Cruise> getCruise(String cruiseName)
     {
         Cruise cruise = new Cruise(cruiseName);
+        Connection connection = null;
+        ArrayList<Room> roomList = new ArrayList<Room>();
+
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(cruiseName + ".csv"));
-            String line;
-            reader.readLine(); //TODO: get travel path here
-            while ((line = reader.readLine()) != null) {
-                String[] col = line.split(",");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-                int id = Integer.parseInt(col[0]);
-                int numBeds = Integer.parseInt(col[1]);
-                Room.BedType bedType = Room.BedType.valueOf(col[2]);
-                Room.Quality quality = Room.Quality.valueOf(col[3]);
-                boolean isSmoking = Boolean.parseBoolean(col[4]);
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM \"" + cruiseName + "\"");
 
+            ResultSet rs = statement.executeQuery();
 
-                Room r = new Room(id, numBeds, bedType, quality, isSmoking);
+            while (rs.next())
+            {
+                Room room = new Room();
+                room.setID(rs.getInt("ID"));
+                room.setNumBeds(rs.getInt("BEDNUMBER"));
+                room.setBedType(Room.BedType.valueOf(rs.getString("BEDTYPE")));
+                room.setQuality(Room.Quality.valueOf(rs.getString("ROOMTYPE")));
+                room.setSmoking(rs.getBoolean("ISSMOKING"));
 
-                cruise.roomList.add(r);
+                roomList.add(room);
             }
+
+            cruise.setRoomList(roomList);
             return Optional.of(cruise);
-        } catch (IOException | IllegalArgumentException e) {
-            return Optional.empty();
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
         }
+        return Optional.empty();
     }
 
     public class Destination {
