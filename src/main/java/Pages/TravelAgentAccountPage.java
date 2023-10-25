@@ -13,13 +13,22 @@ import static Pages.CruiseAppUtilities.*;
 public class TravelAgentAccountPage {
     public static JPanel createTravelAgentViewPane(JFrame frame){
         JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(BACKGROUND_COLOR);  // Alice blue color
 
         // Add a JComboBox for cruise selection
         String[] cruiseOptions = {"cruise1", "cruise2", "cruise3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
-        panel.add(cruiseComboBox, BorderLayout.CENTER);
 
-        JButton addRoomButton = createStyledButton("Add Room", new Font("Arial", Font.BOLD, 14), Color.GREEN);
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(BACKGROUND_COLOR);
+        centerPanel.add(cruiseComboBox);
+
+        JButton addRoomButton = createStyledButton("Add Room", new Font("Arial", Font.BOLD, 12), BUTTON_COLOR);
+        addRoomButton.setPreferredSize(new Dimension(100, 30));
+        centerPanel.add(addRoomButton);
+
+        panel.add(centerPanel, BorderLayout.CENTER);
+
         addRoomButton.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
@@ -33,7 +42,6 @@ public class TravelAgentAccountPage {
                 }
             }
         });
-        panel.add(addRoomButton, BorderLayout.SOUTH);
 
         return panel;
     }
@@ -97,5 +105,4 @@ public class TravelAgentAccountPage {
         addRoomDialog.setLocationRelativeTo(parentFrame);
         addRoomDialog.setVisible(true);
     }
-
 }
