@@ -149,8 +149,6 @@ public class Cruise {
         Date departure;
         String location;
 
-
-
     }
 
 }

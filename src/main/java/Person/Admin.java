@@ -51,14 +51,14 @@ public class Admin extends Person {
         return Optional.empty();
     }
 
-    public void resetGuestPassword(String username, String password, Guest guest)
+    /*public void resetGuestPassword(String username, String password, Guest guest)
     {
         guest.setPassword(password);
         guest.updateLoginData();
         ArrayList<String> usernames = readFile("resetRequests.txt");
         usernames.remove(username);
         overwriteFile("resetRequests.txt",usernames);
-    }
+    }*/
 
 }
 

@@ -28,7 +28,7 @@ public class Guest extends Person {
         return createGenericAccount("GUEST");
     }
 
-    public void requestPasswordReset()
+    /*public void requestPasswordReset()
     {
         if (conflictChecker(this.getUsername(), "resetRequests.txt")) {
             try {
@@ -50,7 +50,7 @@ public class Guest extends Person {
     public void updateLoginData()
     {
         this.updateLoginInfo("GUEST");
-    }
+    }*/
 
     //Format: guestName, roomID, cost, cruiseName, currDate, startDate, endDate
     public boolean writeReservation(Guest guest, Date start, Date end, Cruise cruise, Room room){
@@ -79,7 +79,8 @@ public class Guest extends Person {
 
         data = sb.toString();
 
-        return fileWriter("Reservations.txt", data);
+        //return fileWriter("Reservations.txt", data);
+        return false;
     }
 
 

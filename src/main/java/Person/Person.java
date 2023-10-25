@@ -1,6 +1,7 @@
 package Person;
 
 import java.io.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,38 +44,64 @@ public class Person {
      */
     public static Optional<Person> login(String username, String password)
     {
-
+        Connection connection = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[1].equals(password))
-                {
-                    switch (parts[2])
-                    {
-                        case "GUEST" :
-                            Guest guest = new Guest(parts[0], parts[1], parts[3], parts[4], parts[5]);
-                            return Optional.of(guest);
-                        case "TRAVELAGENT" :
-                            TravelAgent tav = new TravelAgent(parts[0], parts[1], parts[3], parts[4], parts[5]);
-                            return Optional.of(tav);
-                        case "MANAGER" :
-                            Manager manager = new Manager(parts[0], parts[1], parts[3], parts[4], parts[4]);
-                            return Optional.of(manager);
-                        case "ADMIN" :
-                            Admin admin = new Admin(parts[0], parts[1], parts[3], parts[4], parts[5]);
-                            return Optional.of(admin);
-                        default:
-                            System.out.println("An unexpected value was found while reading loginData");
-                            break;
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM \"loginData\" WHERE USERNAME = ? AND PASSWORD = ?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) //There should never be duplicates
+            {
+                return switch (rs.getString("AccountType")) {
+                    case "GUEST" -> {
+                        Guest guest = new Guest(rs.getString("USERNAME"),
+                                rs.getString("PASSWORD"),
+                                rs.getString("NAME"),
+                                rs.getString("ADDRESS"),
+                                rs.getString("EMAIL"));
+                        yield Optional.of(guest);
                     }
-                }
+                    case "TRAVELAGENT" -> {
+                        TravelAgent tav = new TravelAgent(rs.getString("USERNAME"),
+                                rs.getString("PASSWORD"),
+                                rs.getString("NAME"),
+                                rs.getString("ADDRESS"),
+                                rs.getString("EMAIL"));
+                        yield Optional.of(tav);
+                    }
+                    case "MANAGER" -> {
+                        Manager manager = new Manager(rs.getString("USERNAME"),
+                                rs.getString("PASSWORD"),
+                                rs.getString("NAME"),
+                                rs.getString("ADDRESS"),
+                                rs.getString("EMAIL"));
+                        yield Optional.of(manager);
+                    }
+                    case "ADMIN" -> {
+                        Admin admin = new Admin(rs.getString("USERNAME"),
+                                rs.getString("PASSWORD"),
+                                rs.getString("NAME"),
+                                rs.getString("ADDRESS"),
+                                rs.getString("EMAIL"));
+                        yield Optional.of(admin);
+                    }
+                    default -> {
+                        System.out.println("An unexpected value was found while reading loginData");
+                        yield Optional.empty();
+                    }
+                };
             }
-        } catch (IOException e) {
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
             e.printStackTrace();
         }
-
         return Optional.empty();
     }
 
@@ -96,138 +123,42 @@ public class Person {
      */
     protected boolean createGenericAccount(String accountType)
     {
-        if (!checkData())
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            //Check if account exists
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM \"loginData\" WHERE USERNAME = ? AND PASSWORD = ?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+            {
+                PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO \"loginData\" " +
+                        "(USERNAME, PASSWORD, NAME, EMAIL, ADDRESS, \"AccountType\") " +
+                        "VALUES (?, ?, ?, ?, ?, ?)");
+                insertQuery.setString(1, username);
+                insertQuery.setString(2, password);
+                insertQuery.setString(3, name);
+                insertQuery.setString(4, email);
+                insertQuery.setString(5, address);
+                insertQuery.setString(6, accountType);
+
+                insertQuery.executeUpdate();
+                //connection.close();
+                return true;
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
         {
-            return false;
-        }
-        if (conflictChecker(username, "loginData.txt")) {
-            String data = formatData(accountType) + "\n";
-            return fileWriter("loginData.txt", data);
+            e.printStackTrace();
         }
         return false;
-    }
-
-    protected boolean conflictChecker(String data, String filename)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                String[] parts = line.split(",");
-                if (parts[0].equals(data))
-                {
-                    return false;
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-    }
-
-    protected boolean fileWriter(String filename, String data)
-    {
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter(filename, true);
-
-            // Write the data to the file
-            fileWriter.write(data);
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            //e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean fileEndsWithNewline(String fileName) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            String lastLine = "";
-            while ((line = reader.readLine()) != null) {
-                lastLine = line;
-            }
-            // Check if the last line is empty or contains only whitespace
-            return lastLine.trim().isEmpty();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false; // Return false on any error
-        }
-    }
-
-    protected String formatData(String accountType)
-    {
-        String data = username + "," + password + "," + accountType + "," + name + "," + address + "," + email;
-        return data;
-    }
-
-    protected boolean checkData()
-    {
-        return !username.contains(",") && !password.contains(",") && !name.contains(",") && !address.contains(",") && !email.contains(",")
-                && !username.isEmpty() && !password.isEmpty() && !name.isEmpty() && !address.isEmpty() && !email.isEmpty();
-    }
-
-    protected void updateLoginInfo(String accountType)
-    {
-        String formatedData = "";
-        ArrayList<String> data = readFile("loginData.txt");
-        for (String line : data)
-        {
-            String[] parsedData = line.split(",");
-            if (parsedData[0].equals(this.username) && parsedData[2].equals(accountType))
-            {
-                formatedData = formatData(accountType);
-                data.remove(line);
-                break;
-            }
-        }
-        data.add(formatedData);
-
-        overwriteFile("loginData.txt", data);
-
-    }
-
-    protected ArrayList<String> readFile(String filename)
-    {
-        ArrayList<String> data = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                data.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-    protected void overwriteFile(String filename, ArrayList<String> data)
-    {
-        try {
-            // Set the second argument to 'true' to enable appending
-            FileWriter fileWriter = new FileWriter(filename);
-
-            // Write the data to the file
-            for (String tempData : data)
-            {
-                fileWriter.write(tempData + "\n");
-            }
-
-            // Close the file writer
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getUsername() {

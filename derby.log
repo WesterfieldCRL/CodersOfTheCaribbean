@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Oct 25 12:25:32 CDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-67de-b82c-00000c6fee70 
+on database directory /home/wesley/Documents/CSI 3471/GroupProject/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+Loaded from file:/home/wesley/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=21+35-LTS-2513
+user.dir=/home/wesley/Documents/CSI 3471/GroupProject/CodersOfTheCaribbean
+os.name=Linux
+os.arch=amd64
+os.version=5.15.0-87-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
