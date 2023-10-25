@@ -40,6 +40,4 @@ public class CruiseApp {
         frame.setLocationRelativeTo(null);
         return frame;
     }
-
-
 }
