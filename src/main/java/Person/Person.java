@@ -65,6 +65,7 @@ public class Person {
                                 rs.getString("NAME"),
                                 rs.getString("ADDRESS"),
                                 rs.getString("EMAIL"));
+                        connection.close();
                         yield Optional.of(guest);
                     }
                     case "TRAVELAGENT" -> {
@@ -73,6 +74,7 @@ public class Person {
                                 rs.getString("NAME"),
                                 rs.getString("ADDRESS"),
                                 rs.getString("EMAIL"));
+                        connection.close();
                         yield Optional.of(tav);
                     }
                     case "MANAGER" -> {
@@ -81,6 +83,7 @@ public class Person {
                                 rs.getString("NAME"),
                                 rs.getString("ADDRESS"),
                                 rs.getString("EMAIL"));
+                        connection.close();
                         yield Optional.of(manager);
                     }
                     case "ADMIN" -> {
@@ -89,10 +92,12 @@ public class Person {
                                 rs.getString("NAME"),
                                 rs.getString("ADDRESS"),
                                 rs.getString("EMAIL"));
+                        connection.close();
                         yield Optional.of(admin);
                     }
                     default -> {
                         System.out.println("An unexpected value was found while reading loginData");
+                        connection.close();
                         yield Optional.empty();
                     }
                 };
@@ -101,6 +106,15 @@ public class Person {
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return Optional.empty();
     }
@@ -137,7 +151,9 @@ public class Person {
 
             ResultSet rs = statement.executeQuery();
 
-            if (!rs.next())
+            if (!rs.next() &&
+                    !username.isEmpty() && !password.isEmpty() &&
+                    !name.isEmpty() && !email.isEmpty() && !address.isEmpty())
             {
                 PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO LOGINDATA " +
                         "(USERNAME, PASSWORD, NAME, EMAIL, ADDRESS, \"AccountType\") " +
@@ -150,13 +166,22 @@ public class Person {
                 insertQuery.setString(6, accountType);
 
                 insertQuery.executeUpdate();
-                //connection.close();
+                connection.close();
                 return true;
             }
 
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

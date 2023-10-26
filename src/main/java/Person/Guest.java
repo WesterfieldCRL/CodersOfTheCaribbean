@@ -79,12 +79,21 @@ public class Guest extends Person {
             insertQuery.setString(7, cruise.getName());
 
             insertQuery.executeUpdate();
-            //connection.close();
+            connection.close();
             return true;
 
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return false;

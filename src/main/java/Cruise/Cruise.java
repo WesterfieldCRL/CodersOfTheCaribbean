@@ -24,60 +24,68 @@ public class Cruise {
                                      boolean isSmoking, Date startDate, Date endDate)
     {
 
-        Connection connection;
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Connection connection = null;
+        if (!startDate.after(endDate)) {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+                connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
 
-            PreparedStatement roomQuery = connection.prepareStatement("SELECT * FROM " + name +
-                    " WHERE BEDNUMBER = ? AND BEDTYPE = ? AND ROOMTYPE = ? AND ISSMOKING = ?");
-                    //get all rooms matching the inputted query
-            roomQuery.setInt(1, numBeds);
-            roomQuery.setString(2, bedType.toString());
-            roomQuery.setString(3, quality.toString());
-            roomQuery.setBoolean(4, isSmoking);
+                PreparedStatement roomQuery = connection.prepareStatement("SELECT * FROM " + name +
+                        " WHERE BEDNUMBER = ? AND BEDTYPE = ? AND ROOMTYPE = ? AND ISSMOKING = ?");
+                //get all rooms matching the inputted query
+                roomQuery.setInt(1, numBeds);
+                roomQuery.setString(2, bedType.toString());
+                roomQuery.setString(3, quality.toString());
+                roomQuery.setBoolean(4, isSmoking);
 
-            ResultSet rooms = roomQuery.executeQuery();
+                ResultSet rooms = roomQuery.executeQuery();
 
-            while (rooms.next())
-            {
+                while (rooms.next()) {
 
-                Room room = new Room(rooms.getInt("ID"),
-                        rooms.getInt("BEDNUMBER"),
-                        Room.BedType.valueOf(rooms.getString("BEDTYPE")),
-                        Room.Quality.valueOf(rooms.getString("ROOMTYPE")),
-                        rooms.getBoolean("ISSMOKING"));
+                    Room room = new Room(rooms.getInt("ID"),
+                            rooms.getInt("BEDNUMBER"),
+                            Room.BedType.valueOf(rooms.getString("BEDTYPE")),
+                            Room.Quality.valueOf(rooms.getString("ROOMTYPE")),
+                            rooms.getBoolean("ISSMOKING"));
 
 
-                PreparedStatement reservationQuery = connection.prepareStatement(
-                        "SELECT * FROM RESERVATIONS WHERE CRUISE = ? AND ROOMID = ?");
-                //get all reservations for the specific room on this cruise
-                reservationQuery.setString(1, name);
-                reservationQuery.setInt(2, room.getID());
+                    PreparedStatement reservationQuery = connection.prepareStatement(
+                            "SELECT * FROM RESERVATIONS WHERE CRUISE = ? AND ROOMID = ?");
+                    //get all reservations for the specific room on this cruise
+                    reservationQuery.setString(1, name);
+                    reservationQuery.setInt(2, room.getID());
 
-                ResultSet rs = reservationQuery.executeQuery();
+                    ResultSet rs = reservationQuery.executeQuery();
 
-                boolean isReserved = false;
-                while (rs.next()) {
-                    Date reservedStart = rs.getDate("STARTDATE");
-                    Date reservedEnd = rs.getDate("ENDDATE");
+                    boolean isReserved = false;
+                    while (rs.next()) {
+                        Date reservedStart = rs.getDate("STARTDATE");
+                        Date reservedEnd = rs.getDate("ENDDATE");
 
-                    if (!reservedStart.after(endDate) && !reservedEnd.before(startDate)) {
-                        isReserved = true;
+                        if (!reservedStart.after(endDate) && !reservedEnd.before(startDate)) {
+                            isReserved = true;
+                        }
+                    }
+
+                    if (!isReserved) {
+                        connection.close();
+                        return Optional.of(room);
                     }
                 }
 
-                if (!isReserved)
-                {
-                    return Optional.of(room);
+
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
-
-
-        } catch (ClassNotFoundException | SQLException e)
-        {
-            e.printStackTrace();
         }
 
         return Optional.empty();
@@ -114,6 +122,15 @@ public class Cruise {
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }

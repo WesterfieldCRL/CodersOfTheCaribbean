@@ -16,7 +16,7 @@ public class Admin extends Person {
     }
 
     //Note: if there are no names in the file, this function will return an empty collection
-    public Collection<Guest> getResetRequests()
+    /*public Collection<Guest> getResetRequests()
     {
         ArrayList<Guest> guests = new ArrayList<Guest>();
         try {
