@@ -168,9 +168,9 @@ public class GuestAccountPage {
         usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
 
-        topPanel.add(filterPanel, BorderLayout.NORTH);
-        topPanel.add(buttonPanel, BorderLayout.CENTER);
-
+        topPanel.add(buttonPanel, BorderLayout.NORTH);
+        topPanel.add(filterPanel, BorderLayout.CENTER);
+        topPanel.add(usageInstructions, BorderLayout.SOUTH);
 
         panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER); // Put the list in the center so it gets more space
