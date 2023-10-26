@@ -132,7 +132,7 @@ public class Cruise {
                 e.printStackTrace();
             }
         }
-
+        return true;
     }
 
     public String getName() {

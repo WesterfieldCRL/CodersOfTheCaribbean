@@ -30,7 +30,7 @@ public class GuestAccountPage {
 
         // Drop downs and date fields
         JComboBox<Room.Quality> qualityComboBox = new JComboBox<>(Room.Quality.values());
-        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});// Possibly Adjust
+        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4});
         JComboBox<Room.BedType> bedTypeComboBox = new JComboBox<>(Room.BedType.values());
         JCheckBox isSmokingCheckBox = new JCheckBox("Smoking?");
         JFormattedTextField startDateField = new JFormattedTextField(new SimpleDateFormat("MM/dd/yyyy"));
@@ -66,10 +66,8 @@ public class GuestAccountPage {
         JButton btnCruise3 = createStyledButton("Cruise3", DEFAULT_FONT, BUTTON_COLOR);
 
 
-        // Model and JList
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
         JList<Room> roomList = new JList<>(roomListModel);
-
 
         roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         roomList.setEnabled(true);
@@ -80,11 +78,10 @@ public class GuestAccountPage {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
                 // Set the default background and foreground colors
-                label.setBackground(Color.WHITE);
+                label.setBackground(BACKGROUND_COLOR);
                 label.setForeground(Color.BLACK);
                 label.setOpaque(true);
 
-                // For selected items
                 if (isSelected) {
                     label.setBackground(Color.BLUE);
                     label.setForeground(Color.WHITE);
@@ -171,9 +168,9 @@ public class GuestAccountPage {
         usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
 
-        topPanel.add(filterPanel, BorderLayout.NORTH);
-        topPanel.add(buttonPanel, BorderLayout.CENTER);
-
+        topPanel.add(buttonPanel, BorderLayout.NORTH);
+        topPanel.add(filterPanel, BorderLayout.CENTER);
+        topPanel.add(usageInstructions, BorderLayout.SOUTH);
 
         panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER); // Put the list in the center so it gets more space
@@ -181,7 +178,6 @@ public class GuestAccountPage {
         return panel;
     }
 
-    //testing
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
@@ -219,9 +215,10 @@ public class GuestAccountPage {
 
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
                                                    JFormattedTextField endDateField, Cruise cruise) {
-        // Create a new JFrame for the reservation detail panel
-        JFrame reservationFrame = new JFrame("Reservation Details");
-        reservationFrame.setSize(400, 300);
+        JDialog reservationDialog = new JDialog();
+        reservationDialog.setTitle("Reservation Details");
+        reservationDialog.setModal(true);
+        reservationDialog.setSize(400, 300);
 
         Date start = (Date) startDateField.getValue();
         Date end = (Date) endDateField.getValue();
@@ -231,7 +228,8 @@ public class GuestAccountPage {
         JTextArea detailArea = new JTextArea();
         detailArea.setEditable(false);
         detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
-                + "\n" + "End Date: " + endDateField.getText()); // add more details if needed
+                + "\n" + "End Date: " + endDateField.getText() + "\n" + "Room Quality: " + room.getQuality()
+                + "\n" + "Number of Beds: " + room.getNumBeds());
         Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
         double totalReservationCost = reservation.getTotalCost();
         detailArea.append("\nTotal Cost: " + totalReservationCost);
@@ -242,24 +240,22 @@ public class GuestAccountPage {
         makeReservationButton.addActionListener(e -> {
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
-
             if (success) {
-                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
-                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
-
+                JOptionPane.showMessageDialog(reservationDialog, "Reservation made successfully!",
+                        "Reservation Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
             } else {
-                JOptionPane.showMessageDialog(reservationFrame, "Failed to make a reservation.", "Error",
+                JOptionPane.showMessageDialog(reservationDialog, "Failed to make a reservation.", "Error",
                         JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
 
-            reservationFrame.dispose(); // close the reservation frame
+            reservationDialog.dispose();
         });
 
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(makeReservationButton, BorderLayout.SOUTH);
 
-        reservationFrame.add(panel);
-        reservationFrame.setVisible(true);
+        reservationDialog.add(panel);
+        reservationDialog.setVisible(true);
     }
 
 }

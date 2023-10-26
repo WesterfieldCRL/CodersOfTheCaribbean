@@ -8,9 +8,9 @@ import static Pages.LoginPage.*;
 import static Pages.CreateAccountPage.*;
 import static Pages.GuestAccountPage.*;
 import static Pages.TravelAgentAccountPage.*;
+import static Pages.TermsOfServicePanel.*;
 
 public class CruiseApp {
-    //TODO: CLEAR TEXTS FIELDS AFTER SUBMIT
 
     public static void main(String[] args) {
 
@@ -21,7 +21,9 @@ public class CruiseApp {
             JPanel accountPanel = createAccountPanel(frame);
             JPanel guestViewPanel = createGuestViewPanel(frame);
             JPanel travelAgentViewPanel = createTravelAgentViewPane(frame);
+            JPanel termsPanel = createTermsOfServicePanel(frame);
 
+            frame.add(termsPanel, "Terms of Service");
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
             frame.add(accountPanel, "Create Account");
@@ -40,6 +42,4 @@ public class CruiseApp {
         frame.setLocationRelativeTo(null);
         return frame;
     }
-
-
 }
