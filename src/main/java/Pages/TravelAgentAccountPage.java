@@ -13,9 +13,8 @@ import static Pages.CruiseAppUtilities.*;
 public class TravelAgentAccountPage {
     public static JPanel createTravelAgentViewPane(JFrame frame){
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBackground(BACKGROUND_COLOR);  // Alice blue color
+        panel.setBackground(BACKGROUND_COLOR);
 
-        // Add a JComboBox for cruise selection
         String[] cruiseOptions = {"cruise1", "cruise2", "cruise3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
 
@@ -50,23 +49,20 @@ public class TravelAgentAccountPage {
         JDialog addRoomDialog = new JDialog(parentFrame, "Add Room", true);
         addRoomDialog.setLayout(new GridLayout(7, 2));
 
-        // Components for Room ID
+        //TODO: Add any option for all
         JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
         JTextField idField = new JTextField();
 
-        // Components for Number of Beds
         JLabel numOfBedsLabel = createStyledLabel("Number of Beds:", new Font("Arial", Font.PLAIN, 12));
         JComboBox<Integer> numOfBedsDropdown = new JComboBox<>(new Integer[]{1, 2, 3, 4});
 
-        // Components for Bed Type
         JLabel bedTypeLabel = createStyledLabel("Bed Type:", new Font("Arial", Font.PLAIN, 12));
         JComboBox<Room.BedType> bedTypeDropdown = new JComboBox<>(Room.BedType.values());
 
-        // Components for Room Quality
         JLabel qualityLabel = createStyledLabel("Room Quality:", new Font("Arial", Font.PLAIN, 12));
         JComboBox<Room.Quality> qualityDropdown = new JComboBox<>(Room.Quality.values());
 
-        // Components for Smoking Status
+
         JLabel smokingLabel = createStyledLabel("Smoking:", new Font("Arial", Font.PLAIN, 12));
         JCheckBox smokingCheckbox = new JCheckBox("Is Smoking?");
 
@@ -83,8 +79,15 @@ public class TravelAgentAccountPage {
 
             String filename = cruiseInstance.getName() + ".csv";
 
-            cruiseInstance.addRoom(newRoom, filename);
+            boolean success = cruiseInstance.addRoom(newRoom, filename);
 
+            //! JUST FOR DEMO -> REMOVE LATER
+            if (success){
+                Component reservationFrame = null;
+                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
+                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
+
+            }
             addRoomDialog.dispose();
         });
 

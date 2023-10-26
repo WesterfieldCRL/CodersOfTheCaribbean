@@ -9,15 +9,14 @@ import static Pages.CruiseAppUtilities.switchToPanel;
 public class LoginPage {
     public static JPanel createLoginPanel(JFrame frame) {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout()); // Changed to GridBagLayout for better positioning
+        panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
 
-        GridBagConstraints gbc = new GridBagConstraints(); // GridBagConstraints for positioning
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10,10,10,10); // Padding
-        //modify this to your path_to_logo.png if different
-        ImageIcon originalIcon = new ImageIcon("logo.png");//assuming you have logo stored locally
+        ImageIcon originalIcon = new ImageIcon("logo.png");
         // Scale the image
         Image scaledImage = originalIcon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
