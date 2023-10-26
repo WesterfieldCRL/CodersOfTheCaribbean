@@ -99,7 +99,7 @@ public class Cruise {
         }
     }
 
-    public void addRoom(Room room) {
+    public boolean addRoom(Room room) {
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");

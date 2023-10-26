@@ -78,7 +78,7 @@ public class TravelAgentAccountPage {
 
             Room newRoom = new Room(0, numBeds, bedType, quality, isSmoking);
 
-            cruiseInstance.addRoom(newRoom);
+            boolean success = cruiseInstance.addRoom(newRoom);
 
             //! JUST FOR DEMO -> REMOVE LATER
             if (success){
