@@ -1,6 +1,7 @@
 package Person;
 
 import java.io.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,31 +54,38 @@ public class Guest extends Person {
     }*/
 
     //Format: guestName, roomID, cost, cruiseName, currDate, startDate, endDate
-    public boolean writeReservation(Guest guest, Date start, Date end, Cruise cruise, Room room){
-        StringBuilder sb = new StringBuilder();
-        String data;
-        String pattern = "MM/dd/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String currDate = simpleDateFormat.format(new Date());
-        String startDate = simpleDateFormat.format(start);
-        String endDate = simpleDateFormat.format(end);
+    public boolean writeReservation(Date start, Date end, Cruise cruise, Room room){
 
-        sb.append(guest.getUsername());
-        sb.append(",");
-        sb.append(room.getID());
-        sb.append(",");
-        sb.append(room.getTotalCost(start,end));
-        sb.append(",");
-        sb.append(cruise.getName());
-        sb.append(",");
-        sb.append(currDate);
-        sb.append(",");
-        sb.append(startDate);
-        sb.append(",");
-        sb.append(endDate);
-        sb.append("\n");
+        java.sql.Date sqlStartDate = new java.sql.Date(start.getTime());
+        java.sql.Date sqlEndDate = new java.sql.Date(end.getTime());
 
-        data = sb.toString();
+        Date currDate = new Date();
+        java.sql.Date sqlCurrDate = new java.sql.Date(currDate.getTime());
+
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO RESERVATIONS " +
+                    "(USERNAME, ROOMID, COST, STARTDATE, ENDDATE, DATERESERVED, CRUISE) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
+            insertQuery.setString(1, this.getUsername());
+            insertQuery.setInt(2, room.getID());
+            insertQuery.setDouble(3, room.getTotalCost(start, end));
+            insertQuery.setDate(4, sqlStartDate);
+            insertQuery.setDate(5, sqlEndDate);
+            insertQuery.setDate(6, sqlCurrDate);
+            insertQuery.setString(7, cruise.getName());
+
+            insertQuery.executeUpdate();
+            //connection.close();
+            return true;
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        }
 
         return false;
     }
@@ -88,6 +96,6 @@ public class Guest extends Person {
 
         this.reservations.add(r);
 
-        return writeReservation(this, start, end, cruise, room);
+        return writeReservation(start, end, cruise, room);
     }
 }
