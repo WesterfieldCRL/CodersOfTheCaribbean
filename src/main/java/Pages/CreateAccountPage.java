@@ -32,11 +32,9 @@ public class CreateAccountPage {
         JTextField nameField = new JTextField(15);
         JTextField addressField = new JTextField(15);
         JTextField emailField = new JTextField(15);
-        JTextField creditCardNumberField = new JTextField(15);
-        JTextField creditCardExpirationDateField = new JTextField(15);
 
-        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:", "Credit Card Number:", "Credit Card Expiration Date:"};
-        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField, creditCardNumberField, creditCardExpirationDateField};
+        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"};
+        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField};
 
         for (int i = 0; i < labels.length; i++) {
             gbc.gridx = 0;

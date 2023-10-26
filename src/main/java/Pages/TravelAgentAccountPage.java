@@ -13,9 +13,8 @@ import static Pages.CruiseAppUtilities.*;
 public class TravelAgentAccountPage {
     public static JPanel createTravelAgentViewPane(JFrame frame){
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBackground(BACKGROUND_COLOR);  // Alice blue color
+        panel.setBackground(BACKGROUND_COLOR);
 
-        // Add a JComboBox for cruise selection
         String[] cruiseOptions = {"cruise1", "cruise2", "cruise3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
 

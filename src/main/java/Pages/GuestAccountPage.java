@@ -66,10 +66,8 @@ public class GuestAccountPage {
         JButton btnCruise3 = createStyledButton("Cruise3", DEFAULT_FONT, BUTTON_COLOR);
 
 
-        // Model and JList
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
         JList<Room> roomList = new JList<>(roomListModel);
-
 
         roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         roomList.setEnabled(true);
@@ -80,11 +78,10 @@ public class GuestAccountPage {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
                 // Set the default background and foreground colors
-                label.setBackground(Color.WHITE);
+                label.setBackground(BACKGROUND_COLOR);
                 label.setForeground(Color.BLACK);
                 label.setOpaque(true);
 
-                // For selected items
                 if (isSelected) {
                     label.setBackground(Color.BLUE);
                     label.setForeground(Color.WHITE);
@@ -181,7 +178,6 @@ public class GuestAccountPage {
         return panel;
     }
 
-    //testing
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
@@ -219,7 +215,6 @@ public class GuestAccountPage {
 
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
                                                    JFormattedTextField endDateField, Cruise cruise) {
-        // Create a new JFrame for the reservation detail panel
         JFrame reservationFrame = new JFrame("Reservation Details");
         reservationFrame.setSize(400, 300);
 
@@ -252,7 +247,7 @@ public class GuestAccountPage {
                         JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
 
-            reservationFrame.dispose(); // close the reservation frame
+            reservationFrame.dispose();
         });
 
         panel.add(scrollPane, BorderLayout.CENTER);
