@@ -83,7 +83,17 @@ public class TravelAgentAccountPage {
 
             String filename = cruiseInstance.getName() + ".csv";
 
-            cruiseInstance.addRoom(newRoom, filename);
+            boolean success = cruiseInstance.addRoom(newRoom, filename);
+
+            //! JUST FOR DEMO -> REMOVE LATER
+            if (success){
+                Component reservationFrame = null;
+                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
+                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
+
+            }
+            
+            
 
             addRoomDialog.dispose();
         });

@@ -53,7 +53,7 @@ public class CreateAccountPage {
                     addressField.getText(), emailField.getText());
             boolean success = guest.createAccount();
             if (success) {
-                JOptionPane.showMessageDialog(null, "Account created successfully!");
+                JOptionPane.showMessageDialog(null, "Account created successfully!","Create Account Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
                 switchToPanel(frame, "Login");
             } else {
                 JOptionPane.showMessageDialog(null, "Error creating account. Please ensure your details are correct and try again.");
@@ -61,10 +61,8 @@ public class CreateAccountPage {
         });
 
         //TODO: POSITION THIS BETETR
-        // Create the back button
         JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
 
-        // Add action listener to switch back to the login panel
         backButton.addActionListener(e -> {
             switchToPanel(frame, "Login");
         });

@@ -88,7 +88,7 @@ public class Cruise {
         }
     }
 
-    public void addRoom(Room room, String fileName) {
+    public boolean addRoom(Room room, String fileName) {
         roomList.add(room);
 
         try (FileWriter fw = new FileWriter(fileName, true)) {
@@ -98,7 +98,7 @@ public class Cruise {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        return true;
     }
 
     public String getName() {
