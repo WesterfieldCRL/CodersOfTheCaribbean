@@ -1,14 +1,13 @@
 package Cruise;
 
-import Person.Admin;
-import Person.Guest;
-import Person.Manager;
-import Person.TravelAgent;
+
 
 import java.io.*;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class Cruise {
     private String name;
@@ -22,62 +21,74 @@ public class Cruise {
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
-                                          boolean isSmoking, Date startDate, Date endDate)
+                                     boolean isSmoking, Date startDate, Date endDate)
     {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader( name + ".csv"));
-            String line;
-            reader.readLine(); //TODO: get travel path here
-            while ((line = reader.readLine()) != null) {
-                String[] col = line.split(",");
-                if (Integer.parseInt(col[1]) == numBeds && Room.BedType.valueOf(col[2]).equals(bedType)
-                        && Room.Quality.valueOf(col[3]).equals(quality) && Boolean.parseBoolean(col[4]) == isSmoking)
-                {   //Find next room matching criteria
-                    Room room = new Room(Integer.parseInt(col[0]), numBeds, bedType, quality, isSmoking);
 
-                    if (!isRoomReserved(room, startDate, endDate))
-                    {
+        Connection connection = null;
+        if (!startDate.after(endDate)) {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+                connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+                PreparedStatement roomQuery = connection.prepareStatement("SELECT * FROM " + name +
+                        " WHERE BEDNUMBER = ? AND BEDTYPE = ? AND ROOMTYPE = ? AND ISSMOKING = ?");
+                //get all rooms matching the inputted query
+                roomQuery.setInt(1, numBeds);
+                roomQuery.setString(2, bedType.toString());
+                roomQuery.setString(3, quality.toString());
+                roomQuery.setBoolean(4, isSmoking);
+
+                ResultSet rooms = roomQuery.executeQuery();
+
+                while (rooms.next()) {
+
+                    Room room = new Room(rooms.getInt("ID"),
+                            rooms.getInt("BEDNUMBER"),
+                            Room.BedType.valueOf(rooms.getString("BEDTYPE")),
+                            Room.Quality.valueOf(rooms.getString("ROOMTYPE")),
+                            rooms.getBoolean("ISSMOKING"));
+
+
+                    PreparedStatement reservationQuery = connection.prepareStatement(
+                            "SELECT * FROM RESERVATIONS WHERE CRUISE = ? AND ROOMID = ?");
+                    //get all reservations for the specific room on this cruise
+                    reservationQuery.setString(1, name);
+                    reservationQuery.setInt(2, room.getID());
+
+                    ResultSet rs = reservationQuery.executeQuery();
+
+                    boolean isReserved = false;
+                    while (rs.next()) {
+                        Date reservedStart = rs.getDate("STARTDATE");
+                        Date reservedEnd = rs.getDate("ENDDATE");
+
+                        if (!reservedStart.after(endDate) && !reservedEnd.before(startDate)) {
+                            isReserved = true;
+                        }
+                    }
+
+                    if (!isReserved) {
+                        connection.close();
                         return Optional.of(room);
                     }
                 }
-            }
-        } catch (IOException | IllegalArgumentException e) {
-            System.out.println("Invalid data in " + name + ".csv");
-            return Optional.empty();
-        }
 
 
-
-        return Optional.empty();
-    }
-
-    //return true if room is reserved
-    private boolean isRoomReserved(Room room, Date startDate, Date endDate)
-    {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        try {
-            BufferedReader reader2 = new BufferedReader(new FileReader( "Reservations.txt"));
-            String line2;
-            while ((line2 = reader2.readLine()) != null) {
-                String[] col2 = line2.split(",");
-                if (col2[3].equals(name) && Integer.parseInt(col2[1]) == room.getID())
-                {
-                    Date reservedStart = simpleDateFormat.parse(col2[5]);
-                    Date reservedEnd = simpleDateFormat.parse(col2[6]);
-
-                    if(!reservedStart.after(endDate) && !reservedEnd.before(startDate))
-                    {
-                        return true;
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
                     }
-
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException | IllegalArgumentException | ParseException e) {
-            System.out.println("Invalid data in Reservations.txt");
-            return true;
         }
-        return false;
+
+        return Optional.empty();
     }
 
     public void printCruise() {
@@ -88,15 +99,38 @@ public class Cruise {
         }
     }
 
-    public boolean addRoom(Room room, String fileName) {
-        roomList.add(room);
+    public void addRoom(Room room) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-        try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.append("\n" + room.getID() + "," + room.getNumBeds() + "," + room.getBedType() +
-                    "," + room.getQuality() + "," + room.isSmoking());
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO " + name +
+                            "(BEDNUMBER, BEDTYPE, ROOMTYPE, ISSMOKING) " +
+                            "VALUES(?, ?, ?, ?)");
+
+            statement.setInt(1, room.getNumBeds());
+            statement.setString(2, room.getBedType().toString());
+            statement.setString(3, room.getQuality().toString());
+            statement.setBoolean(4, room.isSmoking());
+
+            statement.executeUpdate();
+
+
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
@@ -120,36 +154,44 @@ public class Cruise {
     public static Optional<Cruise> getCruise(String cruiseName)
     {
         Cruise cruise = new Cruise(cruiseName);
+        Connection connection = null;
+        ArrayList<Room> roomList = new ArrayList<Room>();
+
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(cruiseName + ".csv"));
-            String line;
-            reader.readLine(); //TODO: get travel path here
-            while ((line = reader.readLine()) != null) {
-                String[] col = line.split(",");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-                int id = Integer.parseInt(col[0]);
-                int numBeds = Integer.parseInt(col[1]);
-                Room.BedType bedType = Room.BedType.valueOf(col[2]);
-                Room.Quality quality = Room.Quality.valueOf(col[3]);
-                boolean isSmoking = Boolean.parseBoolean(col[4]);
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM " + cruiseName);
 
+            ResultSet rs = statement.executeQuery();
 
-                Room r = new Room(id, numBeds, bedType, quality, isSmoking);
+            while (rs.next())
+            {
+                Room room = new Room();
+                room.setID(rs.getInt("ID"));
+                room.setNumBeds(rs.getInt("BEDNUMBER"));
+                room.setBedType(Room.BedType.valueOf(rs.getString("BEDTYPE")));
+                room.setQuality(Room.Quality.valueOf(rs.getString("ROOMTYPE")));
+                room.setSmoking(rs.getBoolean("ISSMOKING"));
 
-                cruise.roomList.add(r);
+                roomList.add(room);
             }
+
+            cruise.setRoomList(roomList);
             return Optional.of(cruise);
-        } catch (IOException | IllegalArgumentException e) {
-            return Optional.empty();
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
         }
+        return Optional.empty();
     }
 
     public class Destination {
         Date arrival;
         Date departure;
         String location;
-
-
 
     }
 

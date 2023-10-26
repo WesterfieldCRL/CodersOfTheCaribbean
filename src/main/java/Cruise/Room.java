@@ -6,10 +6,6 @@ import java.util.Optional;
 
 public class Room {
 
-    //added this for no room display. pls no remove
-    public Room() {
-    }
-
     public enum Quality {
         ECONOMY,
         COMFORT,
@@ -23,22 +19,16 @@ public class Room {
         KING
     }
 
-    /*public enum RoomStatus {
-        NOT_RESERVED,
-        RESERVED,
-        ON_BOARD,
-        DONE
-    }*/
-
     private int roomNum;
     private int numBeds;
     private Room.BedType bedType;
     private Room.Quality quality;
     private boolean isSmoking;
-    //private Room.RoomStatus roomStatus;
+
+    public Room() {}
 
     public Room(int ID, int numBeds, Room.BedType bedType, Room.Quality quality,
-                boolean isSmoking/*, Room.RoomStatus rs*/) {
+                boolean isSmoking) {
         this.quality = quality;
         this.bedType = bedType;
         this.isSmoking = isSmoking;

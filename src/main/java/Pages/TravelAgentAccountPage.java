@@ -15,7 +15,8 @@ public class TravelAgentAccountPage {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(BACKGROUND_COLOR);
 
-        String[] cruiseOptions = {"cruise1", "cruise2", "cruise3"};
+        // Add a JComboBox for cruise selection
+        String[] cruiseOptions = {"CRUISE1", "CRUISE2", "CRUISE3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
 
         JPanel centerPanel = new JPanel();
@@ -49,9 +50,9 @@ public class TravelAgentAccountPage {
         JDialog addRoomDialog = new JDialog(parentFrame, "Add Room", true);
         addRoomDialog.setLayout(new GridLayout(7, 2));
 
-        //TODO: Add any option for all
-        JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
-        JTextField idField = new JTextField();
+        // Components for Room ID
+        //JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
+        //JTextField idField = new JTextField();
 
         JLabel numOfBedsLabel = createStyledLabel("Number of Beds:", new Font("Arial", Font.PLAIN, 12));
         JComboBox<Integer> numOfBedsDropdown = new JComboBox<>(new Integer[]{1, 2, 3, 4});
@@ -69,17 +70,15 @@ public class TravelAgentAccountPage {
         // Submit Button
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            int roomId = Integer.parseInt(idField.getText());
+            //int roomId = Integer.parseInt(idField.getText());
             int numBeds = (int) numOfBedsDropdown.getSelectedItem();
             Room.BedType bedType = (Room.BedType) bedTypeDropdown.getSelectedItem();
             Room.Quality quality = (Room.Quality) qualityDropdown.getSelectedItem();
             boolean isSmoking = smokingCheckbox.isSelected();
 
-            Room newRoom = new Room(roomId, numBeds, bedType, quality, isSmoking);
+            Room newRoom = new Room(0, numBeds, bedType, quality, isSmoking);
 
-            String filename = cruiseInstance.getName() + ".csv";
-
-            boolean success = cruiseInstance.addRoom(newRoom, filename);
+            cruiseInstance.addRoom(newRoom);
 
             //! JUST FOR DEMO -> REMOVE LATER
             if (success){
@@ -92,8 +91,8 @@ public class TravelAgentAccountPage {
         });
 
         // Add components to the dialog
-        addRoomDialog.add(idLabel);
-        addRoomDialog.add(idField);
+        //addRoomDialog.add(idLabel);
+        //addRoomDialog.add(idField);
         addRoomDialog.add(numOfBedsLabel);
         addRoomDialog.add(numOfBedsDropdown);
         addRoomDialog.add(bedTypeLabel);
