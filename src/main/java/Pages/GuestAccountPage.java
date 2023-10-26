@@ -30,7 +30,7 @@ public class GuestAccountPage {
 
         // Drop downs and date fields
         JComboBox<Room.Quality> qualityComboBox = new JComboBox<>(Room.Quality.values());
-        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});// Possibly Adjust
+        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4});
         JComboBox<Room.BedType> bedTypeComboBox = new JComboBox<>(Room.BedType.values());
         JCheckBox isSmokingCheckBox = new JCheckBox("Smoking?");
         JFormattedTextField startDateField = new JFormattedTextField(new SimpleDateFormat("MM/dd/yyyy"));
