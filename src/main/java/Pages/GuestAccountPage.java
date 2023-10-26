@@ -215,8 +215,10 @@ public class GuestAccountPage {
 
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
                                                    JFormattedTextField endDateField, Cruise cruise) {
-        JFrame reservationFrame = new JFrame("Reservation Details");
-        reservationFrame.setSize(400, 300);
+        JDialog reservationDialog = new JDialog();
+        reservationDialog.setTitle("Reservation Details");
+        reservationDialog.setModal(true);
+        reservationDialog.setSize(400, 300);
 
         Date start = (Date) startDateField.getValue();
         Date end = (Date) endDateField.getValue();
@@ -226,7 +228,8 @@ public class GuestAccountPage {
         JTextArea detailArea = new JTextArea();
         detailArea.setEditable(false);
         detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
-                + "\n" + "End Date: " + endDateField.getText()); // add more details if needed
+                + "\n" + "End Date: " + endDateField.getText() + "\n" + "Room Quality: " + room.getQuality()
+                + "\n" + "Number of Beds: " + room.getNumBeds());
         Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
         double totalReservationCost = reservation.getTotalCost();
         detailArea.append("\nTotal Cost: " + totalReservationCost);
@@ -237,24 +240,22 @@ public class GuestAccountPage {
         makeReservationButton.addActionListener(e -> {
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
-
             if (success) {
-                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
-                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
-
+                JOptionPane.showMessageDialog(reservationDialog, "Reservation made successfully!",
+                        "Reservation Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
             } else {
-                JOptionPane.showMessageDialog(reservationFrame, "Failed to make a reservation.", "Error",
+                JOptionPane.showMessageDialog(reservationDialog, "Failed to make a reservation.", "Error",
                         JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
 
-            reservationFrame.dispose();
+            reservationDialog.dispose();
         });
 
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(makeReservationButton, BorderLayout.SOUTH);
 
-        reservationFrame.add(panel);
-        reservationFrame.setVisible(true);
+        reservationDialog.add(panel);
+        reservationDialog.setVisible(true);
     }
 
 }
