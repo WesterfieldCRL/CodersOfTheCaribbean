@@ -22,7 +22,7 @@ public class Guest extends Person {
 
     public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
-        this.reservations = new ArrayList<Reservation>();
+        this.reservations = new ArrayList<>();
     }
 
     public boolean createAccount()
@@ -159,11 +159,54 @@ public class Guest extends Person {
 
 
     public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
-        Reservation r = new Reservation(this, cruise, room, start, end);
+        Reservation r = new Reservation(this, cruise.getName(), room, start, end, );
 
         this.reservations.add(r);
 
         return writeReservation(start, end, cruise, room);
+    }
+
+    protected void getReservations()
+    {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement selectQuery = connection.prepareStatement(
+                    "SELECT * FROM RESERVATIONS WHERE USERNAME = ?");
+
+            selectQuery.setString(1, this.getUsername());
+
+            ResultSet rs = selectQuery.executeQuery();
+
+            while (rs.next())
+            {
+                String cruiseName = rs.getString("CRUISE");
+                int roomID = rs.getInt("ROOMID");
+
+                Room room = Room.getRoom(cruiseName, roomID, connection);
+
+
+
+
+
+
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String getChangedPassword() {

@@ -230,9 +230,9 @@ public class GuestAccountPage {
         detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
                 + "\n" + "End Date: " + endDateField.getText() + "\n" + "Room Quality: " + room.getQuality()
                 + "\n" + "Number of Beds: " + room.getNumBeds());
-        Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
-        double totalReservationCost = reservation.getTotalCost();
-        detailArea.append("\nTotal Cost: " + totalReservationCost);
+        //Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
+        //double totalReservationCost = reservation.getTotalCost();
+        detailArea.append("\nTotal Cost: " + room.getTotalCost(start, end));
 
         JScrollPane scrollPane = new JScrollPane(detailArea);
 

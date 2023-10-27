@@ -91,6 +91,11 @@ public class Cruise {
         return Optional.empty();
     }
 
+    public ArrayList<Room> getRoomsList(Date startDate, Date endDate)
+    {
+        return null;
+    }
+
     public void printCruise() {
         System.out.println(name);
         // TODO: TRAVEL PATH
