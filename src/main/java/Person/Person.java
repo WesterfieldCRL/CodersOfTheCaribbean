@@ -1,8 +1,6 @@
 package Person;
 
-import java.io.*;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Person {
@@ -65,6 +63,10 @@ public class Person {
                                 rs.getString("NAME"),
                                 rs.getString("ADDRESS"),
                                 rs.getString("EMAIL"));
+
+                        //Loads reservations into guest
+                        guest.getReservations();
+
                         connection.close();
                         yield Optional.of(guest);
                     }

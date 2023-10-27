@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Fri Oct 27 11:49:47 CDT 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-720a-b343-00000c29bb58 
-on database directory /home/wesley/Documents/CSI 3471/GroupProject/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
-Loaded from file:/home/wesley/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+Fri Oct 27 13:38:31 CDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-726e-44e6-00003de783e0 
+on database directory D:\Idea Projects\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
+Loaded from file:/C:/Users/anast/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=21+35-LTS-2513
-user.dir=/home/wesley/Documents/CSI 3471/GroupProject/CodersOfTheCaribbean
-os.name=Linux
+user.dir=D:\Idea Projects\CodersOfTheCaribbean
+os.name=Windows 10
 os.arch=amd64
-os.version=5.15.0-87-generic
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

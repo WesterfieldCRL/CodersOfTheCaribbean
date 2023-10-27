@@ -1,16 +1,10 @@
 package Person;
 
-import java.io.*;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
-import java.util.Scanner;
-
 import Cruise.Room;
 import Cruise.Cruise;
-import Cruise.Reservation;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
@@ -159,7 +153,7 @@ public class Guest extends Person {
 
 
     public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
-        Reservation r = new Reservation(this, cruise.getName(), room, start, end, );
+        Reservation r = new Reservation(cruise.getName(), room, start, end);
 
         this.reservations.add(r);
 
@@ -183,13 +177,15 @@ public class Guest extends Person {
             {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
+                Date startDate = rs.getDate("STARTDATE");
+                Date endDate = rs.getDate("ENDDATE");
 
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
 
+                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate);
 
-
-
+                reservations.add(reservation);
 
 
             }
@@ -215,5 +211,19 @@ public class Guest extends Person {
 
     public void setChangedPassword(String changedPassword) {
         this.changedPassword = changedPassword;
+    }
+    public class Reservation {
+        public String cruiseName;
+        public Room room;
+        public  Date startDate;
+        public Date endDate;
+
+        // Constructor
+        public Reservation(String cruiseName, Room room, Date startDate, Date endDate) {
+            this.cruiseName = cruiseName;
+            this.room = room;
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
     }
 }
