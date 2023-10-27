@@ -1,8 +1,5 @@
 package Person;
 
-import java.io.*;
-import java.util.Optional;
-
 public class Manager extends Person{
 
     public Manager(String username, String password, String name, String address, String email) {

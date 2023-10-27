@@ -1,10 +1,8 @@
 package Person;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 public class Admin extends Person {
     public Admin(String username, String password, String name, String address, String email) {
