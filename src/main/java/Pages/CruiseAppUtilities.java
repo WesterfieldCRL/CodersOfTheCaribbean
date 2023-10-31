@@ -58,6 +58,9 @@ public class CruiseAppUtilities {
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
                 switchToPanel(frame, "Travel Agent");
             }
+            else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
+                switchToPanel(frame, "Admin");
+            }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
         } else {
