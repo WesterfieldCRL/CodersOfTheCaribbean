@@ -1,16 +1,10 @@
 package Person;
 
-import java.io.*;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
-import java.util.Scanner;
-
 import Cruise.Room;
 import Cruise.Cruise;
-import Cruise.Reservation;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
@@ -18,10 +12,11 @@ public class Guest extends Person {
     private String creditCardExpirationDate;
     private ArrayList<Reservation> reservations;
 
-    // Constructor
+    private String changedPassword;
+
     public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
-        this.reservations = new ArrayList<Reservation>();
+        this.reservations = new ArrayList<>();
     }
 
     public boolean createAccount()
@@ -29,31 +24,88 @@ public class Guest extends Person {
         return createGenericAccount("GUEST");
     }
 
-    /*public void requestPasswordReset()
+    public static void resetRequest(String username, String password)
     {
-        if (conflictChecker(this.getUsername(), "resetRequests.txt")) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            //Check that username exists
+            PreparedStatement searchQuery = connection.prepareStatement(
+                    "SELECT USERNAME FROM LOGINDATA WHERE USERNAME = ?");
+
+            searchQuery.setString(1, username);
+
+            ResultSet rs = searchQuery.executeQuery();
+
+            if (rs.next())
+            {
+
+                //Check if request has already been submitted exists
+                PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM PASSWORDRESETS WHERE USERNAME = ?");
+                statement.setString(1, username);
+
+                ResultSet rs2 = statement.executeQuery();
+
+                if (!rs2.next()) {
+
+                    PreparedStatement insertQuery = connection.prepareStatement(
+                            "INSERT INTO PASSWORDRESETS (USERNAME, NEWPASSWORD) VALUES (?, ?)");
+
+                    insertQuery.setString(1, username);
+                    insertQuery.setString(2, password);
+
+                    insertQuery.executeUpdate();
+                }
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
             try {
-                // Set the second argument to 'true' to enable appending
-                FileWriter fileWriter = new FileWriter("resetRequests.txt", true);
-
-                // Write the data to the file
-                fileWriter.write(this.getUsername() + "\n");
-
-                // Close the file writer
-                fileWriter.close();
-
-            } catch (IOException e) {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void updateLoginData()
+    public void resetPassword()
     {
-        this.updateLoginInfo("GUEST");
-    }*/
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement updateQuery = connection.prepareStatement(
+                    "UPDATE LOGINDATA SET PASSWORD = ? WHERE USERNAME = ?");
 
-    //Format: guestName, roomID, cost, cruiseName, currDate, startDate, endDate
+            updateQuery.setString(1, this.getChangedPassword());
+            updateQuery.setString(2, this.getUsername());
+
+            updateQuery.execute();
+
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public boolean writeReservation(Date start, Date end, Cruise cruise, Room room){
 
         java.sql.Date sqlStartDate = new java.sql.Date(start.getTime());
@@ -101,10 +153,77 @@ public class Guest extends Person {
 
 
     public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
-        Reservation r = new Reservation(this, cruise, room, start, end);
+        Reservation r = new Reservation(cruise.getName(), room, start, end);
 
         this.reservations.add(r);
 
         return writeReservation(start, end, cruise, room);
+    }
+
+    protected void getReservations()
+    {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement selectQuery = connection.prepareStatement(
+                    "SELECT * FROM RESERVATIONS WHERE USERNAME = ?");
+
+            selectQuery.setString(1, this.getUsername());
+
+            ResultSet rs = selectQuery.executeQuery();
+
+            while (rs.next())
+            {
+                String cruiseName = rs.getString("CRUISE");
+                int roomID = rs.getInt("ROOMID");
+                Date startDate = rs.getDate("STARTDATE");
+                Date endDate = rs.getDate("ENDDATE");
+
+                Room room = Room.getRoom(cruiseName, roomID, connection);
+
+
+                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate);
+
+                reservations.add(reservation);
+
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String getChangedPassword() {
+        return changedPassword;
+    }
+
+    public void setChangedPassword(String changedPassword) {
+        this.changedPassword = changedPassword;
+    }
+    public class Reservation {
+        public String cruiseName;
+        public Room room;
+        public  Date startDate;
+        public Date endDate;
+
+        // Constructor
+        public Reservation(String cruiseName, Room room, Date startDate, Date endDate) {
+            this.cruiseName = cruiseName;
+            this.room = room;
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
     }
 }

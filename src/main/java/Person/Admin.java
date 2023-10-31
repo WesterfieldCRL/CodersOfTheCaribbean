@@ -1,9 +1,8 @@
 package Person;
 
-import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 public class Admin extends Person {
     public Admin(String username, String password, String name, String address, String email) {
@@ -15,50 +14,45 @@ public class Admin extends Person {
         return createGenericAccount("ADMIN");
     }
 
-    //Note: if there are no names in the file, this function will return an empty collection
-    /*public Collection<Guest> getResetRequests()
+    public Collection<Guest> getResetRequests() //If no requests, collection will be empty
     {
         ArrayList<Guest> guests = new ArrayList<Guest>();
+        Connection connection = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("resetRequests.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Optional<Guest> guest = getGuest(line);
-                guest.ifPresent(guests::add);
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement selectQuery = connection.prepareStatement(
+                    "SELECT * FROM PASSWORDRESETS INNER JOIN LOGINDATA on LOGINDATA.USERNAME = PASSWORDRESETS.USERNAME");
+            ResultSet rs = selectQuery.executeQuery();
+
+            while (rs.next())
+            {
+                String username = rs.getString("USERNAME");
+                String password = rs.getString("PASSWORD");
+                String name = rs.getString("NAME");
+                String email = rs.getString("EMAIL");
+                String address =rs.getString("ADDRESS");
+                Guest guest = new Guest(username, password, name, address, email);
+                guest.setChangedPassword(rs.getString("NEWPASSWORD"));
+                guests.add(guest);
             }
-        } catch (IOException e) {
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return guests;
     }
-
-    private Optional<Guest> getGuest(String username)
-    {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("loginData.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(username) && parts[2].equals("GUEST"))
-                {
-                    Guest guest = new Guest(parts[0], parts[1], parts[3], parts[4], parts[5]);
-                    return Optional.of(guest);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
-
-    /*public void resetGuestPassword(String username, String password, Guest guest)
-    {
-        guest.setPassword(password);
-        guest.updateLoginData();
-        ArrayList<String> usernames = readFile("resetRequests.txt");
-        usernames.remove(username);
-        overwriteFile("resetRequests.txt",usernames);
-    }*/
 
 }
 

@@ -1,8 +1,11 @@
 package Cruise;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
 
 public class Room {
 
@@ -108,6 +111,29 @@ public class Room {
         }
 
         return factor;
+    }
+
+    public static Room getRoom(String cruiseName, int id, Connection connection)
+    {
+        try {
+            PreparedStatement roomQuery = connection.prepareStatement(
+                    "SELECT * FROM "+ cruiseName +" WHERE ID = ?");
+
+            roomQuery.setInt(1, id);
+
+            ResultSet roomSet = roomQuery.executeQuery();
+
+            roomSet.next();
+
+            return new Room(id,
+                    roomSet.getInt("BEDNUMBER"),
+                    BedType.valueOf(roomSet.getString("BEDTYPE")),
+                    Quality.valueOf(roomSet.getString("ROOMTYPE")),
+                    roomSet.getBoolean("ISSMOKING"));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Getters and setters

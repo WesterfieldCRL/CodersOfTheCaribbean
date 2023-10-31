@@ -1,11 +1,6 @@
 package Cruise;
 
-
-
-import java.io.*;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
@@ -89,6 +84,11 @@ public class Cruise {
         }
 
         return Optional.empty();
+    }
+
+    public ArrayList<Room> getRoomsList(Date startDate, Date endDate)
+    {
+        return null;
     }
 
     public void printCruise() {
