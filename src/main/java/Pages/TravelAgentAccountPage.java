@@ -83,7 +83,7 @@ public class TravelAgentAccountPage {
             //! JUST FOR DEMO -> REMOVE LATER
             if (success){
                 Component reservationFrame = null;
-                JOptionPane.showMessageDialog(reservationFrame, "Added room successfully!",
+                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
                         "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
 
             }
