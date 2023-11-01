@@ -1,5 +1,6 @@
 package Pages;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ public class GuestAccountPage {
 
     public static JPanel createGuestViewPanel(JFrame frame) {
 
+
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
@@ -42,6 +44,7 @@ public class GuestAccountPage {
 
         // Organize above components in a panel
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        filterPanel.setVisible(false);
         filterPanel.add(new JLabel("Quality:"));
         filterPanel.add(qualityComboBox);
         filterPanel.add(new JLabel("Num Beds:"));
@@ -58,11 +61,15 @@ public class GuestAccountPage {
             comp.setFont(DEFAULT_FONT);
         }
 
-        // Buttons for cruise search
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton btnCruise1 = createStyledButton("Cruise1", DEFAULT_FONT, BUTTON_COLOR);
-        JButton btnCruise2 = createStyledButton("Cruise2", DEFAULT_FONT, BUTTON_COLOR);
-        JButton btnCruise3 = createStyledButton("Cruise3", DEFAULT_FONT, BUTTON_COLOR);
+        JTabbedPane cruiseTabs = new JTabbedPane();
+        JPanel panelCruise1 = new JPanel();
+        JPanel panelCruise2 = new JPanel();
+        JPanel panelCruise3 = new JPanel();
+
+        cruiseTabs.addTab("Cruise1", panelCruise1);
+        cruiseTabs.addTab("Cruise2", panelCruise2);
+        cruiseTabs.addTab("Cruise3", panelCruise3);
+
 
 
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
@@ -76,7 +83,6 @@ public class GuestAccountPage {
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-                // Set the default background and foreground colors
                 label.setBackground(BACKGROUND_COLOR);
                 label.setForeground(Color.BLACK);
                 label.setOpaque(true);
@@ -102,30 +108,34 @@ public class GuestAccountPage {
             }
         });
 
-        //i know its repetitive ill fix later
-        btnCruise1.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise1", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise1");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
-            }
-        });
+        cruiseTabs.addChangeListener(e -> {
+//            filterPanel.setVisible(true);
+            JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+            int index = sourceTabbedPane.getSelectedIndex();
 
-        btnCruise2.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise2", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise2");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
-            }
-        });
+            switch(index) {
+                case 0:
+                    updateAllRoomsForCruise("cruise1", roomListModel);
+                    Optional<Cruise> optionalCruise = getCruise("cruise1");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+                    break;
+                case 1:
+                    updateAllRoomsForCruise("cruise2", roomListModel);
+                    optionalCruise = getCruise("cruise2");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
 
-        btnCruise3.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise3", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise3");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
+                    break;
+                case 2:
+                    updateAllRoomsForCruise("cruise3", roomListModel);
+                    optionalCruise = getCruise("cruise3");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+
+                    break;
             }
         });
+        updateAllRoomsForCruise("cruise1", roomListModel);
+
+
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
@@ -147,16 +157,9 @@ public class GuestAccountPage {
         });
 
         JLabel displayInstructions = new JLabel("Display rooms for:");
-        buttonPanel.add(displayInstructions);
 
 
-        buttonPanel.add(btnCruise1);
-        buttonPanel.add(btnCruise2);
-        buttonPanel.add(btnCruise3);
 
-
-        Dimension buttonPanelDimensions = new Dimension(100, 100);
-        buttonPanel.setPreferredSize(buttonPanelDimensions);
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
@@ -167,12 +170,12 @@ public class GuestAccountPage {
         usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
 
-        topPanel.add(buttonPanel, BorderLayout.NORTH);
+        topPanel.add(cruiseTabs, BorderLayout.NORTH);
         topPanel.add(filterPanel, BorderLayout.CENTER);
         topPanel.add(usageInstructions, BorderLayout.SOUTH);
 
         panel.add(topPanel, BorderLayout.NORTH);
-        panel.add(scrollPane, BorderLayout.CENTER); // Put the list in the center so it gets more space
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
     }
