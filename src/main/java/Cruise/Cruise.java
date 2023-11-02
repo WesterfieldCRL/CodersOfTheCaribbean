@@ -2,7 +2,7 @@ package Cruise;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
+import java.time.*;
 
 public class Cruise {
     private String name;
@@ -16,11 +16,11 @@ public class Cruise {
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
-                                     boolean isSmoking, Date startDate, Date endDate)
+                                     boolean isSmoking, LocalDate startDate, LocalDate endDate)
     {
 
         Connection connection = null;
-        if (!startDate.after(endDate)) {
+        if (!startDate.isAfter(endDate)) {
             try {
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
@@ -55,10 +55,10 @@ public class Cruise {
 
                     boolean isReserved = false;
                     while (rs.next()) {
-                        Date reservedStart = rs.getDate("STARTDATE");
-                        Date reservedEnd = rs.getDate("ENDDATE");
+                        LocalDate reservedStart = rs.getDate("STARTDATE").toLocalDate();
+                        LocalDate reservedEnd = rs.getDate("ENDDATE").toLocalDate();
 
-                        if (!reservedStart.after(endDate) && !reservedEnd.before(startDate)) {
+                        if (!reservedStart.isAfter(endDate) && !reservedEnd.isBefore(startDate)) {
                             isReserved = true;
                         }
                     }
@@ -86,7 +86,7 @@ public class Cruise {
         return Optional.empty();
     }
 
-    public ArrayList<Room> getRoomsList(Date startDate, Date endDate)
+    public ArrayList<Room> getRoomsList(LocalDate startDate, LocalDate endDate)
     {
         return null;
     }
@@ -189,8 +189,8 @@ public class Cruise {
     }
 
     public class Destination {
-        Date arrival;
-        Date departure;
+        LocalDate arrival;
+        LocalDate departure;
         String location;
 
     }
