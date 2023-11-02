@@ -8,11 +8,13 @@ public class Cruise {
     private String name;
     private ArrayList<Room> roomList;
 
+    private ArrayList<Destination> travelPath;
     //TODO: add travel path
 
     public Cruise(String name) {
         this.name = name;
         roomList = new ArrayList<>();
+        travelPath = new ArrayList<>();
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
@@ -135,22 +137,6 @@ public class Cruise {
         return true;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Room> getRoomList() {
-        return roomList;
-    }
-
-    public void setRoomList(ArrayList<Room> roomList) {
-        this.roomList = roomList;
-    }
-
     public static Optional<Cruise> getCruise(String cruiseName)
     {
         Cruise cruise = new Cruise(cruiseName);
@@ -179,19 +165,105 @@ public class Cruise {
             }
 
             cruise.setRoomList(roomList);
+            connection.close();
             return Optional.of(cruise);
 
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return Optional.empty();
     }
 
+    public void createTravelPath()
+    {
+        travelPath = new ArrayList<>();
+        Connection connection = null;
+        Clock clock = Clock.systemDefaultZone();
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM " + name + "PATH"); //Ignore error, works fine
+
+            ResultSet rs = statement.executeQuery();
+
+            int daysElapsed = 0;
+
+            while (rs.next())
+            {
+                String place = rs.getString("LOCATION");
+                int stepTime = rs.getInt("TRAVELDAYS");
+                daysElapsed += 1;
+                LocalDate departure = LocalDate.now(clock).plusDays(daysElapsed);
+                LocalDate arrival = LocalDate.now(clock).plusDays(stepTime+daysElapsed);
+                daysElapsed += stepTime;
+                Destination step = new Destination(place, departure, arrival);
+                travelPath.add(step);
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printTravePath()
+    {
+        for (Destination step : travelPath)
+        {
+            System.out.print(step.location + " -- ");
+            System.out.print(step.departure + " -- ");
+            System.out.println(step.arrival);
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(ArrayList<Room> roomList) {
+        this.roomList = roomList;
+    }
+
     public class Destination {
-        LocalDate arrival;
-        LocalDate departure;
-        String location;
+        public LocalDate arrival;
+        public LocalDate departure;
+        public String location;
+
+        public Destination(String location, LocalDate departure, LocalDate arrival) {
+            this.arrival = arrival;
+            this.departure = departure;
+            this.location = location;
+        }
 
     }
 
