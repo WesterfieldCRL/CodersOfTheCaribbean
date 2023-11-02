@@ -2,9 +2,8 @@ package Person;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
-import Cruise.Room;
-import Cruise.Cruise;
+import java.time.*;
+import Cruise.*;
 
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
@@ -106,13 +105,9 @@ public class Guest extends Person {
         }
     }
 
-    public boolean writeReservation(Date start, Date end, Cruise cruise, Room room){
+    public boolean writeReservation(LocalDate start, LocalDate end, Cruise cruise, Room room){
 
-        java.sql.Date sqlStartDate = new java.sql.Date(start.getTime());
-        java.sql.Date sqlEndDate = new java.sql.Date(end.getTime());
-
-        Date currDate = new Date();
-        java.sql.Date sqlCurrDate = new java.sql.Date(currDate.getTime());
+        Clock clock = Clock.systemDefaultZone();
 
         Connection connection = null;
 
@@ -125,9 +120,9 @@ public class Guest extends Person {
             insertQuery.setString(1, this.getUsername());
             insertQuery.setInt(2, room.getID());
             insertQuery.setDouble(3, room.getTotalCost(start, end));
-            insertQuery.setDate(4, sqlStartDate);
-            insertQuery.setDate(5, sqlEndDate);
-            insertQuery.setDate(6, sqlCurrDate);
+            insertQuery.setDate(4, Date.valueOf(start));
+            insertQuery.setDate(5, Date.valueOf(end));
+            insertQuery.setDate(6, Date.valueOf(LocalDate.now(clock)));
             insertQuery.setString(7, cruise.getName());
 
             insertQuery.executeUpdate();
@@ -152,7 +147,7 @@ public class Guest extends Person {
     }
 
 
-    public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
+    public boolean makeReservation(Room room, LocalDate start, LocalDate end, Cruise cruise){
         Reservation r = new Reservation(cruise.getName(), room, start, end);
 
         this.reservations.add(r);
@@ -177,8 +172,8 @@ public class Guest extends Person {
             {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
-                Date startDate = rs.getDate("STARTDATE");
-                Date endDate = rs.getDate("ENDDATE");
+                LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
+                LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
 
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
@@ -215,11 +210,11 @@ public class Guest extends Person {
     public class Reservation {
         public String cruiseName;
         public Room room;
-        public  Date startDate;
-        public Date endDate;
+        public  LocalDate startDate;
+        public LocalDate endDate;
 
         // Constructor
-        public Reservation(String cruiseName, Room room, Date startDate, Date endDate) {
+        public Reservation(String cruiseName, Room room, LocalDate startDate, LocalDate endDate) {
             this.cruiseName = cruiseName;
             this.room = room;
             this.startDate = startDate;
