@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.Date;
+import java.time.*;
 
 public class Room {
 
@@ -76,23 +77,13 @@ public class Room {
         return total;
     }
 
-    public double getTotalCost(Date startDate, Date endDate)
+    public double getTotalCost(LocalDate startDate, LocalDate endDate)
     {
         double rate = getMaximumDailyRate();
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(startDate);
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(endDate);
 
-        // Calculate the difference in milliseconds
-        long milliseconds1 = cal1.getTimeInMillis();
-        long milliseconds2 = cal2.getTimeInMillis();
-        long timeDifference = milliseconds2 - milliseconds1;
+        long timeDifference = ChronoUnit.DAYS.between(startDate, endDate);
 
-        // Convert milliseconds to days
-        long days = timeDifference / (1000 * 60 * 60 * 24);
-
-        return rate*days;
+        return rate*timeDifference;
 
     }
 

@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.time.*;
 import java.util.Date;
 import java.util.Optional;
 
@@ -200,8 +201,8 @@ public class GuestAccountPage {
                     (Integer) numBedsComboBox.getSelectedItem(),
                     (Room.BedType) bedTypeComboBox.getSelectedItem(),
                     isSmokingCheckBox.isSelected(),
-                    (Date) startDateField.getValue(),
-                    (Date) endDateField.getValue()
+                    ((Date) startDateField.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(),
+                    ((Date) endDateField.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate()
             );
 
             roomListModel.clear();
@@ -219,8 +220,8 @@ public class GuestAccountPage {
         reservationDialog.setModal(true);
         reservationDialog.setSize(400, 300);
 
-        Date start = (Date) startDateField.getValue();
-        Date end = (Date) endDateField.getValue();
+        LocalDate start = ((Date) startDateField.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = ((Date) endDateField.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
 
         JPanel panel = new JPanel(new BorderLayout());
 
