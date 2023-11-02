@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.time.*;
 import Cruise.*;
 
+
+
+//fix date changes to correspond
+//commit and push
+
 public class Guest extends Person {
     //TODO: decide if billing information is a seperate class
     private String creditCardNumber;
@@ -148,11 +153,64 @@ public class Guest extends Person {
 
 
     public boolean makeReservation(Room room, LocalDate start, LocalDate end, Cruise cruise){
-        Reservation r = new Reservation(cruise.getName(), room, start, end);
+        boolean b = writeReservation(start, end, cruise, room);
 
-        this.reservations.add(r);
+        getReservations();
 
-        return writeReservation(start, end, cruise, room);
+        return b;
+    }
+
+    public boolean cancelReservation(int reservationId){
+        //TODO: proper cancellation penalties
+
+        Reservation toCancel = null;
+        Clock clock = Clock.systemDefaultZone();
+
+        for(Reservation r : this.reservations){
+            if(r.id == reservationId){
+                toCancel = r;
+                break;
+            }
+        }
+
+        //if has no reservations or could not find reservation
+        if(toCancel == null){
+            return false;
+        }
+
+        //if attempting to cancel after reservation start date
+        if(toCancel.startDate.isBefore(LocalDate.now())){
+            return false;
+        }
+
+        //delete from guest's list of reservations
+        this.reservations.remove(toCancel);
+
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM " +
+                    "RESERVATIONS WHERE ID = " + reservationId);
+
+            deleteQuery.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
     protected void getReservations()
@@ -174,15 +232,14 @@ public class Guest extends Person {
                 int roomID = rs.getInt("ROOMID");
                 LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
+                int id = rs.getInt("ID");
 
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
 
-                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate);
+                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
 
                 reservations.add(reservation);
-
-
             }
 
         } catch (ClassNotFoundException | SQLException e)
@@ -212,13 +269,15 @@ public class Guest extends Person {
         public Room room;
         public  LocalDate startDate;
         public LocalDate endDate;
+        public int id;
 
         // Constructor
-        public Reservation(String cruiseName, Room room, LocalDate startDate, LocalDate endDate) {
+        public Reservation(String cruiseName, Room room, LocalDate startDate, LocalDate endDate, int id) {
             this.cruiseName = cruiseName;
             this.room = room;
             this.startDate = startDate;
             this.endDate = endDate;
+            this.id = id;
         }
     }
 }
