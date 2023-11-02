@@ -153,73 +153,15 @@ public class Guest extends Person {
 
 
     public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
-        //Reservation r = new Reservation(cruise.getName(), room, start, end);
+        Reservation r = new Reservation(cruise.getName(), room, start, end);
 
-        //this.reservations.add(r);
+        this.reservations.add(r);
 
-        boolean b = writeReservation(start, end, cruise, room);
-
-        getReservations();
-
-        return b;
-    }
-
-    public boolean cancelReservation(int reservationId){
-        //TODO: proper cancellation penalties
-
-        Reservation toCancel = null;
-        Date currDate = new Date();
-
-        for(Reservation r : this.reservations){
-            if(r.id == reservationId){
-                toCancel = r;
-                break;
-            }
-        }
-
-        //if has no reservations or could not find reservation
-        if(toCancel == null){
-            return false;
-        }
-
-        //if attempting to cancel after reservation start date
-        if(toCancel.startDate.before(currDate)){
-            return false;
-        }
-
-        //delete from guest's list of reservations
-        this.reservations.remove(toCancel);
-
-        Connection connection = null;
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
-
-            PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM " +
-                    "RESERVATIONS WHERE ID = " + reservationId);
-
-                    deleteQuery.executeUpdate();
-                    connection.close();
-
-                    return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
+        return writeReservation(start, end, cruise, room);
     }
 
     protected void getReservations()
     {
-        //reservations = null;
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -237,11 +179,11 @@ public class Guest extends Person {
                 int roomID = rs.getInt("ROOMID");
                 Date startDate = rs.getDate("STARTDATE");
                 Date endDate = rs.getDate("ENDDATE");
-                int id = rs.getInt("ID");
+
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
 
-                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
+                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate);
 
                 reservations.add(reservation);
 
@@ -275,15 +217,13 @@ public class Guest extends Person {
         public Room room;
         public  Date startDate;
         public Date endDate;
-        public int id;
 
         // Constructor
-        public Reservation(String cruiseName, Room room, Date startDate, Date endDate, int id) {
+        public Reservation(String cruiseName, Room room, Date startDate, Date endDate) {
             this.cruiseName = cruiseName;
             this.room = room;
             this.startDate = startDate;
             this.endDate = endDate;
-            this.id = id;
         }
     }
 }
