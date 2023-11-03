@@ -17,6 +17,8 @@ cruiseDatabase/log/log1.dat
 *.iws
 *.iml
 *.ipr
+derby.log
+cruiseDatabase/*.lck
 
 ### Eclipse ###
 .apt_generated
