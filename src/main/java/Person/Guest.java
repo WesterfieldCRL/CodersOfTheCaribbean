@@ -6,7 +6,7 @@ import java.time.*;
 import Cruise.*;
 
 public class Guest extends Person {
-    //TODO: decide if billing information is a seperate class
+    //TODO: decide if billing information is a seperate class WILL GET ON THAT SHIT
     private String creditCardNumber;
     private String creditCardExpirationDate;
     private ArrayList<Reservation> reservations;
