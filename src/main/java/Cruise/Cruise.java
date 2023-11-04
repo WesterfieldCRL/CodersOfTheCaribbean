@@ -1,6 +1,7 @@
 package Cruise;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import java.time.*;
 
@@ -9,12 +10,23 @@ public class Cruise {
     private ArrayList<Room> roomList;
 
     private ArrayList<Destination> travelPath;
-    //TODO: add travel path
 
     public Cruise(String name) {
         this.name = name;
         roomList = new ArrayList<>();
-        travelPath = new ArrayList<>();
+
+
+        Clock clock = Clock.systemDefaultZone();
+
+        updateTravelPath();
+
+
+        if (travelPath.get(travelPath.size()-1).arrival.isAfter(LocalDate.now(clock)))
+        {
+            createTravelPath();
+            saveTravelPath();
+        }
+
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
@@ -228,7 +240,84 @@ public class Cruise {
         }
     }
 
-    public void printTravePath()
+    public void updateTravelPath()
+    {
+        travelPath = new ArrayList<>();
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM " + name + "PATH"); //Ignore error, works fine
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                LocalDate arrival = rs.getDate("ARRIVALDATE").toLocalDate();
+                String locationName = rs.getString("LOCATION");
+                int stepTravelTime = rs.getInt("TRAVELDAYS");
+
+                LocalDate departure = arrival.minusDays(stepTravelTime);
+
+                Destination step = new Destination(locationName, departure, arrival);
+                travelPath.add(step);
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void saveTravelPath()
+    {
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE " + name + "PATH SET ARRIVALDATE = ? WHERE LOCATION = ?"); //Ignore error, works fine
+
+            for (Destination step : travelPath)
+            {
+                statement.setDate(1, Date.valueOf(step.arrival));
+                statement.setString(2, step.location);
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printTravelPath()
     {
         for (Destination step : travelPath)
         {
@@ -236,6 +325,18 @@ public class Cruise {
             System.out.print(step.departure + " -- ");
             System.out.println(step.arrival);
         }
+    }
+
+    public ArrayList<LocalDate> getValidReservationDates()
+    {
+        ArrayList<LocalDate> dates = new ArrayList<>();
+
+        for (Destination step : travelPath)
+        {
+            dates.add(step.departure.minusDays(1));
+        }
+
+        return dates;
     }
 
     public String getName() {
