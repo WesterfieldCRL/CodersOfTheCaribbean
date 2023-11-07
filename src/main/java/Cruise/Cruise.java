@@ -27,7 +27,7 @@ public class Cruise {
             saveTravelPath();
         }
 
-        //REMOVE THIS LATER, FOR TESTING
+        //REMOVE THIS LATER, FOR TESTING SINCE NO OTHER WAY TO KNOW THE VALID DATES
         ArrayList<LocalDate> validDates = getValidReservationDates();
         for (LocalDate date : validDates)
         {
@@ -38,19 +38,17 @@ public class Cruise {
 
     public boolean areDatesValid(LocalDate start, LocalDate end)
     {
-        ArrayList<LocalDate> validDates = getValidReservationDates();
+        Clock clock = Clock.systemDefaultZone();
+        if (start.isAfter(LocalDate.now(clock))) {
+            ArrayList<LocalDate> validDates = getValidReservationDates();
 
-        if (start.isBefore(end))
-        {
-            for (int i = 0; i < validDates.size(); i++)
-            {
-                if (start.equals(validDates.get(i)))
-                {
-                    for (int j = i; j < validDates.size(); j++)
-                    {
-                        if (end.equals(validDates.get(j)))
-                        {
-                            return true;
+            if (start.isBefore(end)) {
+                for (int i = 0; i < validDates.size(); i++) {
+                    if (start.equals(validDates.get(i))) {
+                        for (int j = i; j < validDates.size(); j++) {
+                            if (end.equals(validDates.get(j))) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -136,12 +134,73 @@ public class Cruise {
 
     public ArrayList<Room> getRoomsList(LocalDate startDate, LocalDate endDate)
     {
-        return null;
+        ArrayList<Room> roomsList = new ArrayList<>();
+        Connection connection = null;
+        boolean roomReserved;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement roomQuery = connection.prepareStatement("SELECT * FROM " + name);
+
+            ResultSet rooms = roomQuery.executeQuery();
+
+            while (rooms.next())
+            {
+                roomReserved = false;
+                //Create room
+                Room room = new Room(rooms.getInt("ID"),
+                        rooms.getInt("BEDNUMBER"),
+                        Room.BedType.valueOf(rooms.getString("BEDTYPE")),
+                        Room.Quality.valueOf(rooms.getString("ROOMTYPE")),
+                        rooms.getBoolean("ISSMOKING"));
+
+                //Check for any reservations for that room
+                PreparedStatement reservationsQuery =
+                        connection.prepareStatement("SELECT * FROM RESERVATIONS WHERE CRUISE = ? AND ROOMID = ?");
+                reservationsQuery.setString(1, name);
+                reservationsQuery.setInt(2, room.getID());
+
+                ResultSet reserves = reservationsQuery.executeQuery();
+
+                while (reserves.next())
+                {
+                    roomReserved = true;
+                    LocalDate reservedStart = reserves.getDate("STARTDATE").toLocalDate();
+                    LocalDate reservedEnd = reserves.getDate("ENDDATE").toLocalDate();
+
+                    if (reservedStart.isAfter(endDate) || reservedEnd.isBefore(startDate)) {
+                        roomsList.add(room);
+                    }
+                }
+
+                if (!roomReserved)
+                {
+                    roomsList.add(room);
+                }
+
+            }
+
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return roomsList;
     }
 
     public void printCruise() {
         System.out.println(name);
-        // TODO: TRAVEL PATH
         for (Room r : roomList) {
             r.printRoomInfo();
         }
