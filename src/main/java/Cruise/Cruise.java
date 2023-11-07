@@ -61,7 +61,6 @@ public class Cruise {
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
                                      boolean isSmoking, LocalDate startDate, LocalDate endDate)
     {
-
         if (areDatesValid(startDate, endDate)) {
 
             Connection connection = null;
