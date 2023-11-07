@@ -106,7 +106,7 @@ public class GuestAccountPage {
         //i know its repetitive ill fix later
         btnCruise1.addActionListener((ActionEvent e) -> {
             updateAllRoomsForCruise("cruise1", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise1");
+            Optional<Cruise> optionalCruise = getCruise("CRUISE1");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
@@ -114,7 +114,7 @@ public class GuestAccountPage {
 
         btnCruise2.addActionListener((ActionEvent e) -> {
             updateAllRoomsForCruise("cruise2", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise2");
+            Optional<Cruise> optionalCruise = getCruise("CRUISE2");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
@@ -122,7 +122,7 @@ public class GuestAccountPage {
 
         btnCruise3.addActionListener((ActionEvent e) -> {
             updateAllRoomsForCruise("cruise3", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("cruise3");
+            Optional<Cruise> optionalCruise = getCruise("CRUISE3");
             if (optionalCruise.isPresent()) {
                 currentCruise = optionalCruise.get();
             }
