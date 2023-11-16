@@ -2,12 +2,16 @@ package Person;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
-import Cruise.Room;
-import Cruise.Cruise;
+import java.time.*;
+import Cruise.*;
+
+
+
+//fix date changes to correspond
+//commit and push
 
 public class Guest extends Person {
-    //TODO: decide if billing information is a seperate class
+    //TODO: decide if billing information is a seperate class WILL GET ON THAT SHIT
     private String creditCardNumber;
     private String creditCardExpirationDate;
     private ArrayList<Reservation> reservations;
@@ -106,13 +110,9 @@ public class Guest extends Person {
         }
     }
 
-    public boolean writeReservation(Date start, Date end, Cruise cruise, Room room){
+    public boolean writeReservation(LocalDate start, LocalDate end, Cruise cruise, Room room){
 
-        java.sql.Date sqlStartDate = new java.sql.Date(start.getTime());
-        java.sql.Date sqlEndDate = new java.sql.Date(end.getTime());
-
-        Date currDate = new Date();
-        java.sql.Date sqlCurrDate = new java.sql.Date(currDate.getTime());
+        Clock clock = Clock.systemDefaultZone();
 
         Connection connection = null;
 
@@ -125,9 +125,9 @@ public class Guest extends Person {
             insertQuery.setString(1, this.getUsername());
             insertQuery.setInt(2, room.getID());
             insertQuery.setDouble(3, room.getTotalCost(start, end));
-            insertQuery.setDate(4, sqlStartDate);
-            insertQuery.setDate(5, sqlEndDate);
-            insertQuery.setDate(6, sqlCurrDate);
+            insertQuery.setDate(4, Date.valueOf(start));
+            insertQuery.setDate(5, Date.valueOf(end));
+            insertQuery.setDate(6, Date.valueOf(LocalDate.now(clock)));
             insertQuery.setString(7, cruise.getName());
 
             insertQuery.executeUpdate();
@@ -152,12 +152,135 @@ public class Guest extends Person {
     }
 
 
-    public boolean makeReservation(Room room, Date start, Date end, Cruise cruise){
-        Reservation r = new Reservation(cruise.getName(), room, start, end);
+    public boolean makeReservation(Room room, LocalDate start, LocalDate end, Cruise cruise){
+        boolean b = writeReservation(start, end, cruise, room);
 
-        this.reservations.add(r);
+        getReservations();
 
-        return writeReservation(start, end, cruise, room);
+        return b;
+    }
+
+    public boolean cancelReservation(int reservationId){
+        //TODO: proper cancellation penalties
+
+        Reservation toCancel = null;
+        Clock clock = Clock.systemDefaultZone();
+
+        //search for reservation to cancel
+        for(Reservation r : this.reservations){
+            if(r.id == reservationId){
+                toCancel = r;
+                break;
+            }
+        }
+
+        //if has no reservations or could not find reservation
+        if(toCancel == null){
+            return false;
+        }
+
+        //if attempting to cancel after reservation start date
+        if(toCancel.startDate.isBefore(LocalDate.now())){
+            return false;
+        }
+
+        //delete from guest's list of reservations
+        this.reservations.remove(toCancel);
+
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM " +
+                    "RESERVATIONS WHERE ID = " + reservationId);
+
+            deleteQuery.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
+    public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise){
+        boolean found = false;
+        Clock clock = Clock.systemDefaultZone();
+
+        //search for reservation to modify and modify it in guests reservation list
+        for(Reservation r : this.reservations){
+            if(r.id == reservationId){
+                //if attempting to modify after reservation start date
+                if(r.startDate.isBefore(LocalDate.now())){
+                    return false;
+                }
+
+                found = true;
+
+                r.cruiseName = cruise.getName();
+                r.room = room;
+                r.startDate = start;
+                r.endDate = end;
+
+                break;
+            }
+        }
+
+        //if has no reservations or could not find reservation
+        if(!found){
+            return false;
+        }
+
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, " +
+                    "COST = ?, " +
+                    "STARTDATE = ?, " +
+                    "ENDDATE = ?, " +
+                    "DATERESERVED = ? " +
+                    "CRUISE = ? " +
+                    "WHERE ID = " + reservationId;
+
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setInt(2, room.getID());
+            preparedStatement.setDouble(3, room.getTotalCost(start, end));
+            preparedStatement.setDate(4, Date.valueOf(start));
+            preparedStatement.setDate(5, Date.valueOf(end));
+            preparedStatement.setDate(6, Date.valueOf(LocalDate.now(clock)));
+            preparedStatement.setString(7, cruise.getName());
+
+            preparedStatement.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
     protected void getReservations()
@@ -177,17 +300,16 @@ public class Guest extends Person {
             {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
-                Date startDate = rs.getDate("STARTDATE");
-                Date endDate = rs.getDate("ENDDATE");
+                LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
+                LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
+                int id = rs.getInt("ID");
 
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
 
-                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate);
+                Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
 
                 reservations.add(reservation);
-
-
             }
 
         } catch (ClassNotFoundException | SQLException e)
@@ -215,15 +337,17 @@ public class Guest extends Person {
     public class Reservation {
         public String cruiseName;
         public Room room;
-        public  Date startDate;
-        public Date endDate;
+        public  LocalDate startDate;
+        public LocalDate endDate;
+        public int id;
 
         // Constructor
-        public Reservation(String cruiseName, Room room, Date startDate, Date endDate) {
+        public Reservation(String cruiseName, Room room, LocalDate startDate, LocalDate endDate, int id) {
             this.cruiseName = cruiseName;
             this.room = room;
             this.startDate = startDate;
             this.endDate = endDate;
+            this.id = id;
         }
     }
 }
