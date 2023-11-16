@@ -124,7 +124,7 @@ public class Cruise {
         return Optional.empty();
     }
 
-    public ArrayList<Room> getRoomsList(LocalDate startDate, LocalDate endDate)
+    public ArrayList<Room> getAvailableRoomsList(LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Room> roomsList = new ArrayList<>();
         Connection connection = null;
