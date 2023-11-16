@@ -17,6 +17,7 @@ public class CruiseAppUtilities {
     static final Font DEFAULT_FONT = new Font("Arial", Font.PLAIN, 14);
     //Track guest
     public static Guest currentGuest;
+    public static Admin currentAdmin;
 
     //GLOBAL ERROR IMAGE
     private static ImageIcon errorImage = new ImageIcon("ErrorImage.png");
@@ -59,7 +60,9 @@ public class CruiseAppUtilities {
                 switchToPanel(frame, "Travel Agent");
             }
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
-                switchToPanel(frame, "Admin");
+                currentAdmin = (Admin) user.get();
+                addAdminPanelToFrame(frame);
+                switchToPanel(frame, "Admin View");
             }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
@@ -68,6 +71,14 @@ public class CruiseAppUtilities {
                     JOptionPane.ERROR_MESSAGE,scaledErrorImage);
         }
     }
+
+    public static void addAdminPanelToFrame(JFrame frame) {
+        JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane();
+        frame.add(adminPanel, "Admin View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
 
     public static void switchToPanel(JFrame frame, String panelName) {
         ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), panelName);

@@ -23,7 +23,7 @@ public class CruiseApp {
             JPanel guestViewPanel = createGuestViewPanel(frame);
             JPanel travelAgentViewPanel = createTravelAgentViewPane(frame);
             JPanel termsPanel = createTermsOfServicePanel(frame);
-            JPanel adminViewPanel = createAdminViewPanel(frame);
+//            JTabbedPane adminPanel = createAdminTabbedPane(frame);
 
             frame.add(termsPanel, "Terms of Service");
             frame.add(landingPagePanel, "Landing Page");
@@ -31,7 +31,7 @@ public class CruiseApp {
             frame.add(accountPanel, "Create Account");
             frame.add(guestViewPanel, "Guest View");
             frame.add(travelAgentViewPanel, "Travel Agent");
-            frame.add(adminViewPanel, "Admin");
+//            frame.add(adminPanel,"Admin View");
 
 
             frame.setVisible(true);
