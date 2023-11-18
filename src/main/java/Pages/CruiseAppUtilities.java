@@ -83,4 +83,21 @@ public class CruiseAppUtilities {
     public static void switchToPanel(JFrame frame, String panelName) {
         ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), panelName);
     }
+
+    public static String validatePassword(String password) {
+        if (password.length() < 8) {
+            return "Password must be at least 8 characters.";
+        }
+        if (!password.matches(".*\\d.*")) {
+            return "Password must contain at least one digit.";
+        }
+        if (!password.matches(".*[a-zA-Z].*")) {
+            return "Password must contain at least one letter.";
+        }
+        if (!password.matches(".*[!@#$%^&*+=?-].*")) {
+            return "Password must contain at least one special character (!@#$%^&*+=?-).";
+        }
+        return "";
+    }
+
 }

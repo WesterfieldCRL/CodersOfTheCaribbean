@@ -19,6 +19,33 @@ public class Guest extends Person {
         this.reservations = new ArrayList<>();
     }
 
+    public static boolean usernameExists(String username) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement searchQuery = connection.prepareStatement(
+                    "SELECT USERNAME FROM LOGINDATA WHERE USERNAME = ?");
+            searchQuery.setString(1, username);
+
+            ResultSet rs = searchQuery.executeQuery();
+            return rs.next();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     public boolean createAccount()
     {
         return createGenericAccount("GUEST");
