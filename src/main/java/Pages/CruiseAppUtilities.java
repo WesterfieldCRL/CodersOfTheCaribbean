@@ -5,6 +5,7 @@ import Person.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,16 +16,14 @@ public class CruiseAppUtilities {
     static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 16);
     static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);
     static final Font DEFAULT_FONT = new Font("Arial", Font.PLAIN, 14);
-    //Track guest
+
     public static Guest currentGuest;
     public static Admin currentAdmin;
 
-    //GLOBAL ERROR IMAGE
     private static ImageIcon errorImage = new ImageIcon("ErrorImage.png");
     private static Image scaledErrorInstance = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
     public static ImageIcon scaledErrorImage =  new ImageIcon(scaledErrorInstance);
 
-    //GLOBAL SUCCESS IMAGE
     private static ImageIcon successIcon = new ImageIcon("SuccessIcon.png");
     private static Image scaledSuccessInstance = successIcon.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
     public static ImageIcon scaledSuccessIcon =  new ImageIcon(scaledSuccessInstance);
@@ -100,4 +99,28 @@ public class CruiseAppUtilities {
         return "";
     }
 
+    //overloaded so it can be setup for blank password
+    static void updateRequirementsLabel(java.util.List<String> requirements, JLabel requirementsLabel) {
+        StringBuilder requirementsHtml = new StringBuilder("<html>");
+        for (String requirement : requirements) {
+            requirementsHtml.append(requirement).append("<br>");
+        }
+        requirementsHtml.append("</html>");
+        requirementsLabel.setText(requirementsHtml.toString());
+    }
+
+    static void updateRequirementsLabel(String password, List<String> requirements, JLabel requirementsLabel) {
+        requirements.clear();
+        if (password.length() < 8) requirements.add("At least 8 characters");
+        if (!password.matches(".*\\d.*")) requirements.add("At least one digit");
+        if (!password.matches(".*[a-zA-Z].*")) requirements.add("At least one letter");
+        if (!password.matches(".*[!@#$%^&*+=?-].*")) requirements.add("At least one special character (!@#$%^&*+=?-)");
+
+        StringBuilder requirementsHtml = new StringBuilder("<html>");
+        for (String requirement : requirements) {
+            requirementsHtml.append(requirement).append("<br>");
+        }
+        requirementsHtml.append("</html>");
+        requirementsLabel.setText(requirementsHtml.toString());
+    }
 }

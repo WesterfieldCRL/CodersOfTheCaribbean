@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static Pages.CruiseAppUtilities.*;
 import static Pages.CruiseAppUtilities.switchToPanel;
@@ -69,32 +70,26 @@ public class LoginPage {
             if (result == JOptionPane.OK_OPTION) {
                 String username = usernameFieldForReset.getText().trim();
                 if (!username.isEmpty() && usernameExists(username)) {
-                    java.util.List<String> requirements = new ArrayList<>(Arrays.asList(
+                    List<String> requirements = Arrays.asList(
                             "At least 8 characters",
                             "At least one digit",
                             "At least one letter",
                             "At least one special character (!@#$%^&*+=?-)"
-                    ));
+                    );
                     JPasswordField newPasswordField = new JPasswordField(15);
                     JDialog passwordDialog = new JDialog(frame, "Set New Password", true);
                     passwordDialog.setLayout(new GridLayout(0, 1));
                     passwordDialog.add(new JLabel("New Password:"));
                     passwordDialog.add(newPasswordField);
 
-                    JLabel requirementsLabel = new JLabel("<html>" + String.join("<br>", requirements) + "</html>");
+                    JLabel requirementsLabel = new JLabel();
+                    updateRequirementsLabel(requirements, requirementsLabel);
                     passwordDialog.add(requirementsLabel);
 
                     newPasswordField.addKeyListener(new KeyAdapter() {
                         public void keyReleased(KeyEvent e) {
                             String password = new String(newPasswordField.getPassword());
-
-                            requirements.clear();
-                            if (password.length() < 8) requirements.add("At least 8 characters");
-                            if (!password.matches(".*\\d.*")) requirements.add("At least one digit");
-                            if (!password.matches(".*[a-zA-Z].*")) requirements.add("At least one letter");
-                            if (!password.matches(".*[!@#$%^&*+=?-].*")) requirements.add("At least one special character (!@#$%^&*+=?-)");
-
-                            requirementsLabel.setText("<html>" + String.join("<br>", requirements) + "</html>");
+                            updateRequirementsLabel(password, new ArrayList<>(requirements), requirementsLabel);
                             passwordDialog.pack();
                         }
                     });
