@@ -106,7 +106,6 @@ public class GuestAccountPage {
                 return label;
             }
         });
-
         cruiseTabs.addChangeListener(e -> {
             filterPanel.setVisible(true);
             JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
