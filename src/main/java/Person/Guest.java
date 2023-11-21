@@ -103,35 +103,47 @@ public class Guest extends Person {
         }
     }
 
-    public void resetPassword()
-    {
+    //!Updated to immediately update reset request DB
+    public void resetPassword() {
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            connection.setAutoCommit(false);
+
             PreparedStatement updateQuery = connection.prepareStatement(
                     "UPDATE LOGINDATA SET PASSWORD = ? WHERE USERNAME = ?");
-
             updateQuery.setString(1, this.getChangedPassword());
             updateQuery.setString(2, this.getUsername());
+            updateQuery.executeUpdate();
 
-            updateQuery.execute();
+            PreparedStatement deleteQuery = connection.prepareStatement(
+                    "DELETE FROM PASSWORDRESETS WHERE USERNAME = ?");
+            deleteQuery.setString(1, this.getUsername());
+            deleteQuery.executeUpdate();
 
-
-        } catch (ClassNotFoundException | SQLException e)
-        {
+            connection.commit();
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                {
-                    connection.close();
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
 
     public boolean writeReservation(Date start, Date end, Cruise cruise, Room room){
 
