@@ -1,6 +1,7 @@
 package Pages;
 
 import Person.Guest;
+import Person.TravelAgent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,29 +68,102 @@ public class AdminAccountPage {
         });
 
 
-
         resetPasswordPanel.add(resetButton, BorderLayout.SOUTH);
 
-        JPanel createAccountPanel = new JPanel();
-        createAccountPanel.setLayout(new BoxLayout(createAccountPanel, BoxLayout.Y_AXIS));
-        JTextField usernameField = new JTextField(20);
-        JPasswordField passwordField = new JPasswordField(20);
-        JTextField nameField = new JTextField(20);
-        JTextField addressField = new JTextField(20);
-        JTextField emailField = new JTextField(20);
+        JPanel createAccountPanel = new JPanel(new GridBagLayout());
+        createAccountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        createAccountPanel.setBackground(BACKGROUND_COLOR);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.LINE_START;
+
+        JLabel titleLabel = createStyledLabel("Create New Travel Agent Account", LABEL_FONT);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        createAccountPanel.add(titleLabel, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridy++;
+
+        JTextField usernameField = new JTextField(15);
+        JPasswordField passwordField = new JPasswordField(15);
+        JTextField nameField = new JTextField(15);
+        JTextField addressField = new JTextField(15);
+        JTextField emailField = new JTextField(15);
+
+        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"};
+        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField};
+
+        for (int i = 0; i < labels.length; i++) {
+            gbc.gridx = 0;
+            createAccountPanel.add(createStyledLabel(labels[i], LABEL_FONT), gbc);
+
+            gbc.gridx = 1;
+            fields[i].setMaximumSize(new Dimension(Integer.MAX_VALUE, fields[i].getPreferredSize().height));
+            createAccountPanel.add(fields[i], gbc);
+            gbc.gridy++;
+        }
+
+        JLabel passwordRequirementsLabel = new JLabel("<html>Requirements:<br>" +
+                "- At least 8 characters<br>" +
+                "- At least one digit<br>" +
+                "- At least one letter<br>" +
+                "- At least one special character (!@#$%^&*+=?-)</html>");
+        passwordRequirementsLabel.setFont(DEFAULT_FONT);
+
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        createAccountPanel.add(passwordRequirementsLabel, gbc);
+
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String password = new String(passwordField.getPassword());
+                updateRequirementsLabel(password, requirements, passwordRequirementsLabel);
+                createAccountPanel.revalidate();
+                createAccountPanel.repaint();
+            }
+        });
+
+        gbc.gridy++;
+
         JButton createButton = createStyledButton("Create Account", BUTTON_FONT, BUTTON_COLOR);
 
-        createAccountPanel.add(createStyledLabel("Username: ", LABEL_FONT));
-        createAccountPanel.add(usernameField);
-        createAccountPanel.add(createStyledLabel("Password: ", LABEL_FONT));
-        createAccountPanel.add(passwordField);
-        createAccountPanel.add(createStyledLabel("Name: ", LABEL_FONT));
-        createAccountPanel.add(nameField);
-        createAccountPanel.add(createStyledLabel("Address: ", LABEL_FONT));
-        createAccountPanel.add(addressField);
-        createAccountPanel.add(createStyledLabel("Email: ", LABEL_FONT));
-        createAccountPanel.add(emailField);
-        createAccountPanel.add(createButton);
+        gbc.gridx = 0;
+        gbc.gridy = labels.length + 2;
+        gbc.gridwidth = 2;
+        createAccountPanel.add(createButton, gbc);
+        createButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String password = new String(passwordField.getPassword());
+                String validationMessage = validatePassword(password);
+                if (!validationMessage.isEmpty()) {
+                    JOptionPane.showMessageDialog(createAccountPanel, validationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                String username = usernameField.getText();
+                String name = nameField.getText();
+                String address = addressField.getText();
+                String email = emailField.getText();
+
+                TravelAgent newAgent = new TravelAgent(username, password, name, address, email);
+
+                if (newAgent.createAccount()) {
+                    JOptionPane.showMessageDialog(createAccountPanel, "Travel Agent account created successfully!", "Account Creation", JOptionPane.INFORMATION_MESSAGE);
+                    usernameField.setText("");
+                    passwordField.setText("");
+                    nameField.setText("");
+                    addressField.setText("");
+                    emailField.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(createAccountPanel, "Failed to create Travel Agent account. Please check the details and try again.", "Account Creation Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         tabbedPane.addTab("Reset Password", resetPasswordPanel);
         tabbedPane.addTab("Create Travel Agent", createAccountPanel);

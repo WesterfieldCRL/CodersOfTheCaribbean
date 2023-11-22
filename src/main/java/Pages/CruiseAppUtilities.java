@@ -5,6 +5,8 @@ import Person.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,4 +125,12 @@ public class CruiseAppUtilities {
         requirementsHtml.append("</html>");
         requirementsLabel.setText(requirementsHtml.toString());
     }
+
+    public static List<String> requirements = new ArrayList<>(Arrays.asList(
+            "At least 8 characters",
+            "At least one digit",
+            "At least one letter",
+            "At least one special character (!@#$%^&*+=?-)"
+    ));
+
 }

@@ -50,13 +50,6 @@ public class CreateAccountPage {
             panel.add(fields[i], gbc);
         }
 
-        List<String> requirements = new ArrayList<>(Arrays.asList(
-                "At least 8 characters",
-                "At least one digit",
-                "At least one letter",
-                "At least one special character (!@#$%^&*+=?-)"
-        ));
-
 
         JLabel passwordRequirementsLabel = new JLabel();
         updateRequirementsLabel(requirements, passwordRequirementsLabel);
