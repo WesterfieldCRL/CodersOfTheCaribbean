@@ -38,5 +38,6 @@ build/
 .DS_Store
 
 ### Cruise DB ###
+/cruiseDatabase
 cruiseDatabase/*.lck
 /derby.log
