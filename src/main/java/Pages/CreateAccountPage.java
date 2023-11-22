@@ -92,8 +92,14 @@ public class CreateAccountPage {
         panel.add(submitButton, gbc);
 
         JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
-        backButton.addActionListener(e -> switchToPanel(frame, "Login"));
-        gbc.gridy = labels.length + 3;
+        backButton.addActionListener(e -> {
+            switchToPanel(frame, "Login");
+            usernameField.setText("");
+            passwordField.setText("");
+            nameField.setText("");
+            addressField.setText("");
+            emailField.setText("");
+        });        gbc.gridy = labels.length + 3;
         panel.add(backButton, gbc);
 
         return panel;
