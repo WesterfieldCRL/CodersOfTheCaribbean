@@ -20,7 +20,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+derby.log
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -36,3 +36,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Cruise DB ###
+/cruiseDatabase
+cruiseDatabase/*.lck
+/derby.log
