@@ -5,6 +5,7 @@ import Person.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,15 +16,14 @@ public class CruiseAppUtilities {
     static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 16);
     static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);
     static final Font DEFAULT_FONT = new Font("Arial", Font.PLAIN, 14);
-    //Track guest
-    public static Guest currentGuest;
 
-    //GLOBAL ERROR IMAGE
+    public static Guest currentGuest;
+    public static Admin currentAdmin;
+
     private static ImageIcon errorImage = new ImageIcon("ErrorImage.png");
     private static Image scaledErrorInstance = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
     public static ImageIcon scaledErrorImage =  new ImageIcon(scaledErrorInstance);
 
-    //GLOBAL SUCCESS IMAGE
     private static ImageIcon successIcon = new ImageIcon("SuccessIcon.png");
     private static Image scaledSuccessInstance = successIcon.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
     public static ImageIcon scaledSuccessIcon =  new ImageIcon(scaledSuccessInstance);
@@ -58,6 +58,11 @@ public class CruiseAppUtilities {
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
                 switchToPanel(frame, "Travel Agent");
             }
+            else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
+                currentAdmin = (Admin) user.get();
+                addAdminPanelToFrame(frame);
+                switchToPanel(frame, "Admin View");
+            }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
         } else {
@@ -66,7 +71,56 @@ public class CruiseAppUtilities {
         }
     }
 
+    public static void addAdminPanelToFrame(JFrame frame) {
+        JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane();
+        frame.add(adminPanel, "Admin View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+
     public static void switchToPanel(JFrame frame, String panelName) {
         ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), panelName);
+    }
+
+    public static String validatePassword(String password) {
+        if (password.length() < 8) {
+            return "Password must be at least 8 characters.";
+        }
+        if (!password.matches(".*\\d.*")) {
+            return "Password must contain at least one digit.";
+        }
+        if (!password.matches(".*[a-zA-Z].*")) {
+            return "Password must contain at least one letter.";
+        }
+        if (!password.matches(".*[!@#$%^&*+=?-].*")) {
+            return "Password must contain at least one special character (!@#$%^&*+=?-).";
+        }
+        return "";
+    }
+
+    //overloaded so it can be setup for blank password
+    static void updateRequirementsLabel(java.util.List<String> requirements, JLabel requirementsLabel) {
+        StringBuilder requirementsHtml = new StringBuilder("<html>");
+        for (String requirement : requirements) {
+            requirementsHtml.append(requirement).append("<br>");
+        }
+        requirementsHtml.append("</html>");
+        requirementsLabel.setText(requirementsHtml.toString());
+    }
+
+    static void updateRequirementsLabel(String password, List<String> requirements, JLabel requirementsLabel) {
+        requirements.clear();
+        if (password.length() < 8) requirements.add("At least 8 characters");
+        if (!password.matches(".*\\d.*")) requirements.add("At least one digit");
+        if (!password.matches(".*[a-zA-Z].*")) requirements.add("At least one letter");
+        if (!password.matches(".*[!@#$%^&*+=?-].*")) requirements.add("At least one special character (!@#$%^&*+=?-)");
+
+        StringBuilder requirementsHtml = new StringBuilder("<html>");
+        for (String requirement : requirements) {
+            requirementsHtml.append(requirement).append("<br>");
+        }
+        requirementsHtml.append("</html>");
+        requirementsLabel.setText(requirementsHtml.toString());
     }
 }
