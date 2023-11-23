@@ -68,7 +68,24 @@ public class CreateAccountPage {
             }
         });
 
+        JCheckBox tosCheckBox = new JCheckBox("I agree to the Terms of Service.");
+        tosCheckBox.setEnabled(false);
+        JButton tosButton = createStyledButton("View Terms of Service", BUTTON_FONT, BUTTON_COLOR);
+        tosButton.addActionListener(e -> {
+            JDialog tosDialog = TermsOfServicePanel.createTermsOfServiceDialog(frame);
+            tosDialog.setVisible(true);
+            tosCheckBox.setEnabled(true);
+        });
+
+        gbc.gridy++;
+        panel.add(tosButton, gbc);
+        gbc.gridy++;
+        panel.add(tosCheckBox, gbc);
+
+
         JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
+        submitButton.setEnabled(false);
+        tosCheckBox.addActionListener(e -> submitButton.setEnabled(tosCheckBox.isSelected()));
         submitButton.addActionListener(e -> {
             String password = new String(passwordField.getPassword());
             String passwordValidationMessage = validatePassword(password);
@@ -87,7 +104,7 @@ public class CreateAccountPage {
         });
 
         gbc.gridx = 0;
-        gbc.gridy = labels.length + 2;
+        gbc.gridy++;
         gbc.gridwidth = 2;
         panel.add(submitButton, gbc);
 
@@ -99,7 +116,8 @@ public class CreateAccountPage {
             nameField.setText("");
             addressField.setText("");
             emailField.setText("");
-        });        gbc.gridy = labels.length + 3;
+        });
+        gbc.gridy++;
         panel.add(backButton, gbc);
 
         return panel;

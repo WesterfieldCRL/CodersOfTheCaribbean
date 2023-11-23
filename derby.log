@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 22 17:07:54 CST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-f94a-3eda-000005d78510 
+Thu Nov 23 08:34:03 CST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-fc9a-2952-000005d2de08 
 on database directory /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
 Loaded from file:/Users/alexbaratta/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
 java.vendor=Oracle Corporation
