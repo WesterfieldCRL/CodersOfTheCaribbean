@@ -125,7 +125,6 @@ public class GuestAccountPage {
         });
 
         cruiseTabs.addChangeListener(e -> {
-//            filterPanel.setVisible(true);
             JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
             int index = sourceTabbedPane.getSelectedIndex();
 
@@ -155,6 +154,11 @@ public class GuestAccountPage {
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
+            if (startDateField.getValue() == null || endDateField.getValue() == null) {
+                JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
+                        "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                return;
+            }
             updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
                     isSmokingCheckBox, startDateField, endDateField, roomListModel);
         });
@@ -164,6 +168,11 @@ public class GuestAccountPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // double click
+                    if (startDateField.getValue() == null || endDateField.getValue() == null) {
+                        JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
+                                "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                        return;
+                    }
                     Room selectedRoom = roomList.getSelectedValue();
                     if (selectedRoom != null) {
                         openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise);
@@ -171,11 +180,6 @@ public class GuestAccountPage {
                 }
             }
         });
-
-        JLabel displayInstructions = new JLabel("Display rooms for:");
-
-
-
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
