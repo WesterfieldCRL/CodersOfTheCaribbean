@@ -54,8 +54,9 @@ public class CruiseAppUtilities {
 
         if (user.isPresent()) {
             if (user.get().getClass().getSimpleName().equalsIgnoreCase("Guest")) {
-                switchToPanel(frame, "Guest View");
                 currentGuest = (Guest) user.get();
+                addGuestPanelToFrame(frame);
+                switchToPanel(frame, "Guest View");
             }
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
                 switchToPanel(frame, "Travel Agent");
@@ -76,6 +77,13 @@ public class CruiseAppUtilities {
     public static void addAdminPanelToFrame(JFrame frame) {
         JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane();
         frame.add(adminPanel, "Admin View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public static void addGuestPanelToFrame(JFrame frame){
+        JTabbedPane guestPanel = GuestAccountPage.createGuestViewTabbedPane();
+        frame.add(guestPanel, "Guest View");
         frame.revalidate();
         frame.repaint();
     }

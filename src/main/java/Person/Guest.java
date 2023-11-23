@@ -3,6 +3,8 @@ package Person;
 import java.sql.*;
 import java.util.ArrayList;
 import java.time.*;
+import java.util.List;
+
 import Cruise.*;
 
 
@@ -321,8 +323,8 @@ public class Guest extends Person {
         return false;
     }
 
-    protected void getReservations()
-    {
+    public List<Reservation> getReservations() {
+        List<Reservation> reservations = new ArrayList<>();
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -334,35 +336,31 @@ public class Guest extends Person {
 
             ResultSet rs = selectQuery.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
                 LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
                 int id = rs.getInt("ID");
 
-                Room room = Room.getRoom(cruiseName, roomID, connection);
-
+                Room room = Room.getRoom(cruiseName, roomID, connection); // Make sure getRoom method is available and correctly implemented
 
                 Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
-
                 reservations.add(reservation);
             }
 
-        } catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null)
-                {
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return reservations;
     }
 
     public String getChangedPassword() {
@@ -386,6 +384,22 @@ public class Guest extends Person {
             this.startDate = startDate;
             this.endDate = endDate;
             this.id = id;
+        }
+
+        public String getCruiseName() {
+            return cruiseName;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public int getId() {
+            return id;
         }
     }
 }

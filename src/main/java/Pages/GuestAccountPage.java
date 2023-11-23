@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
 import java.util.Optional;
+import Person.Guest.*;
 
 import Cruise.Cruise;
 import Cruise.Room;
@@ -23,7 +24,20 @@ public class GuestAccountPage {
     private static Room NO_ROOMS_FOUND = new Room();
     public static Cruise currentCruise;
 
-    public static JPanel createGuestViewPanel(JFrame frame) {
+    public static JTabbedPane createGuestViewTabbedPane() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel roomSelectionPanel = createRoomSelectionPanel();
+        tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
+
+        JPanel currentReservationsPanel = createCurrentReservationsPanel();
+        tabbedPane.addTab("Current Reservations", null, currentReservationsPanel, "View your current reservations");
+
+        return tabbedPane;
+    }
+
+
+    public static JPanel createRoomSelectionPanel() {
 
 
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -148,6 +162,12 @@ public class GuestAccountPage {
         roomList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+//                if (startDateField.getValue() == null || endDateField.getValue() == null) {
+//                    JOptionPane.showMessageDialog(frame, "Please select a start and end date before selecting rooms.",
+//                            "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+//                    return;
+//                }
+
                 if (e.getClickCount() == 2) { // double click
                     Room selectedRoom = roomList.getSelectedValue();
                     if (selectedRoom != null) {
@@ -180,6 +200,32 @@ public class GuestAccountPage {
 
         return panel;
     }
+
+    private static JPanel createCurrentReservationsPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        DefaultListModel<Reservation> reservationListModel = new DefaultListModel<>();
+        for (Reservation reservation : currentGuest.getReservations()) {
+            reservationListModel.addElement(reservation);
+        }
+
+        JList<Reservation> reservationsList = new JList<>(reservationListModel);
+        reservationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        reservationsList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Reservation reservation = (Reservation) value;
+                String text = String.valueOf(reservation.getId());
+                return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(reservationsList);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        return panel;
+    }
+
 
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
         Optional<Cruise> cruise = getCruise(cruiseName);
@@ -233,8 +279,6 @@ public class GuestAccountPage {
         detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
                 + "\n" + "End Date: " + endDateField.getText() + "\n" + "Room Quality: " + room.getQuality()
                 + "\n" + "Number of Beds: " + room.getNumBeds());
-        //Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
-        //double totalReservationCost = reservation.getTotalCost();
         detailArea.append("\nTotal Cost: " + room.getTotalCost(start, end));
 
         JScrollPane scrollPane = new JScrollPane(detailArea);
