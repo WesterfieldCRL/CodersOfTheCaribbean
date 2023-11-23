@@ -14,6 +14,12 @@ import java.util.List;
 import static Pages.CruiseAppUtilities.*;
 
 public class CreateAccountPage {
+    static JTextField usernameField = new JTextField(15);
+    static JPasswordField passwordField = new JPasswordField(15);
+    static JTextField nameField = new JTextField(15);
+    static JTextField addressField = new JTextField(15);
+    static JTextField emailField = new JTextField(15);
+
     public static JPanel createAccountPanel(JFrame frame) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -32,11 +38,6 @@ public class CreateAccountPage {
 
         gbc.gridwidth = 1;
 
-        JTextField usernameField = new JTextField(15);
-        JPasswordField passwordField = new JPasswordField(15);
-        JTextField nameField = new JTextField(15);
-        JTextField addressField = new JTextField(15);
-        JTextField emailField = new JTextField(15);
 
         String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"};
         JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField};
@@ -101,6 +102,7 @@ public class CreateAccountPage {
             } else {
                 JOptionPane.showMessageDialog(frame, "Error creating account. Please ensure your details are correct and try again.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
+            clearLoginFields();
         });
 
         gbc.gridx = 0;
@@ -111,15 +113,19 @@ public class CreateAccountPage {
         JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
         backButton.addActionListener(e -> {
             switchToPanel(frame, "Login");
-            usernameField.setText("");
-            passwordField.setText("");
-            nameField.setText("");
-            addressField.setText("");
-            emailField.setText("");
+            clearLoginFields();
         });
         gbc.gridy++;
         panel.add(backButton, gbc);
 
         return panel;
+    }
+
+    private static void clearLoginFields(){
+        usernameField.setText("");
+        passwordField.setText("");
+        nameField.setText("");
+        addressField.setText("");
+        emailField.setText("");
     }
 }
