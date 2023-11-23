@@ -215,13 +215,53 @@ public class GuestAccountPage {
             public Component getListCellRendererComponent(
                     JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Reservation reservation = (Reservation) value;
-                String text = String.valueOf(reservation.getId());
+                String text = String.format("Reservation ID: %d, Cruise: %s, Start: %s, End: %s",
+                        reservation.getId(), reservation.getCruiseName(),
+                        reservation.getStartDate(), reservation.getEndDate());
                 return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
             }
         });
 
         JScrollPane scrollPane = new JScrollPane(reservationsList);
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        JButton modifyButton = new JButton("Modify Reservation");
+        JButton deleteButton = new JButton("Cancel Reservation");
+
+        modifyButton.addActionListener(e -> {
+            Reservation selectedReservation = reservationsList.getSelectedValue();
+            if (selectedReservation != null) {
+            }
+        });
+
+        deleteButton.addActionListener(e -> {
+            Reservation selectedReservation = reservationsList.getSelectedValue();
+            if (selectedReservation != null) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to cancel this reservation?",
+                        "Confirm Cancellation",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean success = currentGuest.cancelReservation(selectedReservation.getId());
+                    if (success) {
+                        reservationListModel.removeElement(selectedReservation);
+                        currentGuest.getReservations().remove(selectedReservation);
+                        JOptionPane.showMessageDialog(null, "Reservation cancelled successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to cancel reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(modifyButton);
+        buttonsPanel.add(deleteButton);
+        panel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return panel;
     }

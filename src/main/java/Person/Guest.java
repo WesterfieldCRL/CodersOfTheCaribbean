@@ -200,45 +200,32 @@ public class Guest extends Person {
         return b;
     }
 
-    public boolean cancelReservation(int reservationId){
-        //TODO: proper cancellation penalties
-
-        Reservation toCancel = null;
-        Clock clock = Clock.systemDefaultZone();
-
-        //search for reservation to cancel
-        for(Reservation r : this.reservations){
-            if(r.id == reservationId){
-                toCancel = r;
-                break;
-            }
-        }
-
-        //if has no reservations or could not find reservation
-        if(toCancel == null){
-            return false;
-        }
-
-        //if attempting to cancel after reservation start date
-        if(toCancel.startDate.isBefore(LocalDate.now())){
-            return false;
-        }
-
-        //delete from guest's list of reservations
-        this.reservations.remove(toCancel);
-
+    public boolean cancelReservation(int reservationId) {
         Connection connection = null;
+
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
 
-            PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM " +
-                    "RESERVATIONS WHERE ID = " + reservationId);
+            PreparedStatement selectQuery = connection.prepareStatement("SELECT * FROM RESERVATIONS WHERE ID = ?");
+            selectQuery.setInt(1, reservationId);
+            ResultSet rs = selectQuery.executeQuery();
 
-            deleteQuery.executeUpdate();
-            connection.close();
+            if (rs.next()) {
+                LocalDate reservedStart = rs.getDate("STARTDATE").toLocalDate();
 
-            return true;
+                if (reservedStart.isBefore(LocalDate.now())) {
+                    return false;
+                }
+
+                PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM RESERVATIONS WHERE ID = ?");
+                deleteQuery.setInt(1, reservationId);
+                deleteQuery.executeUpdate();
+
+                this.reservations.removeIf(r -> r.id == reservationId);
+
+                return true;
+            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
