@@ -241,73 +241,29 @@ public class Guest extends Person {
         return false;
     }
 
-    public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise){
-        boolean found = false;
+    public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise) {
         Clock clock = Clock.systemDefaultZone();
 
-        //search for reservation to modify and modify it in guests reservation list
-        for(Reservation r : this.reservations){
-            if(r.id == reservationId){
-                //if attempting to modify after reservation start date
-                if(r.startDate.isBefore(LocalDate.now())){
-                    return false;
-                }
-
-                found = true;
-
-                r.cruiseName = cruise.getName();
-                r.room = room;
-                r.startDate = start;
-                r.endDate = end;
-
-                break;
-            }
-        }
-
-        //if has no reservations or could not find reservation
-        if(!found){
-            return false;
-        }
-
-        Connection connection = null;
-
-        try {
+        try (Connection connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;")) {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
 
-            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, " +
-                    "COST = ?, " +
-                    "STARTDATE = ?, " +
-                    "ENDDATE = ?, " +
-                    "DATERESERVED = ? " +
-                    "CRUISE = ? " +
-                    "WHERE ID = " + reservationId;
+            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, COST = ?, STARTDATE = ?, ENDDATE = ?, DATERESERVED = ?, CRUISE = ? WHERE ID = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                preparedStatement.setInt(1, room.getID());
+                preparedStatement.setDouble(2, room.getTotalCost(start, end));
+                preparedStatement.setDate(3, Date.valueOf(start));
+                preparedStatement.setDate(4, Date.valueOf(end));
+                preparedStatement.setDate(5, Date.valueOf(LocalDate.now(clock)));
+                preparedStatement.setString(6, cruise.getName());
+                preparedStatement.setInt(7, reservationId);
 
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setInt(2, room.getID());
-            preparedStatement.setDouble(3, room.getTotalCost(start, end));
-            preparedStatement.setDate(4, Date.valueOf(start));
-            preparedStatement.setDate(5, Date.valueOf(end));
-            preparedStatement.setDate(6, Date.valueOf(LocalDate.now(clock)));
-            preparedStatement.setString(7, cruise.getName());
-
-            preparedStatement.executeUpdate();
-            connection.close();
-
-            return true;
+                int affectedRows = preparedStatement.executeUpdate();
+                return affectedRows > 0;
+            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            return false;
         }
-
-        return false;
     }
 
     public List<Reservation> getReservations() {
@@ -330,7 +286,7 @@ public class Guest extends Person {
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
                 int id = rs.getInt("ID");
 
-                Room room = Room.getRoom(cruiseName, roomID, connection); // Make sure getRoom method is available and correctly implemented
+                Room room = Room.getRoom(cruiseName, roomID, connection);
 
                 Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
                 reservations.add(reservation);
@@ -371,6 +327,10 @@ public class Guest extends Person {
             this.startDate = startDate;
             this.endDate = endDate;
             this.id = id;
+        }
+
+        public Room getRoom() {
+            return room;
         }
 
         public String getCruiseName() {

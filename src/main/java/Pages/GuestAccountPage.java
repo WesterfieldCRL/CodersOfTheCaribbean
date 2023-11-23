@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
@@ -162,12 +163,6 @@ public class GuestAccountPage {
         roomList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                if (startDateField.getValue() == null || endDateField.getValue() == null) {
-//                    JOptionPane.showMessageDialog(frame, "Please select a start and end date before selecting rooms.",
-//                            "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
-//                    return;
-//                }
-
                 if (e.getClickCount() == 2) { // double click
                     Room selectedRoom = roomList.getSelectedValue();
                     if (selectedRoom != null) {
@@ -231,6 +226,32 @@ public class GuestAccountPage {
         modifyButton.addActionListener(e -> {
             Reservation selectedReservation = reservationsList.getSelectedValue();
             if (selectedReservation != null) {
+                JTextField startDateField = new JTextField(selectedReservation.getStartDate().toString());
+                JTextField endDateField = new JTextField(selectedReservation.getEndDate().toString());
+
+                Object[] message = {
+                        "Start Date (yyyy-mm-dd):", startDateField,
+                        "End Date (yyyy-mm-dd):", endDateField
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message, "Modify Reservation", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    LocalDate newStartDate = LocalDate.parse(startDateField.getText());
+                    LocalDate newEndDate = LocalDate.parse(endDateField.getText());
+                    String cruiseName = selectedReservation.getCruiseName();
+                    Optional<Cruise> cruiseOptional = getCruise(cruiseName);
+                    Cruise cruise = cruiseOptional.get();
+
+                    boolean success = currentGuest.modifyReservation(selectedReservation.getId(), selectedReservation.getRoom(), newStartDate, newEndDate, cruise);
+                    if (success) {
+                        JOptionPane.showMessageDialog(null, "Reservation modified successfully.");
+                        updateReservationsList(reservationListModel);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to modify reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
             }
         });
 
@@ -266,6 +287,13 @@ public class GuestAccountPage {
         return panel;
     }
 
+    private static void updateReservationsList(DefaultListModel<Reservation> model) {
+        currentGuest.getReservations();
+        model.clear();
+        for (Reservation reservation : currentGuest.getReservations()) {
+            model.addElement(reservation);
+        }
+    }
 
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
         Optional<Cruise> cruise = getCruise(cruiseName);
