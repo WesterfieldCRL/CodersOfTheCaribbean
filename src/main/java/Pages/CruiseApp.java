@@ -19,15 +19,12 @@ public class CruiseApp {
             JPanel landingPagePanel = createLandingPagePanel(frame);
             JPanel loginPanel = createLoginPanel(frame);
             JPanel accountPanel = createAccountPanel(frame);
-            JPanel guestViewPanel = createGuestViewPanel(frame);
+//            JTabbedPane guestViewPanel = createGuestViewTabbedPane(frame);
             JPanel travelAgentViewPanel = createTravelAgentViewPane(frame);
-            JPanel termsPanel = createTermsOfServicePanel(frame);
-
-            frame.add(termsPanel, "Terms of Service");
             frame.add(landingPagePanel, "Landing Page");
             frame.add(loginPanel, "Login");
             frame.add(accountPanel, "Create Account");
-            frame.add(guestViewPanel, "Guest View");
+//            frame.add(guestViewPanel, "Guest View");
             frame.add(travelAgentViewPanel, "Travel Agent");
 
 

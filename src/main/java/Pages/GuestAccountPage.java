@@ -1,15 +1,18 @@
 package Pages;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
 import java.util.Optional;
+import Person.Guest.*;
 
 import Cruise.Cruise;
 import Cruise.Room;
@@ -21,8 +24,25 @@ public class GuestAccountPage {
 
     private static Room NO_ROOMS_FOUND = new Room();
     public static Cruise currentCruise;
+    protected static DefaultListModel<Reservation> reservationListModel = new DefaultListModel<>();
+    protected static JList<Reservation> reservationsList = new JList<>(reservationListModel);
 
-    public static JPanel createGuestViewPanel(JFrame frame) {
+
+    public static JTabbedPane createGuestViewTabbedPane() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel roomSelectionPanel = createRoomSelectionPanel();
+        tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
+
+        JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList);
+        tabbedPane.addTab("Current Reservations", null, currentReservationsPanel, "View your current reservations");
+
+        return tabbedPane;
+    }
+
+
+    public static JPanel createRoomSelectionPanel() {
+
 
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -43,6 +63,7 @@ public class GuestAccountPage {
 
         // Organize above components in a panel
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        filterPanel.setVisible(false);
         filterPanel.add(new JLabel("Quality:"));
         filterPanel.add(qualityComboBox);
         filterPanel.add(new JLabel("Num Beds:"));
@@ -59,11 +80,15 @@ public class GuestAccountPage {
             comp.setFont(DEFAULT_FONT);
         }
 
-        // Buttons for cruise search
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton btnCruise1 = createStyledButton("Cruise1", DEFAULT_FONT, BUTTON_COLOR);
-        JButton btnCruise2 = createStyledButton("Cruise2", DEFAULT_FONT, BUTTON_COLOR);
-        JButton btnCruise3 = createStyledButton("Cruise3", DEFAULT_FONT, BUTTON_COLOR);
+        JTabbedPane cruiseTabs = new JTabbedPane();
+        JPanel panelCruise1 = new JPanel();
+        JPanel panelCruise2 = new JPanel();
+        JPanel panelCruise3 = new JPanel();
+
+        cruiseTabs.addTab("Cruise1", panelCruise1);
+        cruiseTabs.addTab("Cruise2", panelCruise2);
+        cruiseTabs.addTab("Cruise3", panelCruise3);
+
 
 
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
@@ -77,7 +102,6 @@ public class GuestAccountPage {
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-                // Set the default background and foreground colors
                 label.setBackground(BACKGROUND_COLOR);
                 label.setForeground(Color.BLACK);
                 label.setOpaque(true);
@@ -91,45 +115,56 @@ public class GuestAccountPage {
 
                 if (value == NO_ROOMS_FOUND) {
                     label.setText("No Rooms Found");
+                    label.putClientProperty("isRoom", false);
                 } else if (value instanceof Room) {
                     Room room = (Room) value;
                     label.setText("Room Quality: " + room.getQuality()
                             + " Number of Beds: " + room.getNumBeds()
                             + " Type of Beds: " + room.getBedType()
                             + " Smoking Status: " + room.isSmoking());
+                    label.putClientProperty("isRoom", true);
                 }
 
                 return label;
             }
         });
 
-        //i know its repetitive ill fix later
-        btnCruise1.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise1", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("CRUISE1");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
-            }
-        });
+        cruiseTabs.addChangeListener(e -> {
+            JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+            int index = sourceTabbedPane.getSelectedIndex();
 
-        btnCruise2.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise2", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("CRUISE2");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
-            }
-        });
+            switch(index) {
+                case 0:
+                    updateAllRoomsForCruise("cruise1", roomListModel);
+                    Optional<Cruise> optionalCruise = getCruise("cruise1");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+                    break;
+                case 1:
+                    updateAllRoomsForCruise("cruise2", roomListModel);
+                    optionalCruise = getCruise("cruise2");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
 
-        btnCruise3.addActionListener((ActionEvent e) -> {
-            updateAllRoomsForCruise("cruise3", roomListModel);
-            Optional<Cruise> optionalCruise = getCruise("CRUISE3");
-            if (optionalCruise.isPresent()) {
-                currentCruise = optionalCruise.get();
+                    break;
+                case 2:
+                    updateAllRoomsForCruise("cruise3", roomListModel);
+                    optionalCruise = getCruise("cruise3");
+                    optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+
+                    break;
             }
         });
+        updateAllRoomsForCruise("cruise1", roomListModel);
+        Optional<Cruise> optionalCruise = getCruise("cruise1");
+        optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
+            if (startDateField.getValue() == null || endDateField.getValue() == null) {
+                JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
+                        "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                return;
+            }
             updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
                     isSmokingCheckBox, startDateField, endDateField, roomListModel);
         });
@@ -140,24 +175,25 @@ public class GuestAccountPage {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // double click
                     Room selectedRoom = roomList.getSelectedValue();
+                    JLabel rendererComponent = (JLabel) roomList.getCellRenderer()
+                            .getListCellRendererComponent(roomList, selectedRoom, roomList.getSelectedIndex(), false, false);
+
+                    Boolean isRoom = (Boolean) rendererComponent.getClientProperty("isRoom");
+                    if (isRoom != null && !isRoom) {
+                        return;
+                    }
+                    if (startDateField.getValue() == null || endDateField.getValue() == null) {
+                        JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
+                                "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                        return;
+                    }
                     if (selectedRoom != null) {
-                        openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise);
+                        openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise, qualityComboBox,
+                                                    numBedsComboBox,bedTypeComboBox,isSmokingCheckBox,roomListModel);
                     }
                 }
             }
         });
-
-        JLabel displayInstructions = new JLabel("Display rooms for:");
-        buttonPanel.add(displayInstructions);
-
-
-        buttonPanel.add(btnCruise1);
-        buttonPanel.add(btnCruise2);
-        buttonPanel.add(btnCruise3);
-
-
-        Dimension buttonPanelDimensions = new Dimension(100, 100);
-        buttonPanel.setPreferredSize(buttonPanelDimensions);
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
@@ -168,14 +204,111 @@ public class GuestAccountPage {
         usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
 
-        topPanel.add(buttonPanel, BorderLayout.NORTH);
+        topPanel.add(cruiseTabs, BorderLayout.NORTH);
         topPanel.add(filterPanel, BorderLayout.CENTER);
         topPanel.add(usageInstructions, BorderLayout.SOUTH);
 
         panel.add(topPanel, BorderLayout.NORTH);
-        panel.add(scrollPane, BorderLayout.CENTER); // Put the list in the center so it gets more space
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
+    }
+
+    private static JPanel createCurrentReservationsPanel(DefaultListModel<Reservation> reservationListModel, JList<Reservation> reservationsList) {
+        JPanel panel = new JPanel(new BorderLayout());
+        for (Reservation reservation : currentGuest.getReservations()) {
+            reservationListModel.addElement(reservation);
+        }
+
+        reservationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        reservationsList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Reservation reservation = (Reservation) value;
+                String text = String.format("Reservation ID: %d, Cruise: %s, Start: %s, End: %s",
+                        reservation.getId(), reservation.getCruiseName(),
+                        reservation.getStartDate(), reservation.getEndDate());
+                return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(reservationsList);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        JButton modifyButton = new JButton("Modify Reservation");
+        JButton deleteButton = new JButton("Cancel Reservation");
+
+        modifyButton.addActionListener(e -> {
+            Reservation selectedReservation = reservationsList.getSelectedValue();
+            if (selectedReservation != null) {
+                JTextField startDateField = new JTextField(selectedReservation.getStartDate().toString());
+                JTextField endDateField = new JTextField(selectedReservation.getEndDate().toString());
+
+                Object[] message = {
+                        "Start Date (yyyy-mm-dd):", startDateField,
+                        "End Date (yyyy-mm-dd):", endDateField
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message, "Modify Reservation", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    LocalDate newStartDate = LocalDate.parse(startDateField.getText());
+                    LocalDate newEndDate = LocalDate.parse(endDateField.getText());
+                    String cruiseName = selectedReservation.getCruiseName();
+                    Optional<Cruise> cruiseOptional = getCruise(cruiseName);
+                    Cruise cruise = cruiseOptional.get();
+
+                    boolean success = currentGuest.modifyReservation(selectedReservation.getId(), selectedReservation.getRoom(), newStartDate, newEndDate, cruise);
+                    if (success) {
+                        JOptionPane.showMessageDialog(null, "Reservation modified successfully.");
+                        updateReservationsList(reservationListModel);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to modify reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        deleteButton.addActionListener(e -> {
+            Reservation selectedReservation = reservationsList.getSelectedValue();
+            if (selectedReservation != null) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to cancel this reservation?",
+                        "Confirm Cancellation",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean success = currentGuest.cancelReservation(selectedReservation.getId());
+                    if (success) {
+                        reservationListModel.removeElement(selectedReservation);
+                        currentGuest.getReservations().remove(selectedReservation);
+                        JOptionPane.showMessageDialog(null, "Reservation cancelled successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to cancel reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(modifyButton);
+        buttonsPanel.add(deleteButton);
+        panel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    private static void updateReservationsList(DefaultListModel<Reservation> model) {
+        currentGuest.getReservations();
+        model.clear();
+        for (Reservation reservation : currentGuest.getReservations()) {
+            model.addElement(reservation);
+        }
     }
 
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
@@ -214,7 +347,12 @@ public class GuestAccountPage {
     }
 
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
-                                                   JFormattedTextField endDateField, Cruise cruise) {
+                                                   JFormattedTextField endDateField, Cruise cruise,
+                                                   JComboBox<Room.Quality> qualityComboBox,
+                                                   JComboBox<Integer> numBedsComboBox,
+                                                   JComboBox<Room.BedType> bedTypeComboBox,
+                                                   JCheckBox isSmokingCheckBox,
+                                                   DefaultListModel<Room> roomListModel) {
         JDialog reservationDialog = new JDialog();
         reservationDialog.setTitle("Reservation Details");
         reservationDialog.setModal(true);
@@ -230,8 +368,6 @@ public class GuestAccountPage {
         detailArea.setText("Room Details:\n" + "Start Date: " + startDateField.getText()
                 + "\n" + "End Date: " + endDateField.getText() + "\n" + "Room Quality: " + room.getQuality()
                 + "\n" + "Number of Beds: " + room.getNumBeds());
-        //Reservation reservation = new Reservation(currentGuest, cruise, room, start, end);
-        //double totalReservationCost = reservation.getTotalCost();
         detailArea.append("\nTotal Cost: " + room.getTotalCost(start, end));
 
         JScrollPane scrollPane = new JScrollPane(detailArea);
@@ -241,8 +377,11 @@ public class GuestAccountPage {
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
             if (success) {
+                updateReservationsList(reservationListModel);
                 JOptionPane.showMessageDialog(reservationDialog, "Reservation made successfully!",
                         "Reservation Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
+                updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
+                        isSmokingCheckBox, startDateField, endDateField, roomListModel);
             } else {
                 JOptionPane.showMessageDialog(reservationDialog, "Failed to make a reservation.", "Error",
                         JOptionPane.ERROR_MESSAGE, scaledErrorImage);

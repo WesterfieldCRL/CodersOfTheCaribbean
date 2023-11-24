@@ -3,6 +3,8 @@ package Person;
 import java.sql.*;
 import java.util.ArrayList;
 import java.time.*;
+import java.util.List;
+
 import Cruise.*;
 
 
@@ -22,6 +24,33 @@ public class Guest extends Person {
         super(username, password, name, address, email);
         this.reservations = new ArrayList<>();
     }
+
+    public static boolean usernameExists(String username) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement searchQuery = connection.prepareStatement(
+                    "SELECT USERNAME FROM LOGINDATA WHERE USERNAME = ?");
+            searchQuery.setString(1, username);
+
+            ResultSet rs = searchQuery.executeQuery();
+            return rs.next();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public boolean createAccount()
     {
@@ -80,32 +109,43 @@ public class Guest extends Person {
         }
     }
 
-    public void resetPassword()
-    {
+    //!Updated to immediately update reset request DB
+    public void resetPassword() {
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            connection.setAutoCommit(false);
+
             PreparedStatement updateQuery = connection.prepareStatement(
                     "UPDATE LOGINDATA SET PASSWORD = ? WHERE USERNAME = ?");
-
             updateQuery.setString(1, this.getChangedPassword());
             updateQuery.setString(2, this.getUsername());
+            updateQuery.executeUpdate();
 
-            updateQuery.execute();
+            PreparedStatement deleteQuery = connection.prepareStatement(
+                    "DELETE FROM PASSWORDRESETS WHERE USERNAME = ?");
+            deleteQuery.setString(1, this.getUsername());
+            deleteQuery.executeUpdate();
 
-
-        } catch (ClassNotFoundException | SQLException e)
-        {
+            connection.commit();
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                {
-                    connection.close();
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -160,114 +200,32 @@ public class Guest extends Person {
         return b;
     }
 
-    public boolean cancelReservation(int reservationId){
-        //TODO: proper cancellation penalties
-
-        Reservation toCancel = null;
-        Clock clock = Clock.systemDefaultZone();
-
-        //search for reservation to cancel
-        for(Reservation r : this.reservations){
-            if(r.id == reservationId){
-                toCancel = r;
-                break;
-            }
-        }
-
-        //if has no reservations or could not find reservation
-        if(toCancel == null){
-            return false;
-        }
-
-        //if attempting to cancel after reservation start date
-        if(toCancel.startDate.isBefore(LocalDate.now())){
-            return false;
-        }
-
-        //delete from guest's list of reservations
-        this.reservations.remove(toCancel);
-
+    public boolean cancelReservation(int reservationId) {
         Connection connection = null;
+
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
 
-            PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM " +
-                    "RESERVATIONS WHERE ID = " + reservationId);
+            PreparedStatement selectQuery = connection.prepareStatement("SELECT * FROM RESERVATIONS WHERE ID = ?");
+            selectQuery.setInt(1, reservationId);
+            ResultSet rs = selectQuery.executeQuery();
 
-            deleteQuery.executeUpdate();
-            connection.close();
+            if (rs.next()) {
+                LocalDate reservedStart = rs.getDate("STARTDATE").toLocalDate();
 
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
-    }
-
-    public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise){
-        boolean found = false;
-        Clock clock = Clock.systemDefaultZone();
-
-        //search for reservation to modify and modify it in guests reservation list
-        for(Reservation r : this.reservations){
-            if(r.id == reservationId){
-                //if attempting to modify after reservation start date
-                if(r.startDate.isBefore(LocalDate.now())){
+                if (reservedStart.isBefore(LocalDate.now())) {
                     return false;
                 }
 
-                found = true;
+                PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM RESERVATIONS WHERE ID = ?");
+                deleteQuery.setInt(1, reservationId);
+                deleteQuery.executeUpdate();
 
-                r.cruiseName = cruise.getName();
-                r.room = room;
-                r.startDate = start;
-                r.endDate = end;
+                this.reservations.removeIf(r -> r.id == reservationId);
 
-                break;
+                return true;
             }
-        }
-
-        //if has no reservations or could not find reservation
-        if(!found){
-            return false;
-        }
-
-        Connection connection = null;
-
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
-
-            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, " +
-                    "COST = ?, " +
-                    "STARTDATE = ?, " +
-                    "ENDDATE = ?, " +
-                    "DATERESERVED = ? " +
-                    "CRUISE = ? " +
-                    "WHERE ID = " + reservationId;
-
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setInt(2, room.getID());
-            preparedStatement.setDouble(3, room.getTotalCost(start, end));
-            preparedStatement.setDate(4, Date.valueOf(start));
-            preparedStatement.setDate(5, Date.valueOf(end));
-            preparedStatement.setDate(6, Date.valueOf(LocalDate.now(clock)));
-            preparedStatement.setString(7, cruise.getName());
-
-            preparedStatement.executeUpdate();
-            connection.close();
-
-            return true;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
@@ -283,8 +241,33 @@ public class Guest extends Person {
         return false;
     }
 
-    protected void getReservations()
-    {
+    public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise) {
+        Clock clock = Clock.systemDefaultZone();
+
+        try (Connection connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;")) {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, COST = ?, STARTDATE = ?, ENDDATE = ?, DATERESERVED = ?, CRUISE = ? WHERE ID = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                preparedStatement.setInt(1, room.getID());
+                preparedStatement.setDouble(2, room.getTotalCost(start, end));
+                preparedStatement.setDate(3, Date.valueOf(start));
+                preparedStatement.setDate(4, Date.valueOf(end));
+                preparedStatement.setDate(5, Date.valueOf(LocalDate.now(clock)));
+                preparedStatement.setString(6, cruise.getName());
+                preparedStatement.setInt(7, reservationId);
+
+                int affectedRows = preparedStatement.executeUpdate();
+                return affectedRows > 0;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Reservation> getReservations() {
+        List<Reservation> reservations = new ArrayList<>();
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -296,8 +279,7 @@ public class Guest extends Person {
 
             ResultSet rs = selectQuery.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
                 LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
@@ -306,25 +288,22 @@ public class Guest extends Person {
 
                 Room room = Room.getRoom(cruiseName, roomID, connection);
 
-
                 Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
-
                 reservations.add(reservation);
             }
 
-        } catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null)
-                {
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return reservations;
     }
 
     public String getChangedPassword() {
@@ -348,6 +327,26 @@ public class Guest extends Person {
             this.startDate = startDate;
             this.endDate = endDate;
             this.id = id;
+        }
+
+        public Room getRoom() {
+            return room;
+        }
+
+        public String getCruiseName() {
+            return cruiseName;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public int getId() {
+            return id;
         }
     }
 }

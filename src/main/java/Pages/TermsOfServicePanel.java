@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import static Pages.CruiseAppUtilities.*;
 public class TermsOfServicePanel {
-    public static JPanel createTermsOfServicePanel(JFrame frame) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBackground(BACKGROUND_COLOR);
+    public static JDialog createTermsOfServiceDialog(JFrame frame) {
+        JDialog dialog = new JDialog(frame, "Terms of Service", true);
+        dialog.setLayout(new BorderLayout());
+        dialog.setBackground(BACKGROUND_COLOR);
 
         JTextPane termsTextArea = new JTextPane();
         termsTextArea.setContentType("text/html");
@@ -43,25 +43,13 @@ public class TermsOfServicePanel {
                 termsTextArea.getBorder()));
 
         JScrollPane scrollPane = new JScrollPane(termsTextArea);
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        JCheckBox acceptCheckBox = new JCheckBox("I accept the terms and conditions.");
-        acceptCheckBox.setFont(DEFAULT_FONT);
-        acceptCheckBox.setBackground(BACKGROUND_COLOR);
-
-        JButton acceptButton = createStyledButton("Proceed", BUTTON_FONT, BUTTON_COLOR);
-        acceptButton.setEnabled(false);
-
-        // Listener for checkbox to enable/disable button
-        acceptCheckBox.addActionListener(e -> acceptButton.setEnabled(acceptCheckBox.isSelected()));
-        acceptButton.addActionListener(e -> switchToPanel(frame, "Landing Page"));
+        dialog.add(scrollPane, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel(new FlowLayout());
         bottomPanel.setBackground(BACKGROUND_COLOR);
-        bottomPanel.add(acceptCheckBox);
-        bottomPanel.add(acceptButton);
-        panel.add(bottomPanel, BorderLayout.SOUTH);
+        dialog.pack();
+        dialog.add(bottomPanel, BorderLayout.SOUTH);
 
-        return panel;
+        return dialog;
     }
 }
