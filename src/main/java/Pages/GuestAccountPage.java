@@ -112,12 +112,14 @@ public class GuestAccountPage {
 
                 if (value == NO_ROOMS_FOUND) {
                     label.setText("No Rooms Found");
+                    label.putClientProperty("isRoom", false);
                 } else if (value instanceof Room) {
                     Room room = (Room) value;
                     label.setText("Room Quality: " + room.getQuality()
                             + " Number of Beds: " + room.getNumBeds()
                             + " Type of Beds: " + room.getBedType()
                             + " Smoking Status: " + room.isSmoking());
+                    label.putClientProperty("isRoom", true);
                 }
 
                 return label;
@@ -149,7 +151,8 @@ public class GuestAccountPage {
             }
         });
         updateAllRoomsForCruise("cruise1", roomListModel);
-
+        Optional<Cruise> optionalCruise = getCruise("cruise1");
+        optionalCruise.ifPresent(cruise -> currentCruise = cruise);
 
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
@@ -168,12 +171,19 @@ public class GuestAccountPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // double click
+                    Room selectedRoom = roomList.getSelectedValue();
+                    JLabel rendererComponent = (JLabel) roomList.getCellRenderer()
+                            .getListCellRendererComponent(roomList, selectedRoom, roomList.getSelectedIndex(), false, false);
+
+                    Boolean isRoom = (Boolean) rendererComponent.getClientProperty("isRoom");
+                    if (isRoom != null && !isRoom) {
+                        return;
+                    }
                     if (startDateField.getValue() == null || endDateField.getValue() == null) {
                         JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
                                 "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
                         return;
                     }
-                    Room selectedRoom = roomList.getSelectedValue();
                     if (selectedRoom != null) {
                         openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise);
                     }
