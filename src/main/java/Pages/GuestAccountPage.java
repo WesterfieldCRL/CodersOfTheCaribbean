@@ -24,6 +24,9 @@ public class GuestAccountPage {
 
     private static Room NO_ROOMS_FOUND = new Room();
     public static Cruise currentCruise;
+    protected static DefaultListModel<Reservation> reservationListModel = new DefaultListModel<>();
+    protected static JList<Reservation> reservationsList = new JList<>(reservationListModel);
+
 
     public static JTabbedPane createGuestViewTabbedPane() {
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -31,7 +34,7 @@ public class GuestAccountPage {
         JPanel roomSelectionPanel = createRoomSelectionPanel();
         tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
 
-        JPanel currentReservationsPanel = createCurrentReservationsPanel();
+        JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList);
         tabbedPane.addTab("Current Reservations", null, currentReservationsPanel, "View your current reservations");
 
         return tabbedPane;
@@ -185,7 +188,8 @@ public class GuestAccountPage {
                         return;
                     }
                     if (selectedRoom != null) {
-                        openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise);
+                        openReservationDetailPanel(selectedRoom, startDateField, endDateField, currentCruise, qualityComboBox,
+                                                    numBedsComboBox,bedTypeComboBox,isSmokingCheckBox,roomListModel);
                     }
                 }
             }
@@ -210,14 +214,12 @@ public class GuestAccountPage {
         return panel;
     }
 
-    private static JPanel createCurrentReservationsPanel() {
+    private static JPanel createCurrentReservationsPanel(DefaultListModel<Reservation> reservationListModel, JList<Reservation> reservationsList) {
         JPanel panel = new JPanel(new BorderLayout());
-        DefaultListModel<Reservation> reservationListModel = new DefaultListModel<>();
         for (Reservation reservation : currentGuest.getReservations()) {
             reservationListModel.addElement(reservation);
         }
 
-        JList<Reservation> reservationsList = new JList<>(reservationListModel);
         reservationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         reservationsList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -345,7 +347,12 @@ public class GuestAccountPage {
     }
 
     private static void openReservationDetailPanel(Room room, JFormattedTextField startDateField,
-                                                   JFormattedTextField endDateField, Cruise cruise) {
+                                                   JFormattedTextField endDateField, Cruise cruise,
+                                                   JComboBox<Room.Quality> qualityComboBox,
+                                                   JComboBox<Integer> numBedsComboBox,
+                                                   JComboBox<Room.BedType> bedTypeComboBox,
+                                                   JCheckBox isSmokingCheckBox,
+                                                   DefaultListModel<Room> roomListModel) {
         JDialog reservationDialog = new JDialog();
         reservationDialog.setTitle("Reservation Details");
         reservationDialog.setModal(true);
@@ -370,8 +377,11 @@ public class GuestAccountPage {
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
             if (success) {
+                updateReservationsList(reservationListModel);
                 JOptionPane.showMessageDialog(reservationDialog, "Reservation made successfully!",
                         "Reservation Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
+                updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
+                        isSmokingCheckBox, startDateField, endDateField, roomListModel);
             } else {
                 JOptionPane.showMessageDialog(reservationDialog, "Failed to make a reservation.", "Error",
                         JOptionPane.ERROR_MESSAGE, scaledErrorImage);
