@@ -5,29 +5,83 @@ import Cruise.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import static Pages.CruiseAppUtilities.*;
 
 
 public class TravelAgentAccountPage {
-    public static JPanel createTravelAgentViewPane(JFrame frame){
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBackground(BACKGROUND_COLOR);
+    public static JTabbedPane createTravelAgentViewTabbedPane(JFrame frame){
+        JTabbedPane tabbedPane = new JTabbedPane();
 
-        // Add a JComboBox for cruise selection
+        JPanel addRoomPanel = createAddRoomPanel(frame);
+        tabbedPane.addTab("Manage Rooms", null, addRoomPanel, "Add rooms and manage existing rooms");
+
+        JPanel reserveForGuestPanel = createReserveForGuestPanel(frame);
+        tabbedPane.addTab("Book For Guest", null, reserveForGuestPanel, "Reserve on behalf of guest");
+
+        JPanel modifyAccountPanel = createModifyAccountPanel(frame);
+        tabbedPane.addTab("Modify Account", scaledErrorImage,modifyAccountPanel, "Modify your account info");
+        return tabbedPane;
+    }
+
+    public static JPanel createAddRoomPanel(JFrame frame){
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(BACKGROUND_COLOR);
+        GridBagConstraints gbc = new GridBagConstraints();
+
         String[] cruiseOptions = {"CRUISE1", "CRUISE2", "CRUISE3"};
         JComboBox<String> cruiseComboBox = new JComboBox<>(cruiseOptions);
 
-        JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(BACKGROUND_COLOR);
-        centerPanel.add(cruiseComboBox);
+        DefaultListModel<String> roomListModel = new DefaultListModel<>();
+        JList<String> roomList = new JList<>(roomListModel);
+        JScrollPane listScrollPane = new JScrollPane(roomList);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        panel.add(cruiseComboBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        panel.add(listScrollPane, gbc);
 
         JButton addRoomButton = createStyledButton("Add Room", new Font("Arial", Font.BOLD, 12), BUTTON_COLOR);
-        addRoomButton.setPreferredSize(new Dimension(100, 30));
-        centerPanel.add(addRoomButton);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(addRoomButton, gbc);
 
-        panel.add(centerPanel, BorderLayout.CENTER);
+        cruiseComboBox.addActionListener(e -> {
+            String selectedCruise = (String) cruiseComboBox.getSelectedItem();
+            if (selectedCruise != null) {
+                Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
+                optCruise.ifPresent(cruise -> {
+                    ArrayList<Room> rooms = cruise.getRoomsList(LocalDate.now(), LocalDate.now().plusDays(1));
+                    roomListModel.clear();
+                    for (Room room : rooms) {
+                        String roomDetails = String.format("ID: %d, Beds: %d, Type: %s, Quality: %s, Smoking: %s",
+                                room.getID(),
+                                room.getNumBeds(),
+                                room.getBedType().toString(),
+                                room.getQuality().toString(),
+                                room.isSmoking() ? "Yes" : "No"
+                        );
+                        roomListModel.addElement(roomDetails);
+                    }
+                });
+            }
+        });
 
         addRoomButton.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
@@ -35,7 +89,6 @@ public class TravelAgentAccountPage {
                 Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
                 if (optCruise.isPresent()) {
                     Cruise currentCruise = optCruise.get();
-                    // Open the dialog to add a room
                     openAddRoomDialog(frame, currentCruise);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
@@ -46,13 +99,23 @@ public class TravelAgentAccountPage {
         return panel;
     }
 
+    public static JPanel createReserveForGuestPanel(JFrame frame){
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        return panel;
+    }
+
+    public static JPanel createModifyAccountPanel(JFrame frame){
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        return panel;
+    }
+
+
+
     private static void openAddRoomDialog(JFrame parentFrame, Cruise cruiseInstance) {
         JDialog addRoomDialog = new JDialog(parentFrame, "Add Room", true);
         addRoomDialog.setLayout(new GridLayout(7, 2));
-
-        // Components for Room ID
-        //JLabel idLabel = createStyledLabel("Room ID:", new Font("Arial", Font.PLAIN, 12));
-        //JTextField idField = new JTextField();
 
         JLabel numOfBedsLabel = createStyledLabel("Number of Beds:", new Font("Arial", Font.PLAIN, 12));
         JComboBox<Integer> numOfBedsDropdown = new JComboBox<>(new Integer[]{1, 2, 3, 4});
@@ -80,19 +143,15 @@ public class TravelAgentAccountPage {
 
             boolean success = cruiseInstance.addRoom(newRoom);
 
-            //! JUST FOR DEMO -> REMOVE LATER
             if (success){
                 Component reservationFrame = null;
-                JOptionPane.showMessageDialog(reservationFrame, "Reservation made successfully!",
-                        "Reservation Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
-
+                JOptionPane.showMessageDialog(reservationFrame, "Room Added Successfully!",
+                        "Room Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
             }
             addRoomDialog.dispose();
         });
 
         // Add components to the dialog
-        //addRoomDialog.add(idLabel);
-        //addRoomDialog.add(idField);
         addRoomDialog.add(numOfBedsLabel);
         addRoomDialog.add(numOfBedsDropdown);
         addRoomDialog.add(bedTypeLabel);
