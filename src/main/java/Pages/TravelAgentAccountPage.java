@@ -23,7 +23,7 @@ public class TravelAgentAccountPage {
         tabbedPane.addTab("Book For Guest", null, reserveForGuestPanel, "Reserve on behalf of guest");
 
         JPanel modifyAccountPanel = createModifyAccountPanel(frame);
-        tabbedPane.addTab("Modify Account", scaledErrorImage,modifyAccountPanel, "Modify your account info");
+        tabbedPane.addTab("Modify Account", null ,modifyAccountPanel, "Modify your account info");
         return tabbedPane;
     }
 
