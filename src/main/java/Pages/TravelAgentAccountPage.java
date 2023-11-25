@@ -61,25 +61,10 @@ public class TravelAgentAccountPage {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(addRoomButton, gbc);
-
         cruiseComboBox.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
-                Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
-                optCruise.ifPresent(cruise -> {
-                    ArrayList<Room> rooms = cruise.getRoomsList(LocalDate.now(), LocalDate.now().plusDays(1));
-                    roomListModel.clear();
-                    for (Room room : rooms) {
-                        String roomDetails = String.format("ID: %d, Beds: %d, Type: %s, Quality: %s, Smoking: %s",
-                                room.getID(),
-                                room.getNumBeds(),
-                                room.getBedType().toString(),
-                                room.getQuality().toString(),
-                                room.isSmoking() ? "Yes" : "No"
-                        );
-                        roomListModel.addElement(roomDetails);
-                    }
-                });
+                updateRoomListForCruise(selectedCruise,roomListModel);
             }
         });
 
@@ -89,7 +74,10 @@ public class TravelAgentAccountPage {
                 Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
                 if (optCruise.isPresent()) {
                     Cruise currentCruise = optCruise.get();
-                    openAddRoomDialog(frame, currentCruise);
+                    //Third param is runnable
+                    openAddRoomDialog(frame, currentCruise, () -> {
+                        updateRoomListForCruise(selectedCruise, roomListModel);
+                    });
                 } else {
                     JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
@@ -111,9 +99,29 @@ public class TravelAgentAccountPage {
         return panel;
     }
 
+    private static void updateRoomListForCruise(String selectedCruise, DefaultListModel<String> roomListModel) {
+        Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
+        optCruise.ifPresent(cruise -> {
+            ArrayList<Room> rooms = cruise.getRoomsList(LocalDate.now(), LocalDate.now().plusDays(1));
+            roomListModel.clear();
+            for (Room room : rooms) {
+                String roomDetails = String.format("ID: %d, Beds: %d, Type: %s, Quality: %s, Smoking: %s",
+                        room.getID(),
+                        room.getNumBeds(),
+                        room.getBedType().toString(),
+                        room.getQuality().toString(),
+                        room.isSmoking() ? "Yes" : "No"
+                );
+                roomListModel.addElement(roomDetails);
+            }
+        });
+    }
 
 
-    private static void openAddRoomDialog(JFrame parentFrame, Cruise cruiseInstance) {
+
+    //Runnable added for callback. Allows for room list to be updated immediately after the room is added. (Apparantly
+    //better than how I was doing it on other pages).
+    private static void openAddRoomDialog(JFrame parentFrame, Cruise cruiseInstance, Runnable onSuccessCallback) {
         JDialog addRoomDialog = new JDialog(parentFrame, "Add Room", true);
         addRoomDialog.setLayout(new GridLayout(7, 2));
 
@@ -147,6 +155,7 @@ public class TravelAgentAccountPage {
                 Component reservationFrame = null;
                 JOptionPane.showMessageDialog(reservationFrame, "Room Added Successfully!",
                         "Room Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
+                onSuccessCallback.run();
             }
             addRoomDialog.dispose();
         });
