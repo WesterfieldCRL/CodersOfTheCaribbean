@@ -21,6 +21,7 @@ public class CruiseAppUtilities {
 
     public static Guest currentGuest;
     public static Admin currentAdmin;
+    public static TravelAgent currentAgent;
 
     private static ImageIcon errorImage = new ImageIcon("ErrorImage.png");
     private static Image scaledErrorInstance = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
@@ -59,7 +60,9 @@ public class CruiseAppUtilities {
                 switchToPanel(frame, "Guest View");
             }
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
-                switchToPanel(frame, "Travel Agent");
+                currentAgent = (TravelAgent) user.get();
+                addAgentPanelToFrame(frame);
+                switchToPanel(frame, "Agent View");
             }
             else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
                 currentAdmin = (Admin) user.get();
@@ -87,6 +90,14 @@ public class CruiseAppUtilities {
         frame.revalidate();
         frame.repaint();
     }
+
+    public static void addAgentPanelToFrame(JFrame frame){
+        JTabbedPane agentPanel = TravelAgentAccountPage.createTravelAgentViewTabbedPane(frame);
+        frame.add(agentPanel, "Agent View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
 
 
     public static void switchToPanel(JFrame frame, String panelName) {

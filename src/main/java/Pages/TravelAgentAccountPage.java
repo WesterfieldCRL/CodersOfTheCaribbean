@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.ArrayList;
 
 import static Pages.CruiseAppUtilities.*;
+import static Person.Guest.usernameExists;
+import static Person.TravelAgent.modifyTravelAgentAccount;
 
 
 public class TravelAgentAccountPage {
@@ -95,6 +97,52 @@ public class TravelAgentAccountPage {
 
     public static JPanel createModifyAccountPanel(JFrame frame){
         JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(4, 4, 4, 4);
+
+        JLabel usernameLabel = new JLabel("Username:");
+        JTextField usernameField = new JTextField(20);
+        usernameField.setText(currentAgent.getUsername());
+
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField(20);
+        passwordField.setText(currentAgent.getPassword());
+
+        JLabel addressLabel = new JLabel("Address:");
+        JTextField addressField = new JTextField(20);
+        addressField.setText(currentAgent.getAddress());
+
+        JButton updateButton = new JButton("Update");
+        updateButton.addActionListener(e -> {
+            String newUsername = usernameField.getText();
+            String newPassword = new String(passwordField.getPassword());
+            String newAddress = addressField.getText();
+
+            if (!newUsername.equals(currentAgent.getUsername()) && usernameExists(newUsername)) {
+                JOptionPane.showMessageDialog(frame, "Username already exists, please choose another one.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                boolean success = modifyTravelAgentAccount( currentAgent.getUsername() ,newUsername, newPassword, newAddress);
+                if (success) {
+                    JOptionPane.showMessageDialog(frame, "Account updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    currentAgent.setUsername(newUsername);
+                    currentAgent.setPassword(newPassword);
+                    currentAgent.setAddress(newAddress);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to update account. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(usernameLabel, gbc);
+        panel.add(usernameField, gbc);
+        panel.add(passwordLabel, gbc);
+        panel.add(passwordField, gbc);
+        panel.add(addressLabel, gbc);
+        panel.add(addressField, gbc);
+        panel.add(updateButton, gbc);
 
         return panel;
     }
