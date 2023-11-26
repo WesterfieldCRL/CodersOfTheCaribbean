@@ -1,52 +1,13 @@
 ----------------------------------------------------------------
-Tue Nov 21 18:45:22 UTC 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-f333-8784-000007313e80 
-on database directory /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase with class loader com.intellij.database.remote.jdbc.impl.JdbcClassLoader$JdbcClassLoaderImpl@6b71769e 
-Loaded from file:/Users/alexbaratta/Library/Application%20Support/JetBrains/IntelliJIdea2023.2/jdbc-drivers/Apache%20Derby/10.16.1.1/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=JetBrains s.r.o.
-java.runtime.version=17.0.7+7-b1000.6
+Sat Nov 25 18:56:53 CST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-0921-1811-000005c07f30 
+on database directory /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+Loaded from file:/Users/alexbaratta/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=21+35-2513
 user.dir=/Users/alexbaratta/Documents/CodersOfTheCaribbean
 os.name=Mac OS X
 os.arch=aarch64
 os.version=14.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
-Tue Nov 21 18:45:22 UTC 2023 Thread[RMI TCP Connection(3)-127.0.0.1,5,RMI Runtime] (XID = 1690), (SESSIONID = 1), (DATABASE = /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase), (DRDAID = null), Cleanup action starting
-Tue Nov 21 18:45:22 UTC 2023 Thread[RMI TCP Connection(3)-127.0.0.1,5,RMI Runtime] (XID = 1690), (SESSIONID = 1), (DATABASE = /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase), (DRDAID = null), Failed Statement is: drop table RESERVATIONS
-java.lang.NullPointerException: Cannot invoke "String.length()" because "s" is null
-	at java.base/java.io.StringReader.<init>(StringReader.java:51)
-	at org.apache.derby.impl.services.uuid.BasicUUID.<init>(BasicUUID.java:68)
-	at org.apache.derby.impl.services.uuid.BasicUUIDFactory.recreateUUID(BasicUUIDFactory.java:142)
-	at org.apache.derby.impl.sql.catalog.SYSSEQUENCESRowFactory.buildDescriptor(SYSSEQUENCESRowFactory.java:228)
-	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndexMinion(DataDictionaryImpl.java:9553)
-	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndex(DataDictionaryImpl.java:9314)
-	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSequenceDescriptor(DataDictionaryImpl.java:14367)
-	at org.apache.derby.impl.sql.execute.DropSequenceConstantAction.executeConstantAction(DropSequenceConstantAction.java:96)
-	at org.apache.derby.impl.sql.execute.DropTableConstantAction.dropIdentitySequence(DropTableConstantAction.java:304)
-	at org.apache.derby.impl.sql.execute.DropTableConstantAction.executeConstantAction(DropTableConstantAction.java:209)
-	at org.apache.derby.impl.sql.execute.MiscResultSet.open(MiscResultSet.java:61)
-	at org.apache.derby.impl.sql.GenericPreparedStatement.executeStmt(GenericPreparedStatement.java:470)
-	at org.apache.derby.impl.sql.GenericPreparedStatement.execute(GenericPreparedStatement.java:349)
-	at org.apache.derby.impl.jdbc.EmbedStatement.executeStatement(EmbedStatement.java:1344)
-	at org.apache.derby.impl.jdbc.EmbedStatement.execute(EmbedStatement.java:710)
-	at org.apache.derby.impl.jdbc.EmbedStatement.executeLargeUpdate(EmbedStatement.java:183)
-	at org.apache.derby.impl.jdbc.EmbedStatement.executeUpdate(EmbedStatement.java:172)
-	at com.intellij.database.remote.jdbc.impl.RemoteStatementImpl.executeUpdate(RemoteStatementImpl.java:189)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
-	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-Cleanup action completed

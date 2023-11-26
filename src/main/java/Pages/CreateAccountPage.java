@@ -4,34 +4,40 @@ import Person.Guest;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 import static Pages.CruiseAppUtilities.*;
 
 public class CreateAccountPage {
-    public static JPanel createAccountPanel(JFrame frame) {
+    static JTextField usernameField = new JTextField(15);
+    static JPasswordField passwordField = new JPasswordField(15);
+    static JTextField nameField = new JTextField(15);
+    static JTextField addressField = new JTextField(15);
+    static JTextField emailField = new JTextField(15);
 
+    public static JPanel createAccountPanel(JFrame frame) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel titleLabel = createStyledLabel("Create New Guest Account", LABEL_FONT);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        panel.add(titleLabel,gbc);
+        panel.add(titleLabel, gbc);
 
         gbc.gridwidth = 1;
 
-        JTextField usernameField = new JTextField(15);
-        JPasswordField passwordField = new JPasswordField(15);
-        JTextField nameField = new JTextField(15);
-        JTextField addressField = new JTextField(15);
-        JTextField emailField = new JTextField(15);
 
         String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"};
         JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField};
@@ -45,35 +51,81 @@ public class CreateAccountPage {
             panel.add(fields[i], gbc);
         }
 
-        JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
-        submitButton.addActionListener(e -> {
-            Guest guest = new Guest(usernameField.getText(), new String(passwordField.getPassword()), nameField.getText(),
-                    addressField.getText(), emailField.getText());
-            boolean success = guest.createAccount();
-            if (success) {
-                JOptionPane.showMessageDialog(null, "Account created successfully!","Create Account Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
-                switchToPanel(frame, "Login");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error creating account. Please ensure your details are correct and try again.");
+
+        JLabel passwordRequirementsLabel = new JLabel();
+        updateRequirementsLabel(requirements, passwordRequirementsLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        panel.add(passwordRequirementsLabel, gbc);
+
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String password = new String(passwordField.getPassword());
+                updateRequirementsLabel(password, requirements, passwordRequirementsLabel);
+                panel.revalidate();
+                panel.repaint();
             }
         });
 
-        //TODO: POSITION THIS BETETR
-        JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
-
-        backButton.addActionListener(e -> {
-            switchToPanel(frame, "Login");
+        JCheckBox tosCheckBox = new JCheckBox("I agree to the Terms of Service.");
+        tosCheckBox.setEnabled(false);
+        JButton tosButton = createStyledButton("View Terms of Service", BUTTON_FONT, BUTTON_COLOR);
+        tosButton.addActionListener(e -> {
+            JDialog tosDialog = TermsOfServicePanel.createTermsOfServiceDialog(frame);
+            tosDialog.setVisible(true);
+            tosCheckBox.setEnabled(true);
         });
 
-        panel.add(backButton);
+        gbc.gridy++;
+        panel.add(tosButton, gbc);
+        gbc.gridy++;
+        panel.add(tosCheckBox, gbc);
 
+
+        JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
+        submitButton.setEnabled(false);
+        tosCheckBox.addActionListener(e -> submitButton.setEnabled(tosCheckBox.isSelected()));
+        submitButton.addActionListener(e -> {
+            String password = new String(passwordField.getPassword());
+            String passwordValidationMessage = validatePassword(password);
+            if (!passwordValidationMessage.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, passwordValidationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                return;
+            }
+            Guest guest = new Guest(usernameField.getText(), password, nameField.getText(), addressField.getText(), emailField.getText());
+            boolean success = guest.createAccount();
+            if (success) {
+                JOptionPane.showMessageDialog(frame, "Account created successfully!", "Create Account Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
+                switchToPanel(frame, "Login");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Error creating account. Please ensure your details are correct and try again.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+            }
+            clearLoginFields();
+        });
 
         gbc.gridx = 0;
-        gbc.gridy = labels.length + 1;
+        gbc.gridy++;
         gbc.gridwidth = 2;
         panel.add(submitButton, gbc);
+
+        JButton backButton = createStyledButton("Back", BUTTON_FONT, BUTTON_COLOR);
+        backButton.addActionListener(e -> {
+            switchToPanel(frame, "Login");
+            clearLoginFields();
+        });
+        gbc.gridy++;
+        panel.add(backButton, gbc);
 
         return panel;
     }
 
+    private static void clearLoginFields(){
+        usernameField.setText("");
+        passwordField.setText("");
+        nameField.setText("");
+        addressField.setText("");
+        emailField.setText("");
+    }
 }

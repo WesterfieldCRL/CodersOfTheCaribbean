@@ -3,12 +3,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-derby.log
-cruiseDatabase/db.lck
-cruiseDatabase/log/log.ctrl
-cruiseDatabase/log/logmirror.ctrl
-cruiseDatabase/log/log1.dat
-
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -17,8 +11,6 @@ cruiseDatabase/log/log1.dat
 *.iws
 *.iml
 *.ipr
-derby.log
-cruiseDatabase/*.lck
 
 ### Eclipse ###
 .apt_generated
@@ -28,7 +20,6 @@ cruiseDatabase/*.lck
 .settings
 .springBeans
 .sts4-cache
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
