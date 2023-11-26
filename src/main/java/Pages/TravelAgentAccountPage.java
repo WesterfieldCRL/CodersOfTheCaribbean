@@ -2,6 +2,7 @@ package Pages;
 
 import Cruise.Room;
 import Cruise.*;
+import Person.Guest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +57,7 @@ public class TravelAgentAccountPage {
         gbc.weighty = 1.0;
         panel.add(listScrollPane, gbc);
 
-        JButton addRoomButton = createStyledButton("Add Room", new Font("Arial", Font.BOLD, 12), BUTTON_COLOR);
+        JButton addRoomButton = createStyledButton("Add Room", BUTTON_FONT, BUTTON_COLOR);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -91,9 +92,43 @@ public class TravelAgentAccountPage {
 
     public static JPanel createReserveForGuestPanel(JFrame frame){
         JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JComboBox<String> cruiseComboBox = new JComboBox<>(new String[]{"CRUISE1", "CRUISE2", "CRUISE3"});
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(cruiseComboBox, gbc);
+
+        DefaultListModel<String> guestListModel = new DefaultListModel<>();
+        // TODO: ADD GUEST LIST
+        JList<String> guestList = new JList<>(guestListModel);
+        JScrollPane guestScrollPane = new JScrollPane(guestList);
+        gbc.gridy = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel.add(guestScrollPane, gbc);
+
+        JButton bookButton = new JButton("Book Reservation");
+        bookButton.addActionListener(e -> {
+            addGuestBookToFrame(frame);
+            switchToPanel(frame, "Guest View");
+        });
+        gbc.gridy = 2;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.NONE;
+        panel.add(bookButton, gbc);
 
         return panel;
     }
+
+    public static void addGuestBookToFrame(JFrame frame) {
+        JPanel guestPanel = GuestAccountPage.createRoomSelectionPanel(frame);
+        frame.add(guestPanel, "Guest View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
 
     public static JPanel createModifyAccountPanel(JFrame frame){
         JPanel panel = new JPanel(new GridBagLayout());

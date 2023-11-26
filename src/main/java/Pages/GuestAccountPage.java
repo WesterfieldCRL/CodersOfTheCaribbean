@@ -4,6 +4,7 @@ import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -28,10 +29,10 @@ public class GuestAccountPage {
     protected static JList<Reservation> reservationsList = new JList<>(reservationListModel);
 
 
-    public static JTabbedPane createGuestViewTabbedPane() {
+    public static JTabbedPane createGuestViewTabbedPane(JFrame frame) {
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JPanel roomSelectionPanel = createRoomSelectionPanel();
+        JPanel roomSelectionPanel = createRoomSelectionPanel(frame);
         tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
 
         JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList);
@@ -41,8 +42,7 @@ public class GuestAccountPage {
     }
 
 
-    public static JPanel createRoomSelectionPanel() {
-
+    public static JPanel createRoomSelectionPanel(JFrame frame) {
 
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -210,6 +210,23 @@ public class GuestAccountPage {
 
         panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        if (currentAgent != null) {
+            JButton backButton = createStyledButton("Back", BUTTON_FONT,BUTTON_COLOR);
+            backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addAgentPanelToFrame(frame);
+                    switchToPanel(frame, "Agent View");
+                }
+            });
+
+            bottomPanel.add(backButton);
+        }
+
+        panel.add(bottomPanel, BorderLayout.SOUTH);
 
         return panel;
     }

@@ -85,7 +85,7 @@ public class CruiseAppUtilities {
     }
 
     public static void addGuestPanelToFrame(JFrame frame){
-        JTabbedPane guestPanel = GuestAccountPage.createGuestViewTabbedPane();
+        JTabbedPane guestPanel = GuestAccountPage.createGuestViewTabbedPane(frame);
         frame.add(guestPanel, "Guest View");
         frame.revalidate();
         frame.repaint();
