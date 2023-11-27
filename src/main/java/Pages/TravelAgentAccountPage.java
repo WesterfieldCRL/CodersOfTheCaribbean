@@ -66,6 +66,7 @@ public class TravelAgentAccountPage {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(addRoomButton, gbc);
+        updateRoomListForCruise(cruiseComboBox.getItemAt(0),roomListModel);
         cruiseComboBox.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
@@ -126,8 +127,6 @@ public class TravelAgentAccountPage {
             }
         });
 
-
-
         JScrollPane guestScrollPane = new JScrollPane(guestJList);
         gbc.gridy = 1;
         gbc.weighty = 1;
@@ -158,7 +157,6 @@ public class TravelAgentAccountPage {
         frame.revalidate();
         frame.repaint();
     }
-
 
     public static JPanel createModifyAccountPanel(JFrame frame){
         JPanel panel = new JPanel(new GridBagLayout());
