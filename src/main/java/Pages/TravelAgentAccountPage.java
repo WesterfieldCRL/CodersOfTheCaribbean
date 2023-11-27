@@ -1,5 +1,6 @@
 package Pages;
 
+import Controllers.GuestController;
 import Cruise.Room;
 import Cruise.*;
 import Person.Guest;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.List;
 
 import static Pages.CruiseAppUtilities.*;
 import static Person.Guest.usernameExists;
@@ -100,20 +102,48 @@ public class TravelAgentAccountPage {
         gbc.gridy = 0;
         panel.add(cruiseComboBox, gbc);
 
-        DefaultListModel<String> guestListModel = new DefaultListModel<>();
-        // TODO: ADD GUEST LIST
-        JList<String> guestList = new JList<>(guestListModel);
-        JScrollPane guestScrollPane = new JScrollPane(guestList);
+        List<Guest> guests = GuestController.getGuestList();
+
+        DefaultListModel<Guest> guestListModel = new DefaultListModel<>();
+        for (Guest guest : guests) {
+            guestListModel.addElement(guest);
+        }
+
+        JList<Guest> guestJList = new JList<>(guestListModel);
+        guestJList.setCellRenderer(new ListCellRenderer<Guest>() {
+            @Override
+            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = new JLabel(value.getUsername());
+                label.setOpaque(true);
+                if (isSelected) {
+                    label.setBackground(list.getSelectionBackground());
+                    label.setForeground(list.getSelectionForeground());
+                } else {
+                    label.setBackground(list.getBackground());
+                    label.setForeground(list.getForeground());
+                }
+                return label;
+            }
+        });
+
+
+
+        JScrollPane guestScrollPane = new JScrollPane(guestJList);
         gbc.gridy = 1;
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(guestScrollPane, gbc);
 
         JButton bookButton = new JButton("Book Reservation");
-        bookButton.addActionListener(e -> {
-            addGuestBookToFrame(frame);
-            switchToPanel(frame, "Guest View");
-        });
+            bookButton.addActionListener(e -> {
+                if (guestJList.getSelectedValue() == null ){
+                    JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    return;
+                }
+                currentGuest = guestJList.getSelectedValue();
+                addGuestBookToFrame(frame);
+                switchToPanel(frame, "Guest View");
+            });
         gbc.gridy = 2;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.NONE;
@@ -154,7 +184,7 @@ public class TravelAgentAccountPage {
             String newAddress = addressField.getText();
 
             if (!newUsername.equals(currentAgent.getUsername()) && usernameExists(newUsername)) {
-                JOptionPane.showMessageDialog(frame, "Username already exists, please choose another one.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Username already exists, please choose another one.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             } else {
                 boolean success = modifyTravelAgentAccount( currentAgent.getUsername() ,newUsername, newPassword, newAddress);
                 if (success) {
@@ -163,7 +193,7 @@ public class TravelAgentAccountPage {
                     currentAgent.setPassword(newPassword);
                     currentAgent.setAddress(newAddress);
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Failed to update account. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Failed to update account. Please try again.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });

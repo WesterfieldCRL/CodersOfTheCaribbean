@@ -218,6 +218,7 @@ public class GuestAccountPage {
             backButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    currentGuest = null;
                     addAgentPanelToFrame(frame);
                     switchToPanel(frame, "Agent View");
                 }
