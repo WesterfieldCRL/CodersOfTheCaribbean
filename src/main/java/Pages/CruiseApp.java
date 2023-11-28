@@ -2,6 +2,7 @@ package Pages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Logger;
 
 import static Pages.LandingPage.*;
 import static Pages.LoginPage.*;

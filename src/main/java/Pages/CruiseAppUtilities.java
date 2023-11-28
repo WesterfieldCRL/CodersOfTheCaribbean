@@ -72,6 +72,8 @@ public class CruiseAppUtilities {
                 addManagerPanelToFrame(frame);
                 switchToPanel(frame, "Manager View");
             }
+            usernameField.setText("");
+            passwordField.setText("");
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
         } else {
@@ -107,7 +109,6 @@ public class CruiseAppUtilities {
         frame.revalidate();
         frame.repaint();
     }
-
 
 
     public static void switchToPanel(JFrame frame, String panelName) {

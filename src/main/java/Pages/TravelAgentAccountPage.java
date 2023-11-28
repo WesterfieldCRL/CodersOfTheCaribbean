@@ -73,7 +73,7 @@ public class TravelAgentAccountPage {
                 updateRoomListForCruise(selectedCruise,roomListModel);
             }
         });
-
+        //TODO: Modify existing room
         addRoomButton.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
@@ -140,7 +140,7 @@ public class TravelAgentAccountPage {
                     return;
                 }
                 currentGuest = guestJList.getSelectedValue();
-                addGuestBookToFrame(frame);
+                CruiseAppUtilities.addGuestPanelToFrame(frame);
                 switchToPanel(frame, "Guest View");
             });
         gbc.gridy = 2;
@@ -149,13 +149,6 @@ public class TravelAgentAccountPage {
         panel.add(bookButton, gbc);
 
         return panel;
-    }
-
-    public static void addGuestBookToFrame(JFrame frame) {
-        JPanel guestPanel = GuestAccountPage.createRoomSelectionPanel(frame);
-        frame.add(guestPanel, "Guest View");
-        frame.revalidate();
-        frame.repaint();
     }
 
     public static JPanel createModifyAccountPanel(JFrame frame){

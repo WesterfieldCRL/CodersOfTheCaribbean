@@ -35,7 +35,7 @@ public class GuestAccountPage {
         JPanel roomSelectionPanel = createRoomSelectionPanel(frame);
         tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
 
-        JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList);
+        JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList, frame);
         tabbedPane.addTab("Current Reservations", null, currentReservationsPanel, "View your current reservations");
 
         return tabbedPane;
@@ -233,7 +233,7 @@ public class GuestAccountPage {
         return panel;
     }
 
-    private static JPanel createCurrentReservationsPanel(DefaultListModel<Reservation> reservationListModel, JList<Reservation> reservationsList) {
+    private static JPanel createCurrentReservationsPanel(DefaultListModel<Reservation> reservationListModel, JList<Reservation> reservationsList, JFrame frame) {
         JPanel panel = new JPanel(new BorderLayout());
         for (Reservation reservation : currentGuest.getReservations()) {
             reservationListModel.addElement(reservation);
@@ -306,23 +306,29 @@ public class GuestAccountPage {
                                         cruise
                                 );
                                 if (success) {
-                                    JOptionPane.showMessageDialog(null, "Reservation modified successfully.", "Success", JOptionPane.PLAIN_MESSAGE, scaledSuccessIcon);
+                                    JOptionPane.showMessageDialog(null, "Reservation modified successfully.",
+                                            "Success", JOptionPane.PLAIN_MESSAGE, scaledSuccessIcon);
                                     updateReservationsList(reservationListModel);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "Failed to modify reservation.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                                    JOptionPane.showMessageDialog(null, "Failed to modify reservation.",
+                                            "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "The room is not available for the selected dates.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                                JOptionPane.showMessageDialog(null, "The room is not available for the selected dates.",
+                                        "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Cruise not found.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                            JOptionPane.showMessageDialog(null, "Cruise not found.", "Error",
+                                    JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                         }
                     } catch (DateTimeParseException dtpe) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                        JOptionPane.showMessageDialog(null, "Invalid date format. Please use yyyy-mm-dd.",
+                                "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error",
+                        JOptionPane.WARNING_MESSAGE, scaledErrorImage);
             }
         });
 
@@ -342,17 +348,26 @@ public class GuestAccountPage {
                         currentGuest.getReservations().remove(selectedReservation);
                         JOptionPane.showMessageDialog(null, "Reservation cancelled successfully.");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Failed to cancel reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Failed to cancel reservation.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error",
+                        JOptionPane.WARNING_MESSAGE);
             }
+        });
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> {
+            currentGuest = null;
+            switchToPanel(frame, "Login");
         });
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(modifyButton);
         buttonsPanel.add(deleteButton);
+        buttonsPanel.add(logoutButton);
         panel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return panel;
