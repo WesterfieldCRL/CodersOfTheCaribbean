@@ -22,6 +22,7 @@ public class CruiseAppUtilities {
     public static Guest currentGuest;
     public static Admin currentAdmin;
     public static TravelAgent currentAgent;
+    public static Manager currentManager;
 
     private static ImageIcon errorImage = new ImageIcon("ErrorImage.png");
     private static Image scaledErrorInstance = errorImage.getImage().getScaledInstance(150,90,Image.SCALE_SMOOTH);
@@ -58,16 +59,18 @@ public class CruiseAppUtilities {
                 currentGuest = (Guest) user.get();
                 addGuestPanelToFrame(frame);
                 switchToPanel(frame, "Guest View");
-            }
-            else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
+            } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
                 currentAgent = (TravelAgent) user.get();
                 addAgentPanelToFrame(frame);
                 switchToPanel(frame, "Agent View");
-            }
-            else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
+            } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
                 currentAdmin = (Admin) user.get();
                 addAdminPanelToFrame(frame);
                 switchToPanel(frame, "Admin View");
+            } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("MANAGER")){
+                currentManager = (Manager) user.get();
+                addManagerPanelToFrame(frame);
+                switchToPanel(frame, "Manager View");
             }
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
@@ -94,6 +97,13 @@ public class CruiseAppUtilities {
     public static void addAgentPanelToFrame(JFrame frame){
         JTabbedPane agentPanel = TravelAgentAccountPage.createTravelAgentViewTabbedPane(frame);
         frame.add(agentPanel, "Agent View");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public static void addManagerPanelToFrame(JFrame frame){
+        JPanel managerPanel = ManagerAccountPage.createManagerViewPanel(frame);
+        frame.add(managerPanel, "Manager View");
         frame.revalidate();
         frame.repaint();
     }
