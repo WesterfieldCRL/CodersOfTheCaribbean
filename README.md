@@ -11,7 +11,6 @@ Welcome to the CodersOfTheCaribbean Travel in Cruise System project! This system
 - **Design Engineer**: Alex Baratta
 - **Quality Assurance Engineer**: Wesley Anastasi
 - **Project Librarian**: Carter Collins
-- **Miscellaneous Support**: Penglin Liu
 
 ## Cruise Options
 

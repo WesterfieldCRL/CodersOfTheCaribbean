@@ -1,13 +1,13 @@
 package Pages;
 
-import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
@@ -28,10 +28,10 @@ public class GuestAccountPage {
     protected static JList<Reservation> reservationsList = new JList<>(reservationListModel);
 
 
-    public static JTabbedPane createGuestViewTabbedPane() {
+    public static JTabbedPane createGuestViewTabbedPane(JFrame frame) {
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JPanel roomSelectionPanel = createRoomSelectionPanel();
+        JPanel roomSelectionPanel = createRoomSelectionPanel(frame);
         tabbedPane.addTab("Select Room", null, roomSelectionPanel, "Select a room for reservation");
 
         JPanel currentReservationsPanel = createCurrentReservationsPanel(reservationListModel, reservationsList);
@@ -41,8 +41,7 @@ public class GuestAccountPage {
     }
 
 
-    public static JPanel createRoomSelectionPanel() {
-
+    public static JPanel createRoomSelectionPanel(JFrame frame) {
 
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -129,6 +128,10 @@ public class GuestAccountPage {
             }
         });
 
+        JLabel validDatesLabel = new JLabel();
+        validDatesLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        validDatesLabel.setForeground(Color.DARK_GRAY);
+
         cruiseTabs.addChangeListener(e -> {
             JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
             int index = sourceTabbedPane.getSelectedIndex();
@@ -138,22 +141,25 @@ public class GuestAccountPage {
                     updateAllRoomsForCruise("cruise1", roomListModel);
                     Optional<Cruise> optionalCruise = getCruise("cruise1");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
+                    updateValidDatesLabel(validDatesLabel, "cruise1");
                     break;
                 case 1:
                     updateAllRoomsForCruise("cruise2", roomListModel);
                     optionalCruise = getCruise("cruise2");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
-
+                    updateValidDatesLabel(validDatesLabel, "cruise2");
                     break;
                 case 2:
                     updateAllRoomsForCruise("cruise3", roomListModel);
                     optionalCruise = getCruise("cruise3");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
-
+                    updateValidDatesLabel(validDatesLabel, "cruise3");
                     break;
             }
         });
         updateAllRoomsForCruise("cruise1", roomListModel);
+        updateValidDatesLabel(validDatesLabel, "cruise1");
+
         Optional<Cruise> optionalCruise = getCruise("cruise1");
         optionalCruise.ifPresent(cruise -> currentCruise = cruise);
 
@@ -196,19 +202,31 @@ public class GuestAccountPage {
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
-        JLabel usageInstructions = new JLabel("First Select a Cruise to Display. Then use the filters to select " +
-                "your choice of room. YOU MUST SELECT A VALID START AND END DATE. Reserve by double click");
-        usageInstructions.setFont(new Font("Arial", Font.BOLD, 12));
-        usageInstructions.setForeground(new Color(50, 50, 50));
-        usageInstructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        topPanel.add(usageInstructions, BorderLayout.AFTER_LAST_LINE);
+        topPanel.add(validDatesLabel, BorderLayout.SOUTH);
 
         topPanel.add(cruiseTabs, BorderLayout.NORTH);
         topPanel.add(filterPanel, BorderLayout.CENTER);
-        topPanel.add(usageInstructions, BorderLayout.SOUTH);
 
         panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        if (currentAgent != null) {
+            JButton backButton = createStyledButton("Back", BUTTON_FONT,BUTTON_COLOR);
+            backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    currentGuest = null;
+                    addAgentPanelToFrame(frame);
+                    switchToPanel(frame, "Agent View");
+                }
+            });
+
+            bottomPanel.add(backButton);
+        }
+
+        panel.add(bottomPanel, BorderLayout.SOUTH);
 
         return panel;
     }
@@ -300,6 +318,24 @@ public class GuestAccountPage {
         panel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return panel;
+    }
+
+    public static void updateValidDatesLabel(JLabel validDatesLabel, String cruiseName) {
+        Optional<Cruise> cruiseOpt = getCruise(cruiseName);
+        if (cruiseOpt.isPresent()) {
+            Cruise cruise = cruiseOpt.get();
+            ArrayList<LocalDate> validDates = cruise.getValidReservationDates();
+            StringBuilder validDatesText = new StringBuilder("Valid reservation dates based on travel path: ");
+            for (LocalDate date : validDates) {
+                validDatesText.append(date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))).append(", ");
+            }
+            if (validDates.size() > 0) {
+                validDatesText.setLength(validDatesText.length() - 2);
+            }
+            validDatesLabel.setText(validDatesText.toString());
+        } else {
+            validDatesLabel.setText("No valid dates available for this cruise.");
+        }
     }
 
     private static void updateReservationsList(DefaultListModel<Reservation> model) {
