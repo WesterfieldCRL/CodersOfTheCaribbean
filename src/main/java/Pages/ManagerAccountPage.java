@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Pages.CruiseAppUtilities.*;
+
 public class ManagerAccountPage {
 
     //! Placeholder Styling, Change once billing is done
@@ -17,6 +19,12 @@ public class ManagerAccountPage {
         JList<String> reportList = new JList<>(reportListModel);
         JScrollPane scrollPane = new JScrollPane(reportList);
 
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> {
+            currentManager = null;
+            switchToPanel(frame, "Login");
+        });
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -25,14 +33,18 @@ public class ManagerAccountPage {
         gbc.anchor = GridBagConstraints.PAGE_START;
         panel.add(generateReportButton, gbc);
 
+
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = GridBagConstraints.REMAINDER;
+//        gbc.gridwidth = GridBagConstraints.REMAINDER;
+//        gbc.gridheight = GridBagConstraints.REMAINDER;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.BOTH;
+//        gbc.fill = GridBagConstraints.BOTH;
         panel.add(scrollPane, gbc);
+        gbc.gridy++;
+        panel.add(logoutButton, gbc);
+
 
         generateReportButton.addActionListener(new ActionListener() {
             @Override

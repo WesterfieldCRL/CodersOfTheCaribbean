@@ -83,7 +83,7 @@ public class CruiseAppUtilities {
     }
 
     public static void addAdminPanelToFrame(JFrame frame) {
-        JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane();
+        JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane(frame);
         frame.add(adminPanel, "Admin View");
         frame.revalidate();
         frame.repaint();

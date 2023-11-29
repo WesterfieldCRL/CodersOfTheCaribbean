@@ -367,7 +367,9 @@ public class GuestAccountPage {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(modifyButton);
         buttonsPanel.add(deleteButton);
-        buttonsPanel.add(logoutButton);
+        if (currentAgent == null) {
+            buttonsPanel.add(logoutButton);
+        }
         panel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return panel;

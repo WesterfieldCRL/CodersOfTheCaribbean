@@ -28,7 +28,7 @@ public class TravelAgentAccountPage {
         tabbedPane.addTab("Book For Guest", null, reserveForGuestPanel, "Reserve on behalf of guest");
 
         JPanel modifyAccountPanel = createModifyAccountPanel(frame);
-        tabbedPane.addTab("Modify Account", null ,modifyAccountPanel, "Modify your account info");
+        tabbedPane.addTab("Account Options", null ,modifyAccountPanel, "Modify Account | Logout");
         return tabbedPane;
     }
 
@@ -192,6 +192,13 @@ public class TravelAgentAccountPage {
             }
         });
 
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> {
+            currentAgent = null;
+            switchToPanel(frame, "Login");
+        });
+
+
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -202,6 +209,7 @@ public class TravelAgentAccountPage {
         panel.add(addressLabel, gbc);
         panel.add(addressField, gbc);
         panel.add(updateButton, gbc);
+        panel.add(logoutButton, gbc);
 
         return panel;
     }
