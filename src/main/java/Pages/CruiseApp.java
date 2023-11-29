@@ -2,14 +2,10 @@ package Pages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.Logger;
 
 import static Pages.LandingPage.*;
 import static Pages.LoginPage.*;
 import static Pages.CreateAccountPage.*;
-import static Pages.GuestAccountPage.*;
-import static Pages.TravelAgentAccountPage.*;
-import static Pages.TermsOfServicePanel.*;
 
 public class CruiseApp {
 

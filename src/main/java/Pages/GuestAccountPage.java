@@ -91,8 +91,6 @@ public class GuestAccountPage {
         cruiseTabs.addTab("Cruise2", panelCruise2);
         cruiseTabs.addTab("Cruise3", panelCruise3);
 
-
-
         DefaultListModel<Room> roomListModel = new DefaultListModel<>();
         JList<Room> roomList = new JList<>(roomListModel);
 
@@ -142,18 +140,21 @@ public class GuestAccountPage {
             switch(index) {
                 case 0:
                     updateAllRoomsForCruise("cruise1", roomListModel);
+                    roomList.setVisible(false);
                     Optional<Cruise> optionalCruise = getCruise("cruise1");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
                     updateValidDatesLabel(validDatesLabel, "cruise1");
                     break;
                 case 1:
                     updateAllRoomsForCruise("cruise2", roomListModel);
+                    roomList.setVisible(false);
                     optionalCruise = getCruise("cruise2");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
                     updateValidDatesLabel(validDatesLabel, "cruise2");
                     break;
                 case 2:
                     updateAllRoomsForCruise("cruise3", roomListModel);
+                    roomList.setVisible(false);
                     optionalCruise = getCruise("cruise3");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
                     updateValidDatesLabel(validDatesLabel, "cruise3");
@@ -166,6 +167,7 @@ public class GuestAccountPage {
         Optional<Cruise> optionalCruise = getCruise("cruise1");
         optionalCruise.ifPresent(cruise -> currentCruise = cruise);
 
+        roomList.setVisible(false);
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
@@ -177,6 +179,7 @@ public class GuestAccountPage {
             updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
                     isSmokingCheckBox, startDateField, endDateField, roomListModel);
             filtersApplied = true;
+            roomList.setVisible(true);
         });
         filterPanel.add(applyFiltersButton);
 
