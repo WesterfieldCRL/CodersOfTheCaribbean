@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import Person.Guest.*;
 
 import Cruise.Cruise;
@@ -27,6 +29,7 @@ public class GuestAccountPage {
     public static Cruise currentCruise;
     protected static DefaultListModel<Reservation> reservationListModel = new DefaultListModel<>();
     protected static JList<Reservation> reservationsList = new JList<>(reservationListModel);
+    static boolean filtersApplied = false;
 
 
     public static JTabbedPane createGuestViewTabbedPane(JFrame frame) {
@@ -43,7 +46,6 @@ public class GuestAccountPage {
 
 
     public static JPanel createRoomSelectionPanel(JFrame frame) {
-
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(BACKGROUND_COLOR);
@@ -174,12 +176,18 @@ public class GuestAccountPage {
             }
             updateRoomList(currentCruise.getName(), qualityComboBox, numBedsComboBox, bedTypeComboBox,
                     isSmokingCheckBox, startDateField, endDateField, roomListModel);
+            filtersApplied = true;
         });
         filterPanel.add(applyFiltersButton);
 
         roomList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (!filtersApplied) {
+                    JOptionPane.showMessageDialog(null, "Please apply filters before selecting a room.",
+                            "Apply Filters", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
+                    return;
+                }
                 if (e.getClickCount() == 2) { // double click
                     Room selectedRoom = roomList.getSelectedValue();
                     JLabel rendererComponent = (JLabel) roomList.getCellRenderer()
@@ -348,8 +356,8 @@ public class GuestAccountPage {
                         currentGuest.getReservations().remove(selectedReservation);
                         JOptionPane.showMessageDialog(null, "Reservation cancelled successfully.");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Failed to cancel reservation.",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "You cannot cancel this reservation.",
+                                "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     }
                 }
             } else {
@@ -394,6 +402,7 @@ public class GuestAccountPage {
     }
 
     private static void updateReservationsList(DefaultListModel<Reservation> model) {
+
         currentGuest.getReservations();
         model.clear();
         for (Reservation reservation : currentGuest.getReservations()) {
@@ -402,6 +411,7 @@ public class GuestAccountPage {
     }
 
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
+        filtersApplied = false;
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
             ArrayList<Room> rooms = cruise.get().getRoomList();
@@ -411,7 +421,6 @@ public class GuestAccountPage {
             }
         }
     }
-
 
     private static void updateRoomList(String cruiseName, JComboBox<Room.Quality> qualityComboBox,
                                        JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
