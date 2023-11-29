@@ -169,11 +169,6 @@ public class AdminAccountPage {
         gbc.gridwidth = 2;
         createAccountPanel.add(createButton, gbc);
 
-//        JButton logoutButton = new JButton("Logout");
-//        logoutButton.addActionListener(e -> {
-//            currentManager = null;
-//            switchToPanel(frame, "Login");
-//        });
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String password = new String(passwordField.getPassword());
