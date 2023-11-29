@@ -85,7 +85,8 @@ public class TravelAgentAccountPage {
                         updateRoomListForCruise(selectedCruise, roomListModel);
                     });
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error",
+                            JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });
@@ -113,7 +114,8 @@ public class TravelAgentAccountPage {
         JList<Guest> guestJList = new JList<>(guestListModel);
         guestJList.setCellRenderer(new ListCellRenderer<Guest>() {
             @Override
-            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index, boolean isSelected, boolean cellHasFocus) {
+            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
                 JLabel label = new JLabel(value.getUsername());
                 label.setOpaque(true);
                 if (isSelected) {
@@ -136,7 +138,8 @@ public class TravelAgentAccountPage {
         JButton bookButton = new JButton("Book Reservation");
             bookButton.addActionListener(e -> {
                 if (guestJList.getSelectedValue() == null ){
-                    JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error",
+                            JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     return;
                 }
                 currentGuest = guestJList.getSelectedValue();
