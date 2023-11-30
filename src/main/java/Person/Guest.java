@@ -109,7 +109,6 @@ public class Guest extends Person {
         }
     }
 
-    //!Updated to immediately update reset request DB
     public void resetPassword() {
         Connection connection = null;
         try {
