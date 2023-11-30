@@ -20,7 +20,8 @@ public class Cruise {
 
         this.clock = Clock.systemDefaultZone();
 
-        if (name.equals("CRUISE1") || name.equals("CRUISE2") || name.equals("CRUISE3")) {
+        if (name.equals("CRUISE1") || name.equals("CRUISE2") || name.equals("CRUISE3")
+                || name.equals("cruise3") || name.equals("cruise2") || name.equals("cruise1")) {
             updateTravelPath();
 
             if (travelPath.get(travelPath.size() - 1).arrival.isBefore(LocalDate.now(clock))) {
