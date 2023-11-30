@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
@@ -268,23 +269,59 @@ public class GuestAccountPage {
                 };
 
                 int option = JOptionPane.showConfirmDialog(null, message, "Modify Reservation", JOptionPane.OK_CANCEL_OPTION);
-                if (option == JOptionPane.OK_OPTION) {
-                    LocalDate newStartDate = LocalDate.parse(startDateField.getText());
-                    LocalDate newEndDate = LocalDate.parse(endDateField.getText());
-                    String cruiseName = selectedReservation.getCruiseName();
-                    Optional<Cruise> cruiseOptional = getCruise(cruiseName);
-                    Cruise cruise = cruiseOptional.get();
 
-                    boolean success = currentGuest.modifyReservation(selectedReservation.getId(), selectedReservation.getRoom(), newStartDate, newEndDate, cruise);
-                    if (success) {
-                        JOptionPane.showMessageDialog(null, "Reservation modified successfully.");
-                        updateReservationsList(reservationListModel);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Failed to modify reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (option == JOptionPane.OK_OPTION) {
+                    try {
+                        LocalDate newStartDate = LocalDate.parse(startDateField.getText());
+                        LocalDate newEndDate = LocalDate.parse(endDateField.getText());
+
+                        if(newStartDate.isBefore(LocalDate.now()) || newEndDate.isBefore(LocalDate.now()) || newEndDate.isBefore(newStartDate)) {
+                            JOptionPane.showMessageDialog(null, "Invalid Dates.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                            return;
+                        }
+
+                        String cruiseName = selectedReservation.getCruiseName();
+                        Optional<Cruise> cruiseOptional = getCruise(cruiseName);
+
+                        if (cruiseOptional.isPresent()) {
+                            Cruise cruise = cruiseOptional.get();
+                            Room currentRoom = selectedReservation.getRoom();
+
+                            Optional<Room> availableRoom = cruise.isRoomAvailable(
+                                    currentRoom.getQuality(),
+                                    currentRoom.getNumBeds(),
+                                    currentRoom.getBedType(),
+                                    currentRoom.isSmoking(),
+                                    newStartDate,
+                                    newEndDate
+                            );
+
+                            if (availableRoom.isPresent()) {
+                                boolean success = currentGuest.modifyReservation(
+                                        selectedReservation.getId(),
+                                        availableRoom.get(),
+                                        newStartDate,
+                                        newEndDate,
+                                        cruise
+                                );
+                                if (success) {
+                                    JOptionPane.showMessageDialog(null, "Reservation modified successfully.", "Success", JOptionPane.PLAIN_MESSAGE, scaledSuccessIcon);
+                                    updateReservationsList(reservationListModel);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Failed to modify reservation.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "The room is not available for the selected dates.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Cruise not found.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                        }
+                    } catch (DateTimeParseException dtpe) {
+                        JOptionPane.showMessageDialog(null, "Invalid date format. Please use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No reservation selected.", "Error", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
             }
         });
 
