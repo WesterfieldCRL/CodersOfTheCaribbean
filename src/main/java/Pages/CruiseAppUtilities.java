@@ -229,7 +229,7 @@ public class CruiseAppUtilities {
      *   <li>Digit Inclusion: The password must include at least one digit.</li>
      *   <li>Letter Inclusion: The password must contain at least one letter.</li>
      *   <li>Special Character Inclusion: The password must have at least one special character
-     *       from the set (!@#$%^&*+=?-).</li>
+     *       from the set.</li>
      * </ol>
      *
      * <p>If the password does not meet any of these criteria, an appropriate error message is returned.
@@ -311,7 +311,7 @@ public class CruiseAppUtilities {
      *   <li>"At least 8 characters" - Ensuring the password is a minimum of 8 characters long.</li>
      *   <li>"At least one digit" - Requiring the inclusion of at least one numerical digit.</li>
      *   <li>"At least one letter" - Mandating the presence of at least one alphabetic letter.</li>
-     *   <li>"At least one special character (!@#$%^&*+=?-)" - Necessitating at least one specified special character.</li>
+     *   <li>"At least one special character" - Necessitating at least one specified special character.</li>
      * </ol>
      */
     public static List<String> requirements = new ArrayList<>(Arrays.asList(
