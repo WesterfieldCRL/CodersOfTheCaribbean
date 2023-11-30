@@ -1,28 +1,23 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.derby.iapi.services.io.FileUtil;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import Cruise.*;
 import Person.*;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-public class MakeReservationTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
-
+public class ModifyReservationTest {
     @BeforeEach
     public void backupDB()
     {
@@ -69,9 +64,10 @@ public class MakeReservationTest {
     }
 
     @Test
-    void testMakeReservationWithCorrectData() {
+    void testModifyValidInfo() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
+
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");
         if (optionalCruise.isPresent())
         {
@@ -86,21 +82,24 @@ public class MakeReservationTest {
             if (optionalRoom.isPresent())
             {
                 Room room = optionalRoom.get();
-                boolean output = guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
+                guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
+                List<Guest.Reservation> reservations = guest.getReservations();
 
+                boolean output = guest.modifyReservation(reservations.get(0).getId(), roomList.get(1), validDates.get(0), validDates.get(validDates.size()-1), cruise1);
                 assertTrue(output);
                 return;
             }
-            fail("could not find room");
+            fail("room not found");
         }
-        fail("could not find cruise");
+        fail("cruise not found");
     }
 
 
     @Test
-    void testMakeReservationWithIncorrectData() {
+    void testModifyInvalidInfo() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
+
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");
         if (optionalCruise.isPresent())
         {
@@ -110,13 +109,21 @@ public class MakeReservationTest {
 
             ArrayList<Room> roomList = cruise1.getAvailableRoomsList(validDates.get(0), validDates.get(validDates.size()-1));
 
+            Optional<Room> optionalRoom = cruise1.isRoomAvailable(roomList.get(0).getQuality(), roomList.get(0).getNumBeds(), roomList.get(0).getBedType(), roomList.get(0).isSmoking(), validDates.get(0), validDates.get(validDates.size()-1));
 
-            //Dates are invalid so should fail
-            Optional<Room> optionalRoom = cruise1.isRoomAvailable(roomList.get(0).getQuality(), roomList.get(0).getNumBeds(), roomList.get(0).getBedType(), roomList.get(0).isSmoking(), LocalDate.now(), LocalDate.now().plusDays(10000));
+            if (optionalRoom.isPresent())
+            {
+                Room room = optionalRoom.get();
+                guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
+                List<Guest.Reservation> reservations = guest.getReservations();
 
-            assertFalse(optionalRoom.isPresent());
-            return;
+
+                boolean output = guest.modifyReservation(reservations.get(0).getId(), roomList.get(1), validDates.get(0), LocalDate.now().plusDays(1000000), cruise1);
+                assertFalse(output);
+                return;
+            }
+            fail("room not found");
         }
-        fail("could not find cruise");
+        fail("cruise not found");
     }
 }

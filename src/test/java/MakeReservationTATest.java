@@ -1,17 +1,10 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.derby.iapi.services.io.FileUtil;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import Cruise.*;
 import Person.*;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,9 +13,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class MakeReservationTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
-
+public class MakeReservationTATest {
     @BeforeEach
     public void backupDB()
     {
@@ -69,7 +63,8 @@ public class MakeReservationTest {
     }
 
     @Test
-    void testMakeReservationWithCorrectData() {
+    void testMakeReservationWithCorrectDataTA() {
+        //NOTE: Only difference between TA and normal creation is UI, so test is just rerun
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");
@@ -98,7 +93,8 @@ public class MakeReservationTest {
 
 
     @Test
-    void testMakeReservationWithIncorrectData() {
+    void testMakeReservationWithIncorrectDataTA() {
+        //NOTE: Only difference between TA and normal creation is UI, so test is just rerun
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");

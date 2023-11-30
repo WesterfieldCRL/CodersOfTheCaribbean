@@ -423,6 +423,14 @@ public class Cruise {
         return dates;
     }
 
+    public Clock getClock() {
+        return clock;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,28 +1,24 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.derby.iapi.services.io.FileUtil;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import Cruise.*;
 import Person.*;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-public class MakeReservationTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-
+public class CancelReservationTest {
     @BeforeEach
     public void backupDB()
     {
@@ -69,7 +65,7 @@ public class MakeReservationTest {
     }
 
     @Test
-    void testMakeReservationWithCorrectData() {
+    void testCancelReservationSuccess() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");
@@ -86,7 +82,11 @@ public class MakeReservationTest {
             if (optionalRoom.isPresent())
             {
                 Room room = optionalRoom.get();
-                boolean output = guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
+                guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
+
+                List<Guest.Reservation> reservations = guest.getReservations();
+
+                boolean output = guest.cancelReservation(reservations.get(0).getId());
 
                 assertTrue(output);
                 return;
@@ -96,9 +96,8 @@ public class MakeReservationTest {
         fail("could not find cruise");
     }
 
-
     @Test
-    void testMakeReservationWithIncorrectData() {
+    void testCancelReservationFailure() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
         guest.createAccount();
         Optional<Cruise> optionalCruise = Cruise.getCruise("CRUISE1");
@@ -110,12 +109,25 @@ public class MakeReservationTest {
 
             ArrayList<Room> roomList = cruise1.getAvailableRoomsList(validDates.get(0), validDates.get(validDates.size()-1));
 
+            Optional<Room> optionalRoom = cruise1.isRoomAvailable(roomList.get(0).getQuality(), roomList.get(0).getNumBeds(), roomList.get(0).getBedType(), roomList.get(0).isSmoking(), validDates.get(0), validDates.get(validDates.size()-1));
 
-            //Dates are invalid so should fail
-            Optional<Room> optionalRoom = cruise1.isRoomAvailable(roomList.get(0).getQuality(), roomList.get(0).getNumBeds(), roomList.get(0).getBedType(), roomList.get(0).isSmoking(), LocalDate.now(), LocalDate.now().plusDays(10000));
+            if (optionalRoom.isPresent())
+            {
+                Room room = optionalRoom.get();
+                guest.makeReservation(room, validDates.get(0), validDates.get(validDates.size()-1), cruise1);
 
-            assertFalse(optionalRoom.isPresent());
-            return;
+                LocalDateTime fixedDateTime = LocalDateTime.of(2024, 1, 1, 12, 0, 0);
+                Clock fixedClock = Clock.fixed(fixedDateTime.atZone(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
+
+                guest.setClock(fixedClock);
+                List<Guest.Reservation> reservations = guest.getReservations();
+
+                boolean output = guest.cancelReservation(reservations.get(0).getId());
+
+                assertFalse(output);
+                return;
+            }
+            fail("could not find room");
         }
         fail("could not find cruise");
     }
