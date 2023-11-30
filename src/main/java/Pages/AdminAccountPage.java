@@ -11,7 +11,37 @@ import java.util.Vector;
 
 import static Pages.CruiseAppUtilities.*;
 
+/**
+ * The {@code AdminAccountPage} class provides a user interface for administrative tasks
+ * related to managing guest accounts and travel agent accounts.
+ * This class contains methods to create the panels for resetting passwords and creating new travel agent accounts,
+ * and to update the display of guests who have requested password resets.
+ *
+ * <p>Methods in this class are static and provide JPanels that are added to a JTabbedPane in the main application frame.
+ * The {@code createAdminTabbedPane} method serves as the entry point for generating the tabbed pane with the necessary
+ * administrative panels.</p>
+ *
+ * <p>This class is a part of the Pages package and works closely with the {@code Guest} and {@code TravelAgent} classes
+ * from the Person package to manage user-related operations.</p>
+ */
 public class AdminAccountPage {
+    /**
+     * Initializes a {@code JTabbedPane} for administrative tasks in the specified {@code JFrame}.
+     *
+     * <p>This method adds two tabs to the tabbed pane:</p>
+     * <ol>
+     *   <li>
+     *     'Reset Password': Contains a panel created by {@code createResetPasswordPanel} method.
+     *   </li>
+     *   <li>
+     *     'Create Travel Agent': Incorporates a panel created by {@code createAccountPanel} method.
+     *   </li>
+     * </ol>
+     *
+     * @param frame The {@code JFrame} to which this tabbed pane is added. This frame is used to
+     *              pass context to the individual panel creation methods.
+     * @return A {@code JTabbedPane} instance with tabs for 'Reset Password' and 'Create Travel Agent'.
+     */
     public static JTabbedPane createAdminTabbedPane(JFrame frame) {
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -24,6 +54,20 @@ public class AdminAccountPage {
         return tabbedPane;
     }
 
+    /**
+     * Constructs a JPanel for resetting guest passwords.
+     *
+     * <p>The panel employs a {@code GridBagLayout} to organize its components, which include:</p>
+     * <ul>
+     *   <li>A {@code JList} displaying guests requesting password resets, fetched from
+     *       {@code currentAdmin.getResetRequests()}.</li>
+     *   <li>A 'Reset Password' button, which triggers a dialog for admin confirmation to reset the guest's password.</li>
+     *   <li>A 'Logout' button to terminate the admin session and revert to the 'Login' panel.</li>
+     * </ul>
+     *
+     * @param frame the parent {@code JFrame} context for this panel, facilitating panel switching within the application
+     * @return the initialized {@code JPanel} for password reset functionality
+     */
     public static JPanel createResetPasswordPanel(JFrame frame) {
         JPanel resetPasswordPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -101,6 +145,23 @@ public class AdminAccountPage {
         return resetPasswordPanel;
     }
 
+    /**
+     * Constructs a JPanel for creating new travel agent accounts.
+     *
+     * <p>The panel is set with a {@code GridBagLayout} and includes several components for inputting new account details:</p>
+     * <ol>
+     *   <li>Text fields for the username, password, name, address, and email of the new travel agent.</li>
+     *   <li>A dynamic label that displays password requirements and updates as the password input changes.</li>
+     *   <li>A 'Create Account' button for submitting the new account details.</li>
+     * </ol>
+     *
+     * <p>When the 'Create Account' button is pressed, the entered password is validated against predefined criteria
+     * such as minimum length and character requirements. If validation passes, the {@code TravelAgent.createAccount}
+     * method is invoked to persist the new account. The user is then notified of the success or failure of the account creation.</p>
+     *
+     * @param frame the {@code JFrame} that may be used by the button's action listeners to switch views or provide context for dialogs
+     * @return a {@code JPanel} that facilitates the creation of new travel agent accounts
+     */
     public static JPanel createAccountPanel (JFrame frame){
         JPanel createAccountPanel = new JPanel(new GridBagLayout());
         createAccountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -200,6 +261,16 @@ public class AdminAccountPage {
 
         return createAccountPanel;
     }
+
+    /**
+     * Updates the JList with the current list of guests requesting password resets.
+     *
+     * <p>This method retrieves the latest list of password reset requests from {@code currentAdmin.getResetRequests()},
+     * which returns a collection of {@code Guest} objects. It clears the existing list and repopulates it with the
+     * updated collection. This ensures that the displayed list reflects the current state of reset requests.</p>
+     *
+     * @param resetList the {@code JList<Guest>} to be updated with the latest password reset requests
+     */
 
     private static void refreshResetRequestsList(JList<Guest> resetList) {
         Collection<Guest> resetRequests = currentAdmin.getResetRequests();
