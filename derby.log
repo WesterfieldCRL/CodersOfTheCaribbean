@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 29 21:02:20 UTC 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-1ce3-cd84-000007313f88 
+Thu Nov 30 14:43:13 UTC 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-20af-0fdb-000007314358 
 on database directory /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase with class loader com.intellij.database.remote.jdbc.impl.JdbcClassLoader$JdbcClassLoaderImpl@6b71769e 
 Loaded from file:/Users/alexbaratta/Library/Application%20Support/JetBrains/IntelliJIdea2023.2/jdbc-drivers/Apache%20Derby/10.16.1.1/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
 java.vendor=JetBrains s.r.o.
