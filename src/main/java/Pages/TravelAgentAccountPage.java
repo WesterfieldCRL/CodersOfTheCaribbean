@@ -452,7 +452,9 @@ public class TravelAgentAccountPage {
     private static void updateRoomListForCruise(String selectedCruise, DefaultListModel<String> roomListModel) {
         Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
         optCruise.ifPresent(cruise -> {
+
             ArrayList<Room> rooms = cruise.getRoomList();
+
             roomListModel.clear();
             for (Room room : rooms) {
                 String roomDetails = String.format("ID: %d, Beds: %d, Type: %s, Quality: %s, Smoking: %s",

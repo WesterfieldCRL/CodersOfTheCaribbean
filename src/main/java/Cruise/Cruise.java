@@ -20,12 +20,14 @@ public class Cruise {
 
         this.clock = Clock.systemDefaultZone();
 
-        updateTravelPath();
+        if (name.equals("CRUISE1") || name.equals("CRUISE2") || name.equals("CRUISE3")
+                || name.equals("cruise3") || name.equals("cruise2") || name.equals("cruise1")) {
+            updateTravelPath();
 
-        if (travelPath.get(travelPath.size()-1).arrival.isBefore(LocalDate.now(clock)))
-        {
-            createTravelPath();
-            saveTravelPath();
+            if (travelPath.get(travelPath.size() - 1).arrival.isBefore(LocalDate.now(clock))) {
+                createTravelPath();
+                saveTravelPath();
+            }
         }
 
     }
@@ -124,7 +126,7 @@ public class Cruise {
         return Optional.empty();
     }
 
-    public ArrayList<Room> getRoomsList(LocalDate startDate, LocalDate endDate)
+    public ArrayList<Room> getAvailableRoomsList(LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Room> roomsList = new ArrayList<>();
         Connection connection = null;
@@ -299,7 +301,10 @@ public class Cruise {
             connection.close();
             return Optional.of(cruise);
 
-        } catch (ClassNotFoundException | SQLException e)
+        } catch (SQLSyntaxErrorException e)
+        {
+            return Optional.empty();
+        }catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
         } finally {
@@ -455,6 +460,14 @@ public class Cruise {
         }
 
         return dates;
+    }
+
+    public Clock getClock() {
+        return clock;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
     }
 
     public String getName() {

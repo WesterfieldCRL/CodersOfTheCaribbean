@@ -101,30 +101,6 @@ public class Room {
         return factor;
     }
 
-//    remove after testing
-//    public static Room getRoom(String cruiseName, int id, Connection connection)
-//    {
-//        try {
-//            PreparedStatement roomQuery = connection.prepareStatement(
-//                    "SELECT * FROM "+ cruiseName +" WHERE ID = ?");
-//
-//            roomQuery.setInt(1, id);
-//
-//            ResultSet roomSet = roomQuery.executeQuery();
-//
-//            roomSet.next();
-//
-//            return new Room(id,
-//                    roomSet.getInt("BEDNUMBER"),
-//                    BedType.valueOf(roomSet.getString("BEDTYPE")),
-//                    Quality.valueOf(roomSet.getString("ROOMTYPE")),
-//                    roomSet.getBoolean("ISSMOKING"));
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     public static Room getRoom(String cruiseName, int id) {
         Connection connection = null;
         try {
