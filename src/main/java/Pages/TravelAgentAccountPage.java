@@ -20,7 +20,7 @@ import static Person.TravelAgent.modifyTravelAgentAccount;
 
 /**
  * The {@code TravelAgentAccountPage} class in the {@code Pages} package is dedicated to creating and managing the user
- * interface components for travel agents in a cruise booking system.
+ * interface components for travel agents.
  *
  * <p>This class consists of static methods that generate different panels and tabs designed for travel agent activities.</p>
  *
