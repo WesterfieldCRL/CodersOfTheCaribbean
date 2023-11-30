@@ -18,11 +18,13 @@ public class Guest extends Person {
     private String creditCardExpirationDate;
     private ArrayList<Reservation> reservations;
 
+    private Clock clock;
     private String changedPassword;
 
     public Guest(String username, String password, String name, String address, String email) {
         super(username, password, name, address, email);
         this.reservations = new ArrayList<>();
+        clock = Clock.systemDefaultZone();
     }
 
     public static boolean usernameExists(String username) {
@@ -214,7 +216,7 @@ public class Guest extends Person {
             if (rs.next()) {
                 LocalDate reservedStart = rs.getDate("STARTDATE").toLocalDate();
 
-                if (reservedStart.isBefore(LocalDate.now())) {
+                if (reservedStart.isBefore(LocalDate.now(clock))) {
                     return false;
                 }
 
@@ -243,25 +245,30 @@ public class Guest extends Person {
 
     public boolean modifyReservation(int reservationId, Room room, LocalDate start, LocalDate end, Cruise cruise) {
         Clock clock = Clock.systemDefaultZone();
+        if (cruise.areDatesValid(start,end)) {
+            try (Connection connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;")) {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;")) {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, COST = ?, STARTDATE = ?, ENDDATE = ?, DATERESERVED = ?, CRUISE = ? WHERE ID = ?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                    preparedStatement.setInt(1, room.getID());
+                    preparedStatement.setDouble(2, room.getTotalCost(start, end));
+                    preparedStatement.setDate(3, Date.valueOf(start));
+                    preparedStatement.setDate(4, Date.valueOf(end));
+                    preparedStatement.setDate(5, Date.valueOf(LocalDate.now(clock)));
+                    preparedStatement.setString(6, cruise.getName());
+                    preparedStatement.setInt(7, reservationId);
 
-            String updateQuery = "UPDATE RESERVATIONS SET ROOMID = ?, COST = ?, STARTDATE = ?, ENDDATE = ?, DATERESERVED = ?, CRUISE = ? WHERE ID = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-                preparedStatement.setInt(1, room.getID());
-                preparedStatement.setDouble(2, room.getTotalCost(start, end));
-                preparedStatement.setDate(3, Date.valueOf(start));
-                preparedStatement.setDate(4, Date.valueOf(end));
-                preparedStatement.setDate(5, Date.valueOf(LocalDate.now(clock)));
-                preparedStatement.setString(6, cruise.getName());
-                preparedStatement.setInt(7, reservationId);
-
-                int affectedRows = preparedStatement.executeUpdate();
-                return affectedRows > 0;
+                    int affectedRows = preparedStatement.executeUpdate();
+                    return affectedRows > 0;
+                }
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+                return false;
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        }
+        else
+        {
             return false;
         }
     }
@@ -313,6 +320,15 @@ public class Guest extends Person {
     public void setChangedPassword(String changedPassword) {
         this.changedPassword = changedPassword;
     }
+
+    public Clock getClock() {
+        return clock;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
+    }
+
     public class Reservation {
         public String cruiseName;
         public Room room;
@@ -328,6 +344,7 @@ public class Guest extends Person {
             this.endDate = endDate;
             this.id = id;
         }
+
 
         public Room getRoom() {
             return room;
