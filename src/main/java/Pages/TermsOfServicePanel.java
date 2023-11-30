@@ -3,7 +3,39 @@ package Pages;
 import javax.swing.*;
 import java.awt.*;
 import static Pages.CruiseAppUtilities.*;
+/**
+ * The {@code TermsOfServicePanel} class in the {@code Pages} package is responsible for creating and managing a Terms of Service.
+ *
+ * <p>This class allows for the display of the ToS. It includes methods to create a dialog box that displays the ToS content, formatted as HTML.
+ * The class is designed to ensure that users can easily access,read, and understand the terms and conditions.</p>
+ *
+ * <p>Key features of the {@code TermsOfServicePanel} class include:</p>
+ * <ul>
+ *   <li>Construction of a modal dialog box that contains the Terms of Service text.</li>
+ *   <li>Use of a {@code JTextPane} to display the ToS content, formatted in HTML.</li>
+ * </ul>
+ *
+ * <p>The class ensures that the dialog box is modal and anchored to a parent {@code JFrame}, focusing user attention on the ToS and preventing interaction with the
+ * main application window until the dialog is closed.</p>
+ */
 public class TermsOfServicePanel {
+    /**
+     * Initializes and returns a modal dialog that presents the Terms of Service for the Cruise Booking System.
+     *
+     * <p>This method creates a {@code JDialog} containing the text of the Terms of Service, with the content formatted as HTML.
+     * The dialog is composed of the following elements:</p>
+     * <ul>
+     *   <li>A {@code JTextPane} that displays the Terms of Service text. The content includes various sections such as user conduct guidelines,
+     *       limitations of liability, and acceptance of terms, all formatted in HTML.</li>
+     *   <li>A {@code JScrollPane} that allows users to scroll through the terms efficiently.</li>
+     * </ul>
+     *
+     * <p>The dialog is set to be modal and is anchored to the provided {@code JFrame}, ensuring it remains in focus until closed by the user.
+     * The {@code JTextPane} is configured to be non-editable.</p>
+     *
+     * @param frame the parent {@code JFrame} to which the dialog is attached
+     * @return a {@code JDialog} containing the Terms of Service
+     */
     public static JDialog createTermsOfServiceDialog(JFrame frame) {
         JDialog dialog = new JDialog(frame, "Terms of Service", true);
         dialog.setLayout(new BorderLayout());
@@ -45,11 +77,7 @@ public class TermsOfServicePanel {
         JScrollPane scrollPane = new JScrollPane(termsTextArea);
         dialog.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout());
-        bottomPanel.setBackground(BACKGROUND_COLOR);
         dialog.pack();
-        dialog.add(bottomPanel, BorderLayout.SOUTH);
-
         return dialog;
     }
 }
