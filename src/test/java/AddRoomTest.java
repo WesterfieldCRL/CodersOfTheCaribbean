@@ -74,6 +74,7 @@ public class AddRoomTest {
             room.setBedType(Room.BedType.FULL);
             room.setSmoking(false);
             room.setNumBeds(200);
+
             cruise.addRoom(room);
 
             Connection connection = null;

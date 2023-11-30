@@ -1,12 +1,29 @@
-Thu Nov 30 14:52:41 UTC 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-20b7-bd45-000007314358 
-on database directory /Users/alexbaratta/Documents/CodersOfTheCaribbean/cruiseDatabase with class loader com.intellij.database.remote.jdbc.impl.JdbcClassLoader$JdbcClassLoaderImpl@6b71769e 
-Loaded from file:/Users/alexbaratta/Library/Application%20Support/JetBrains/IntelliJIdea2023.2/jdbc-drivers/Apache%20Derby/10.16.1.1/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=JetBrains s.r.o.
-java.runtime.version=17.0.7+7-b1000.6
-user.dir=/Users/alexbaratta/Documents/CodersOfTheCaribbean
-os.name=Mac OS X
-os.arch=aarch64
-os.version=14.0
+----------------------------------------------------------------
+Thu Nov 30 11:35:17 CST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-214c-974d-00000e4f8ab0 
+on database directory /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+Loaded from file:/home/wesley/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=21.0.1+12-29
+user.dir=/home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean
+os.name=Linux
+os.arch=amd64
+os.version=5.15.0-89-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Nov 30 11:35:17 CST 2023:
+Shutting down instance a816c00e-018c-214c-974d-00000e4f8ab0 on database directory /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+----------------------------------------------------------------
+Thu Nov 30 11:35:17 CST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance b8450018-018c-214c-974d-00000e4f8ab0 
+on database directory /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+Loaded from file:/home/wesley/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=21.0.1+12-29
+user.dir=/home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean
+os.name=Linux
+os.arch=amd64
+os.version=5.15.0-89-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
