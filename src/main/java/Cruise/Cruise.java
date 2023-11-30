@@ -234,6 +234,40 @@ public class Cruise {
         return true;
     }
 
+    public boolean modifyRoom(Room room) {
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            String sql = "UPDATE " + name +
+                    " SET BEDNUMBER = ?, BEDTYPE = ?, ROOMTYPE = ?, ISSMOKING = ? " +
+                    "WHERE ID = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, room.getNumBeds());
+            statement.setString(2, room.getBedType().toString());
+            statement.setString(3, room.getQuality().toString());
+            statement.setBoolean(4, room.isSmoking());
+            statement.setInt(5,room.getID());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static Optional<Cruise> getCruise(String cruiseName)
     {
         Cruise cruise = new Cruise(cruiseName);

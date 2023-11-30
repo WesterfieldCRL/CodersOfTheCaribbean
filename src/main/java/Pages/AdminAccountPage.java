@@ -12,10 +12,22 @@ import java.util.Vector;
 import static Pages.CruiseAppUtilities.*;
 
 public class AdminAccountPage {
-    public static JTabbedPane createAdminTabbedPane() {
+    public static JTabbedPane createAdminTabbedPane(JFrame frame) {
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JPanel resetPasswordPanel = new JPanel(new BorderLayout());
+        JPanel resetPasswordPanel = createResetPasswordPanel(frame);
+        tabbedPane.addTab("Reset Password", resetPasswordPanel);
+
+        JPanel createAccountPanel = createAccountPanel(frame);
+        tabbedPane.addTab("Create Travel Agent", createAccountPanel);
+
+        return tabbedPane;
+    }
+
+    public static JPanel createResetPasswordPanel(JFrame frame) {
+        JPanel resetPasswordPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
         Collection<Guest> resetRequests = currentAdmin.getResetRequests();
         JList<Guest> resetList = new JList<>(new Vector<>(resetRequests));
         resetList.setCellRenderer(new DefaultListCellRenderer() {
@@ -28,8 +40,27 @@ public class AdminAccountPage {
             }
         });
 
-        resetPasswordPanel.add(new JScrollPane(resetList), BorderLayout.CENTER);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        resetPasswordPanel.add(new JScrollPane(resetList), gbc);
+
         JButton resetButton = createStyledButton("Reset Password", BUTTON_FONT, BUTTON_COLOR);
+        gbc.gridy++;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weighty = 0;
+        resetPasswordPanel.add(resetButton, gbc);
+
+        JButton logoutButton = createStyledButton("Logout", BUTTON_FONT, BUTTON_COLOR);
+        logoutButton.addActionListener(e -> {
+            currentAdmin = null;
+            switchToPanel(frame, "Login");
+        });
+        gbc.gridy++;
+        resetPasswordPanel.add(logoutButton, gbc);
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,15 +92,16 @@ public class AdminAccountPage {
                     resetDialog.setLocationRelativeTo(null);
                     resetDialog.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(tabbedPane, "Please select a guest from the list.",
+                    JOptionPane.showMessageDialog(resetPasswordPanel, "Please select a guest from the list.",
                             "No Guest Selected", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
 
+        return resetPasswordPanel;
+    }
 
-        resetPasswordPanel.add(resetButton, BorderLayout.SOUTH);
-
+    public static JPanel createAccountPanel (JFrame frame){
         JPanel createAccountPanel = new JPanel(new GridBagLayout());
         createAccountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         createAccountPanel.setBackground(BACKGROUND_COLOR);
@@ -136,6 +168,7 @@ public class AdminAccountPage {
         gbc.gridy = labels.length + 2;
         gbc.gridwidth = 2;
         createAccountPanel.add(createButton, gbc);
+
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String password = new String(passwordField.getPassword());
@@ -165,10 +198,7 @@ public class AdminAccountPage {
             }
         });
 
-        tabbedPane.addTab("Reset Password", resetPasswordPanel);
-        tabbedPane.addTab("Create Travel Agent", createAccountPanel);
-
-        return tabbedPane;
+        return createAccountPanel;
     }
 
     private static void refreshResetRequestsList(JList<Guest> resetList) {

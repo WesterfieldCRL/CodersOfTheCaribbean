@@ -1,9 +1,6 @@
 package Cruise;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.time.*;
@@ -104,9 +101,36 @@ public class Room {
         return factor;
     }
 
-    public static Room getRoom(String cruiseName, int id, Connection connection)
-    {
+//    remove after testing
+//    public static Room getRoom(String cruiseName, int id, Connection connection)
+//    {
+//        try {
+//            PreparedStatement roomQuery = connection.prepareStatement(
+//                    "SELECT * FROM "+ cruiseName +" WHERE ID = ?");
+//
+//            roomQuery.setInt(1, id);
+//
+//            ResultSet roomSet = roomQuery.executeQuery();
+//
+//            roomSet.next();
+//
+//            return new Room(id,
+//                    roomSet.getInt("BEDNUMBER"),
+//                    BedType.valueOf(roomSet.getString("BEDTYPE")),
+//                    Quality.valueOf(roomSet.getString("ROOMTYPE")),
+//                    roomSet.getBoolean("ISSMOKING"));
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public static Room getRoom(String cruiseName, int id) {
+        Connection connection = null;
         try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
             PreparedStatement roomQuery = connection.prepareStatement(
                     "SELECT * FROM "+ cruiseName +" WHERE ID = ?");
 
@@ -122,8 +146,18 @@ public class Room {
                     Quality.valueOf(roomSet.getString("ROOMTYPE")),
                     roomSet.getBoolean("ISSMOKING"));
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
