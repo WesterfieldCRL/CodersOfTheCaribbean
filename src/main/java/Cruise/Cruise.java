@@ -20,12 +20,13 @@ public class Cruise {
 
         this.clock = Clock.systemDefaultZone();
 
-        updateTravelPath();
+        if (name.equals("CRUISE1") || name.equals("CRUISE2") || name.equals("CRUISE3")) {
+            updateTravelPath();
 
-        if (travelPath.get(travelPath.size()-1).arrival.isBefore(LocalDate.now(clock)))
-        {
-            createTravelPath();
-            saveTravelPath();
+            if (travelPath.get(travelPath.size() - 1).arrival.isBefore(LocalDate.now(clock))) {
+                createTravelPath();
+                saveTravelPath();
+            }
         }
 
     }
@@ -299,7 +300,10 @@ public class Cruise {
             connection.close();
             return Optional.of(cruise);
 
-        } catch (ClassNotFoundException | SQLException e)
+        } catch (SQLSyntaxErrorException e)
+        {
+            return Optional.empty();
+        }catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
         } finally {

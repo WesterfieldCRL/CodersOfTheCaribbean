@@ -1130,3 +1130,486 @@ Thu Nov 30 11:35:17 CST 2023:Copied log directory from /home/wesley/Documents/CS
 Thu Nov 30 11:35:17 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
 Thu Nov 30 11:35:17 CST 2023:Backup completed, log instant at (1,134708) 
 
+Thu Nov 30 12:50:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:50:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:50:32 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:50:32 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:50:32 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:50:32 CST 2023:Backup completed, log instant at (1,134924) 
+
+Thu Nov 30 12:53:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:53:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:31 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:53:31 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:53:31 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:31 CST 2023:Backup completed, log instant at (1,135140) 
+
+Thu Nov 30 12:53:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:53:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:32 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:53:32 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:53:32 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:32 CST 2023:Backup completed, log instant at (1,135356) 
+
+Thu Nov 30 12:53:32 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:53:32 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:32 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:53:32 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:53:32 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:32 CST 2023:Backup completed, log instant at (1,135572) 
+
+Thu Nov 30 12:53:33 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:53:33 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:33 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:53:33 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:53:33 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:53:33 CST 2023:Backup completed, log instant at (1,135788) 
+
+Thu Nov 30 12:55:08 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:55:08 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:09 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:55:09 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:55:09 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:09 CST 2023:Backup completed, log instant at (1,136004) 
+
+Thu Nov 30 12:55:09 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:55:09 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:10 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:55:10 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:55:10 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:10 CST 2023:Backup completed, log instant at (1,136220) 
+
+Thu Nov 30 12:55:10 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:55:10 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:10 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:55:10 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:55:10 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:10 CST 2023:Backup completed, log instant at (1,136436) 
+
+Thu Nov 30 12:55:10 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:55:10 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:11 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:55:11 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:55:11 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:55:11 CST 2023:Backup completed, log instant at (1,136652) 
+
+Thu Nov 30 12:56:29 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:56:29 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:30 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:56:30 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:56:30 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:30 CST 2023:Backup completed, log instant at (1,136868) 
+
+Thu Nov 30 12:56:30 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:56:30 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:31 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:56:31 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:56:31 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:31 CST 2023:Backup completed, log instant at (1,137084) 
+
+Thu Nov 30 12:56:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:56:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:31 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:56:31 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:56:31 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:31 CST 2023:Backup completed, log instant at (1,137300) 
+
+Thu Nov 30 12:56:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:56:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:32 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:56:32 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:56:32 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:56:32 CST 2023:Backup completed, log instant at (1,137516) 
+
+Thu Nov 30 12:59:27 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:27 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:28 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:28 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:28 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:28 CST 2023:Backup completed, log instant at (1,137732) 
+
+Thu Nov 30 12:59:28 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:28 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:28 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:28 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:29 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:29 CST 2023:Backup completed, log instant at (1,137948) 
+
+Thu Nov 30 12:59:29 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:29 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:29 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:29 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:29 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:29 CST 2023:Backup completed, log instant at (1,138164) 
+
+Thu Nov 30 12:59:29 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:29 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:30 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:30 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:30 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:30 CST 2023:Backup completed, log instant at (1,138380) 
+
+Thu Nov 30 12:59:42 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:42 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:43 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:43 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:43 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:43 CST 2023:Backup completed, log instant at (1,138596) 
+
+Thu Nov 30 12:59:43 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:43 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:44 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:44 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:44 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:44 CST 2023:Backup completed, log instant at (1,138812) 
+
+Thu Nov 30 12:59:44 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:44 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:44 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:44 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:44 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:44 CST 2023:Backup completed, log instant at (1,139028) 
+
+Thu Nov 30 12:59:45 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:45 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:45 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:45 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:45 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:45 CST 2023:Backup completed, log instant at (1,139244) 
+
+Thu Nov 30 12:59:45 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:45 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:46 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:46 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:46 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:46 CST 2023:Backup completed, log instant at (1,139460) 
+
+Thu Nov 30 12:59:46 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:46 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:46 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:46 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:46 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:46 CST 2023:Backup completed, log instant at (1,139676) 
+
+Thu Nov 30 12:59:46 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:46 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:47 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:47 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:47 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:47 CST 2023:Backup completed, log instant at (1,139892) 
+
+Thu Nov 30 12:59:47 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:47 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:47 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:47 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:47 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:47 CST 2023:Backup completed, log instant at (1,140108) 
+
+Thu Nov 30 12:59:47 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:47 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:48 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:48 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:48 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:48 CST 2023:Backup completed, log instant at (1,140324) 
+
+Thu Nov 30 12:59:48 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:48 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:48 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:48 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:48 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:48 CST 2023:Backup completed, log instant at (1,140540) 
+
+Thu Nov 30 12:59:48 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:48 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:49 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:49 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:49 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:49 CST 2023:Backup completed, log instant at (1,140756) 
+
+Thu Nov 30 12:59:49 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:49 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:49 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:49 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:49 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:49 CST 2023:Backup completed, log instant at (1,140972) 
+
+Thu Nov 30 12:59:50 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:50 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:50 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:50 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:50 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:50 CST 2023:Backup completed, log instant at (1,141188) 
+
+Thu Nov 30 12:59:50 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:50 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:51 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:51 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:51 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:51 CST 2023:Backup completed, log instant at (1,141404) 
+
+Thu Nov 30 12:59:51 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:51 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:51 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:51 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:51 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:51 CST 2023:Backup completed, log instant at (1,141620) 
+
+Thu Nov 30 12:59:51 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:51 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:52 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:52 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:52 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:52 CST 2023:Backup completed, log instant at (1,141836) 
+
+Thu Nov 30 12:59:52 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:52 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:52 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:52 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:52 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:52 CST 2023:Backup completed, log instant at (1,142052) 
+
+Thu Nov 30 12:59:52 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:52 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:53 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:53 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:53 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:53 CST 2023:Backup completed, log instant at (1,142268) 
+
+Thu Nov 30 12:59:53 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:53 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:53 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:53 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:53 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:53 CST 2023:Backup completed, log instant at (1,142484) 
+
+Thu Nov 30 12:59:53 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:53 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:54 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:54 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:54 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:54 CST 2023:Backup completed, log instant at (1,142700) 
+
+Thu Nov 30 12:59:54 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:54 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:54 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:54 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:54 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:54 CST 2023:Backup completed, log instant at (1,142916) 
+
+Thu Nov 30 12:59:54 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:54 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:55 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:55 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:55 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:55 CST 2023:Backup completed, log instant at (1,143132) 
+
+Thu Nov 30 12:59:55 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:55 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:55 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:56 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:56 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:56 CST 2023:Backup completed, log instant at (1,143348) 
+
+Thu Nov 30 12:59:56 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 12:59:56 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:56 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 12:59:56 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 12:59:56 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 12:59:56 CST 2023:Backup completed, log instant at (1,143564) 
+
+Thu Nov 30 13:01:18 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:18 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:18 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:18 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:18 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:18 CST 2023:Backup completed, log instant at (1,143780) 
+
+Thu Nov 30 13:01:18 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:18 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:19 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:19 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:19 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:19 CST 2023:Backup completed, log instant at (1,143996) 
+
+Thu Nov 30 13:01:28 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:28 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:29 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:29 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:29 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:29 CST 2023:Backup completed, log instant at (1,144212) 
+
+Thu Nov 30 13:01:29 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:29 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:30 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:30 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:30 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:30 CST 2023:Backup completed, log instant at (1,144428) 
+
+Thu Nov 30 13:01:30 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:30 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:30 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:30 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:30 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:30 CST 2023:Backup completed, log instant at (1,144644) 
+
+Thu Nov 30 13:01:30 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:30 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:31 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:31 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:31 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:31 CST 2023:Backup completed, log instant at (1,144860) 
+
+Thu Nov 30 13:01:31 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:31 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:31 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:31 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:31 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:31 CST 2023:Backup completed, log instant at (1,145076) 
+
+Thu Nov 30 13:01:32 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:32 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:32 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:32 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:32 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:32 CST 2023:Backup completed, log instant at (1,145292) 
+
+Thu Nov 30 13:01:32 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:32 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:33 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:33 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:33 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:33 CST 2023:Backup completed, log instant at (1,145508) 
+
+Thu Nov 30 13:01:33 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:33 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:33 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:33 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:33 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:33 CST 2023:Backup completed, log instant at (1,145724) 
+
+Thu Nov 30 13:01:33 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:33 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:34 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:34 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:34 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:34 CST 2023:Backup completed, log instant at (1,145940) 
+
+Thu Nov 30 13:01:34 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:34 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:34 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:34 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:34 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:34 CST 2023:Backup completed, log instant at (1,146156) 
+
+Thu Nov 30 13:01:34 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:34 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:35 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:35 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:35 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:35 CST 2023:Backup completed, log instant at (1,146372) 
+
+Thu Nov 30 13:01:35 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:35 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:35 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:35 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:35 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:35 CST 2023:Backup completed, log instant at (1,146588) 
+
+Thu Nov 30 13:01:35 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:35 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:36 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:36 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:36 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:36 CST 2023:Backup completed, log instant at (1,146804) 
+
+Thu Nov 30 13:01:36 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:36 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:36 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:36 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:36 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:36 CST 2023:Backup completed, log instant at (1,147020) 
+
+Thu Nov 30 13:01:36 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:36 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:37 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:37 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:37 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:37 CST 2023:Backup completed, log instant at (1,147236) 
+
+Thu Nov 30 13:01:37 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:37 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:37 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:37 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:37 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:37 CST 2023:Backup completed, log instant at (1,147452) 
+
+Thu Nov 30 13:01:38 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:38 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:38 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:38 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:38 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:38 CST 2023:Backup completed, log instant at (1,147668) 
+
+Thu Nov 30 13:01:38 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:38 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:39 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:39 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:39 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:39 CST 2023:Backup completed, log instant at (1,147884) 
+
+Thu Nov 30 13:01:39 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:39 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:39 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:39 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:39 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:39 CST 2023:Backup completed, log instant at (1,148100) 
+
+Thu Nov 30 13:01:39 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:39 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:40 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:40 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:40 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:40 CST 2023:Backup completed, log instant at (1,148316) 
+
+Thu Nov 30 13:01:40 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:40 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:40 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:40 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:40 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:40 CST 2023:Backup completed, log instant at (1,148532) 
+
+Thu Nov 30 13:01:40 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:40 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:41 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:41 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:41 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:41 CST 2023:Backup completed, log instant at (1,148748) 
+
+Thu Nov 30 13:01:41 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:41 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:41 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:41 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:41 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:41 CST 2023:Backup completed, log instant at (1,148964) 
+
+Thu Nov 30 13:01:42 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:42 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:42 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:42 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:42 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:42 CST 2023:Backup completed, log instant at (1,149180) 
+
+Thu Nov 30 13:01:42 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:42 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:42 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:42 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:43 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:43 CST 2023:Backup completed, log instant at (1,149396) 
+
+Thu Nov 30 13:01:43 CST 2023:Backup started for database located at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.
+Thu Nov 30 13:01:43 CST 2023:Moved old backup copy from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:43 CST 2023:Backup of data segment to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/seg0 completed. 
+Thu Nov 30 13:01:43 CST 2023:Copied log directory from /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/cruiseDatabase/log to /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase/log
+Thu Nov 30 13:01:43 CST 2023:Removed old backup copy at /home/wesley/Documents/CSI 3471/Group Project/CodersOfTheCaribbean/backup/cruiseDatabase.OLD
+Thu Nov 30 13:01:43 CST 2023:Backup completed, log instant at (1,149612) 
+
