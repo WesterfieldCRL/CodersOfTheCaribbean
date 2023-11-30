@@ -293,7 +293,7 @@ public class Guest extends Person {
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
                 int id = rs.getInt("ID");
 
-                Room room = Room.getRoom(cruiseName, roomID, connection);
+                Room room = Room.getRoom(cruiseName, roomID);//removed the connect
 
                 Reservation reservation = new Reservation(cruiseName, room, startDate, endDate, id);
                 reservations.add(reservation);

@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Cruise.Room.*;
 import static Pages.CruiseAppUtilities.*;
 import static Person.Guest.usernameExists;
 import static Person.TravelAgent.modifyTravelAgentAccount;
@@ -28,7 +29,7 @@ public class TravelAgentAccountPage {
         tabbedPane.addTab("Book For Guest", null, reserveForGuestPanel, "Reserve on behalf of guest");
 
         JPanel modifyAccountPanel = createModifyAccountPanel(frame);
-        tabbedPane.addTab("Modify Account", null ,modifyAccountPanel, "Modify your account info");
+        tabbedPane.addTab("Account Options", null ,modifyAccountPanel, "Modify Account | Logout");
         return tabbedPane;
     }
 
@@ -73,7 +74,7 @@ public class TravelAgentAccountPage {
                 updateRoomListForCruise(selectedCruise,roomListModel);
             }
         });
-
+        //TODO: Modify existing room
         addRoomButton.addActionListener(e -> {
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
@@ -85,12 +86,127 @@ public class TravelAgentAccountPage {
                         updateRoomListForCruise(selectedCruise, roomListModel);
                     });
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error",
+                            JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });
 
+        JButton modifyRoomButton = createStyledButton("Modify Room", BUTTON_FONT, BUTTON_COLOR);
+        gbc.gridy++;
+        gbc.gridwidth = 1;
+        panel.add(modifyRoomButton, gbc);
+
+        modifyRoomButton.addActionListener(e -> {
+            String selectedRoomInfo = roomList.getSelectedValue();
+            if (selectedRoomInfo != null && !selectedRoomInfo.isEmpty()) {
+                String selectedCruise = (String) cruiseComboBox.getSelectedItem();
+                if (selectedCruise != null) {
+                    Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
+                    if (optCruise.isPresent()) {
+                        Cruise cruise = optCruise.get();
+                        String[] parts = selectedRoomInfo.split(", ");
+                        String idPart = parts[0];
+                        String[] idSplit = idPart.split(" ");
+                        int roomId = Integer.parseInt(idSplit[1]);
+
+                        System.out.println(cruiseComboBox.getSelectedItem().toString() + " " + roomId);
+
+                        Room selectedRoom = getRoom(cruiseComboBox.getSelectedItem().toString(), roomId);
+                        openModifyRoomDialog(frame, cruise, selectedRoom, () -> {
+                                    updateRoomListForCruise(selectedCruise, roomListModel);
+                                });
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Could not find cruise details", "Error",
+                                JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please select a room to modify.", "No Room Selected",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+
         return panel;
+    }
+
+    private static void openModifyRoomDialog(JFrame frame, Cruise cruise, Room room, Runnable onModificationSuccess) {
+        JDialog modifyDialog = new JDialog(frame, "Modify Room", true);
+
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.anchor = GridBagConstraints.WEST;
+
+        JTextField bedsField = new JTextField(String.valueOf(room.getNumBeds()), 10);
+        JComboBox<Room.Quality> qualityComboBox = new JComboBox<>(Room.Quality.values());
+        qualityComboBox.setSelectedItem(room.getQuality());
+        JComboBox<Room.BedType> bedTypeComboBox = new JComboBox<>(Room.BedType.values());
+        bedTypeComboBox.setSelectedItem(room.getBedType());
+        JCheckBox smokingCheckBox = new JCheckBox("Smoking", room.isSmoking());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(new JLabel("Beds:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(bedsField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        formPanel.add(new JLabel("Quality:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(qualityComboBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        formPanel.add(new JLabel("Bed Type:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(bedTypeComboBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        formPanel.add(new JLabel("Smoking:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(smokingCheckBox, gbc);
+
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton modifyButton = new JButton("Modify");
+        modifyButton.addActionListener(e -> {
+            int numBeds = Integer.parseInt(bedsField.getText());
+            Room.Quality quality = (Room.Quality) qualityComboBox.getSelectedItem();
+            Room.BedType bedType = (Room.BedType) bedTypeComboBox.getSelectedItem();
+            boolean isSmoking = smokingCheckBox.isSelected();
+
+            room.setNumBeds(numBeds);
+            room.setQuality(quality);
+            room.setBedType(bedType);
+            room.setSmoking(isSmoking);
+
+
+            if (cruise.modifyRoom(room)) {
+                JOptionPane.showMessageDialog(frame, "Room updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                onModificationSuccess.run();
+            } else {
+                JOptionPane.showMessageDialog(frame, "Failed to update room.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+            }
+
+            modifyDialog.dispose();
+        });
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(e -> modifyDialog.dispose());
+
+        buttonsPanel.add(modifyButton);
+        buttonsPanel.add(cancelButton);
+
+        modifyDialog.setLayout(new BorderLayout());
+        modifyDialog.add(formPanel, BorderLayout.CENTER);
+        modifyDialog.add(buttonsPanel, BorderLayout.SOUTH);
+
+        modifyDialog.pack();
+        modifyDialog.setLocationRelativeTo(frame);
+        modifyDialog.setVisible(true);
     }
 
     public static JPanel createReserveForGuestPanel(JFrame frame){
@@ -113,7 +229,8 @@ public class TravelAgentAccountPage {
         JList<Guest> guestJList = new JList<>(guestListModel);
         guestJList.setCellRenderer(new ListCellRenderer<Guest>() {
             @Override
-            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index, boolean isSelected, boolean cellHasFocus) {
+            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
                 JLabel label = new JLabel(value.getUsername());
                 label.setOpaque(true);
                 if (isSelected) {
@@ -136,11 +253,12 @@ public class TravelAgentAccountPage {
         JButton bookButton = new JButton("Book Reservation");
             bookButton.addActionListener(e -> {
                 if (guestJList.getSelectedValue() == null ){
-                    JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error",
+                            JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     return;
                 }
                 currentGuest = guestJList.getSelectedValue();
-                addGuestBookToFrame(frame);
+                CruiseAppUtilities.addGuestPanelToFrame(frame);
                 switchToPanel(frame, "Guest View");
             });
         gbc.gridy = 2;
@@ -149,13 +267,6 @@ public class TravelAgentAccountPage {
         panel.add(bookButton, gbc);
 
         return panel;
-    }
-
-    public static void addGuestBookToFrame(JFrame frame) {
-        JPanel guestPanel = GuestAccountPage.createRoomSelectionPanel(frame);
-        frame.add(guestPanel, "Guest View");
-        frame.revalidate();
-        frame.repaint();
     }
 
     public static JPanel createModifyAccountPanel(JFrame frame){
@@ -196,6 +307,13 @@ public class TravelAgentAccountPage {
             }
         });
 
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> {
+            currentAgent = null;
+            switchToPanel(frame, "Login");
+        });
+
+
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -206,6 +324,7 @@ public class TravelAgentAccountPage {
         panel.add(addressLabel, gbc);
         panel.add(addressField, gbc);
         panel.add(updateButton, gbc);
+        panel.add(logoutButton, gbc);
 
         return panel;
     }
@@ -213,7 +332,9 @@ public class TravelAgentAccountPage {
     private static void updateRoomListForCruise(String selectedCruise, DefaultListModel<String> roomListModel) {
         Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
         optCruise.ifPresent(cruise -> {
-            ArrayList<Room> rooms = cruise.getRoomList();//cruise.getRoomsList(LocalDate.now(), LocalDate.now().plusDays(1));
+
+            ArrayList<Room> rooms = cruise.getRoomList();
+
             roomListModel.clear();
             for (Room room : rooms) {
                 String roomDetails = String.format("ID: %d, Beds: %d, Type: %s, Quality: %s, Smoking: %s",

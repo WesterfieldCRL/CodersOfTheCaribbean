@@ -65,7 +65,8 @@ public class LoginPage {
 
         resetPasswordButton.addActionListener(e -> {
             JTextField usernameFieldForReset = new JTextField(15);
-            int result = JOptionPane.showConfirmDialog(frame, new Object[]{"Username:", usernameFieldForReset}, "Password Reset Request", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(frame, new Object[]{"Username:", usernameFieldForReset},
+                    "Password Reset Request", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
             if (result == JOptionPane.OK_OPTION) {
                 String username = usernameFieldForReset.getText().trim();
@@ -100,10 +101,12 @@ public class LoginPage {
                         String passwordValidationMessage = validatePassword(password);
                         if (passwordValidationMessage.isEmpty()) {
                             resetRequest(username, password);
-                            JOptionPane.showMessageDialog(frame, "A password reset request has been submitted.", "Request Submitted", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
+                            JOptionPane.showMessageDialog(frame, "A password reset request has been submitted.",
+                                    "Request Submitted", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                             passwordDialog.dispose();
                         } else {
-                            JOptionPane.showMessageDialog(frame, passwordValidationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                            JOptionPane.showMessageDialog(frame, passwordValidationMessage, "Invalid Password",
+                                    JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                         }
                     });
 
@@ -112,7 +115,8 @@ public class LoginPage {
                     passwordDialog.setLocationRelativeTo(frame);
                     passwordDialog.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Username cannot be empty or does not exist.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    JOptionPane.showMessageDialog(frame, "Username cannot be empty or does not exist.",
+                            "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });
