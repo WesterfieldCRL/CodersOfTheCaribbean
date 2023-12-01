@@ -13,6 +13,18 @@ import java.util.List;
 
 import static Pages.CruiseAppUtilities.*;
 
+/**
+ * The {@code CreateAccountPage} class encapsulates the user interface components for creating new guest accounts
+ * in a cruise booking application.
+ *
+ * <p>The {@code createAccountPanel} method is the central method used to create a panel with a form for account
+ * creation, including fields for username, password, name, address, and email, as well as password validation and
+ * terms of service agreement. Upon successful creation of an account, the user is redirected to the login panel.</p>
+ *
+ * <p>Supporting utility methods like {@code clearLoginFields} are included to reset the form fields, ensuring a
+ * clean slate for new account input or after successful submission. The class uses {@code CruiseAppUtilities}
+ * for shared functionality across the application.</p>
+ */
 public class CreateAccountPage {
     static JTextField usernameField = new JTextField(15);
     static JPasswordField passwordField = new JPasswordField(15);
@@ -20,6 +32,22 @@ public class CreateAccountPage {
     static JTextField addressField = new JTextField(15);
     static JTextField emailField = new JTextField(15);
 
+    /**
+     * Constructs a {@code JPanel} that allows for the creation of guest accounts.
+     *
+     * <p>The panel is organized using {@code GridBagLayout} and includes the following elements:</p>
+     * <ol>
+     *   <li>Text fields for entering guest information such as username, password, name, address, and email.</li>
+     *   <li>A label that specifies password requirements and updates dynamically based on user input.</li>
+     *   <li>A 'Terms of Service' checkbox and button, with the checkbox being enabled after the ToS are viewed.</li>
+     *   <li>A 'Submit' button that becomes active when the ToS checkbox is checked, processes the account creation,
+     *       and informs the user of the outcome.</li>
+     *   <li>A 'Back' button to navigate back to the 'Login' panel.</li>
+     * </ol>
+     *
+     * @param frame the {@code JFrame} which serves as the parent window for dialogs and navigation between panels
+     * @return a {@code JPanel} designed for creating guest accounts, complete with validation and submission functionality
+     */
     public static JPanel createAccountPanel(JFrame frame) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -120,6 +148,23 @@ public class CreateAccountPage {
 
         return panel;
     }
+
+    /**
+     * Resets the content of input fields in the login and account creation forms to empty strings.
+     *
+     * This utility method is designed to clear the form fields after a user action such as
+     * successful account registration or when navigating away from the login or account creation panels.
+     * It specifically clears the following {@code JTextField} components:
+     * <ol>
+     *   <li>{@code usernameField} - Where the user's username is entered.</li>
+     *   <li>{@code passwordField} - For entering the user's password.</li>
+     *   <li>{@code nameField} - Where the user's name is provided.</li>
+     *   <li>{@code addressField} - For entering the user's address.</li>
+     *   <li>{@code emailField} - Where the user's email is entered.</li>
+     * </ol>
+     *
+     * Each field is set to an empty string, effectively erasing any previous user input.
+     */
 
     private static void clearLoginFields(){
         usernameField.setText("");

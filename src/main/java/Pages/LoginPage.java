@@ -13,7 +13,38 @@ import static Pages.CruiseAppUtilities.switchToPanel;
 import static Person.Guest.resetRequest;
 import static Person.Guest.usernameExists;
 
+/**
+ * The {@code LoginPage} class in the {@code Pages} package is designed to manage the login interface.
+ *
+ * <p>This class includes static methods that facilitate the creation and handling of the login panel. It provides the necessary
+ * UI components and logic for user authentication, account creation, and password reset functionalities.</p>
+ *
+ * <p>Key functionalities provided by the {@code LoginPage} class:</p>
+ * <ul>
+ *   <li>Creation of a login panel that includes input fields for username and password, as well as buttons for logging in, creating an account, and resetting a password.</li>
+ *   <li>Implementation of action listeners for button clicks, enabling user authentication, transitioning to account creation panel, and initiating password reset processes.</li>
+ *   <li>Integration of validation and user feedback mechanisms for a smooth authentication process.</li>
+ * </ul>
+ *
+ * <p>The class collaborates with other components and utilities within the application, such as {@code CruiseAppUtilities} and person-related classes like {@code Guest}.
+ * It serves as a central point for user interaction at the initial stages of using the application.</p>
+ */
 public class LoginPage {
+    /**
+     * Creates and returns a login panel.
+     *
+     * <p>This method constructs a {@code JPanel} specifically designed for user login. The panel is organized using a {@code GridBagLayout} to manage the layout of various components, which include:</p>
+     * <ul>
+     *   <li>A logo at the top of the panel for brand identity.</li>
+     *   <li>Text fields for entering the user's username and password, enabling authentication input.</li>
+     *   <li>A 'Login' button, which when clicked, triggers the 'handleLogin' method to authenticate the user.</li>
+     *   <li>A 'Create Account' button that navigates the user to an account creation panel for new user registration.</li>
+     *   <li>A 'Reset Password' button that opens a dialog for users to submit a request for password resetting.</li>
+     * </ul>
+     *
+     * @param frame the {@code JFrame} utilized for handling actions such as switching views and displaying dialogs
+     * @return a fully constructed {@code JPanel} designed for user login and account management operations
+     */
     public static JPanel createLoginPanel(JFrame frame) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
