@@ -13,9 +13,30 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * The {@code AddRoomTest} class serves as a test driver for the application.
+ *
+ * <p>This class contains the test methods for adding a room to a cruise.</p>
+ *
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Adding a room to a cruise.</li>
+ * </ul>
+ */
 public class AddRoomTest {
+
+    /**
+     * Runs before each test to backup the database
+     *
+     * <p>The method backs up the database before each test.</p>
+     *
+     * <ul>
+     *   <li>Backs up the database.</li>
+     * </ul>
+     *
+     * @throws SQLException if the database cannot be backed up
+     */
     @BeforeEach
     public void backupDB()
     {
@@ -29,6 +50,17 @@ public class AddRoomTest {
 
     }
 
+    /**
+     * Runs after each test to restore the database
+     *
+     * <p>The method restores the database after each test.</p>
+     *
+     * <ul>
+     *   <li>Restores the database.</li>
+     * </ul>
+     *
+     * @throws SQLException if the database cannot be restored
+     */
     @AfterEach
     public void restoreDatabase() {
         try {
@@ -49,6 +81,15 @@ public class AddRoomTest {
         }
     }
 
+    /**
+     * Replaces the database with the backup
+     *
+     * <p>The method replaces the database with the backup.</p>
+     *
+     * <ul>
+     *   <li>Replaces the database with the backup.</li>
+     * </ul>
+     */
     private void replaceDatabaseWithBackup() {
         try {
             File databaseDir = new File("cruiseDatabase");
@@ -61,6 +102,26 @@ public class AddRoomTest {
         }
     }
 
+    /**
+     * Tests the addition of a room to a cruise and verifies the database update.
+     *
+     * <p>This method creates a new room with specified characteristics, adds it to an existing cruise,
+     * and checks whether the database is updated accordingly. The test fails if the room addition is
+     * unsuccessful or if the database is not updated as expected.</p>
+     *
+     * <p>The method follows these steps:</p>
+     * <ol>
+     *   <li>Retrieves an existing cruise by its identifier ("CRUISE1") using the {@link Cruise#getCruise(String)} method.</li>
+     *   <li>If the cruise is present, creates a new room with predefined attributes (quality, bed type, smoking status, and number of beds).</li>
+     *   <li>Adds the created room to the cruise using the {@link Cruise#addRoom(Room)} method.</li>
+     *   <li>Connects to the database and queries for the added room based on its bed number.</li>
+     *   <li>Verifies whether the database contains the added room by checking the result set.</li>
+     *   <li>If the room is found, the test passes; otherwise, it fails.</li>
+     * </ol>
+     *
+     * <p>Note: The method uses an embedded Derby database and assumes a specific table structure for the cruise data.
+     * Also, the test may print stack traces in case of exceptions but does not propagate them, as this is a JUnit test.</p>
+     */
     @Test
     void testAddRoom() {
 

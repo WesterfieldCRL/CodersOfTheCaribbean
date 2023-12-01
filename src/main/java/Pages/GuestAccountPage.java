@@ -117,7 +117,7 @@ public class GuestAccountPage {
 
         // Organize above components in a panel
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//        filterPanel.setVisible(false);
+        //filterPanel.setVisible(false);
         filterPanel.add(new JLabel("Quality:"));
         filterPanel.add(qualityComboBox);
         filterPanel.add(new JLabel("Num Beds:"));
