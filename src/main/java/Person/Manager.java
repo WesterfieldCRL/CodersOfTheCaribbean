@@ -6,10 +6,7 @@ public class Manager extends Person{
         super(username, password, name, address, email);
     }
 
-    public void getExpenseSummary()
-    {
-        //TODO: figure out what to do with this
-    }
+
 
     public boolean createAccount()
     {

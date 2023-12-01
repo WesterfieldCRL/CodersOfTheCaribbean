@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.time.*;
 import java.util.List;
 
+
 import Cruise.*;
 
 
@@ -13,9 +14,8 @@ import Cruise.*;
 //commit and push
 
 public class Guest extends Person {
-    //TODO: decide if billing information is a seperate class WILL GET ON THAT SHIT
-    private String creditCardNumber;
-    private String creditCardExpirationDate;
+
+
     private ArrayList<Reservation> reservations;
 
     private String changedPassword;
@@ -54,6 +54,7 @@ public class Guest extends Person {
 
     public boolean createAccount()
     {
+
         return createGenericAccount("GUEST");
     }
 
@@ -172,6 +173,7 @@ public class Guest extends Person {
 
             insertQuery.executeUpdate();
             connection.close();
+            generateBilling(room.getTotalCost(start,end));
             return true;
 
         } catch (ClassNotFoundException | SQLException e)
@@ -190,7 +192,96 @@ public class Guest extends Person {
 
         return false;
     }
+    public void generateBilling(double cost){
 
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO BILLS " +
+                    "(GUEST, DATE, AMOUNT) " +
+                    "VALUES (?, ?, ?)");
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+
+            LocalDate currentDate = currentDateTime.toLocalDate();
+            insertQuery.setString(1, this.getUsername());
+            insertQuery.setDate(2, Date.valueOf(currentDate));
+            insertQuery.setDouble(3, cost);
+            insertQuery.executeUpdate();
+            connection.close();
+
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public double calculateRefund(int reservationId){
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            PreparedStatement selectQuery = connection.prepareStatement("SELECT * FROM RESERVATIONS WHERE ID = ?");
+            selectQuery.setInt(1, reservationId);
+            ResultSet rs = selectQuery.executeQuery();
+
+            if (rs.next()) {
+                LocalDate dateReservationMade = rs.getDate("DATERESERVED").toLocalDate();
+                LocalDate currentDate = LocalDate.now();
+                Period period = Period.between(dateReservationMade, currentDate);
+                double refundCharge = 0.0;
+                if (period.getDays() > 2) {
+                    int ID= rs.getInt("ROOMID");
+                    String cruiseNum = rs.getString("CRUISE");
+                    PreparedStatement selectRoom;
+                    if (cruiseNum.equals("cruise1")){
+                        selectRoom = connection.prepareStatement("SELECT * FROM CRUISE1 WHERE ID = ?");
+                    }else if (cruiseNum.equals("CRUISE2")){
+                        selectRoom = connection.prepareStatement("SELECT * FROM CRUISE2 WHERE ID = ?");
+                    }else {
+                        selectRoom = connection.prepareStatement("SELECT * FROM CRUISE3 WHERE ID = ?");
+                    }
+                    selectRoom.setInt(0,ID);
+                    ResultSet rsRoom = selectRoom.executeQuery();
+                    int tempBedNum = rsRoom.getInt("BEDNUMBER");
+                    Room.BedType tempBedType = Room.BedType.valueOf(rsRoom.getString("BEDTYPE"));
+                    Room.Quality tempQuality = Room.Quality.valueOf(rsRoom.getString("ROOMTYPE"));
+                    boolean tempSmoke = rsRoom.getBoolean("ISSMOKING");
+
+
+                    Room temp = new Room(ID, tempBedNum, tempBedType, tempQuality, tempSmoke);
+                    refundCharge = temp.getMaximumDailyRate() * 0.8;
+                }
+                return refundCharge;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1.0;
+
+    }
 
     public boolean makeReservation(Room room, LocalDate start, LocalDate end, Cruise cruise){
         boolean b = writeReservation(start, end, cruise, room);
@@ -217,12 +308,19 @@ public class Guest extends Person {
                 if (reservedStart.isBefore(LocalDate.now())) {
                     return false;
                 }
+                double refundSubtractor = calculateRefund(reservationId);
+                double refund = -1.0 * (rs.getDouble("COST") - refundSubtractor);
+
+
+
+                generateBilling(refund);
 
                 PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM RESERVATIONS WHERE ID = ?");
                 deleteQuery.setInt(1, reservationId);
                 deleteQuery.executeUpdate();
 
                 this.reservations.removeIf(r -> r.id == reservationId);
+
 
                 return true;
             }
@@ -256,6 +354,7 @@ public class Guest extends Person {
                 preparedStatement.setDate(5, Date.valueOf(LocalDate.now(clock)));
                 preparedStatement.setString(6, cruise.getName());
                 preparedStatement.setInt(7, reservationId);
+                generateBilling(room.getTotalCost(start,end));
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;
@@ -282,7 +381,7 @@ public class Guest extends Person {
             while (rs.next()) {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
-                LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
+                LocalDate startDate = rs.getDate("START DATE").toLocalDate();
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
                 int id = rs.getInt("ID");
 
