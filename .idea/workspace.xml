@@ -10,19 +10,12 @@
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c661.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c661.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Person/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Person/Guest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pages/ManagerAccountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pages/ManagerAccountPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -11,8 +11,9 @@ public class Expenses{
   private String name;
   private String errorDescription;
   private LocalDate date;
+  private int id;
 
-  
+
   public Expenses(){
   }
   public Expenses(String tName, LocalDate tDate, Double tPrice, String error){
@@ -21,8 +22,12 @@ public class Expenses{
     price = tPrice;
     errorDescription = error;
   }
-  public Expenses (String tName, LocalDate tDate, Double tPrice){
-    this(tName, tDate, tPrice, "");
+  public Expenses(int id, String tName, LocalDate tDate, Double tPrice, String error) {
+    this.id = id;
+    this.name = tName;
+    this.date = tDate;
+    this.price = tPrice;
+    this.errorDescription = error;
   }
   public boolean updateError(String error, int ID){
     try (Connection connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;")) {
@@ -123,6 +128,7 @@ public class Expenses{
 
 
       while (rs.next()) {
+        int id = rs.getInt("ID");
         String guestName = rs.getString("GUEST");
         Double amount = rs.getDouble("AMOUNT");
         LocalDate date = rs.getDate("DATE").toLocalDate();
@@ -130,7 +136,7 @@ public class Expenses{
 
         String error = rs.getString("ERROR_DESCRIPTION");
 
-        Expenses expense = new Expenses(guestName, date,amount, error);
+        Expenses expense = new Expenses(id, guestName, date, amount, error);
 
 
         expenseSummary.add(expense);
@@ -149,5 +155,9 @@ public class Expenses{
       }
     }
     return expenseSummary;
+  }
+
+  public int getId() {
+    return this.id;
   }
 }
