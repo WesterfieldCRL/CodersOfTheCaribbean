@@ -30,12 +30,13 @@ public class Expenses{
 
       String updateQuery = "UPDATE BILLS SET ERROR_DESCRIPTION = ? WHERE ID = ?";
       try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-        preparedStatement.setInt(4, ID);
-        preparedStatement.setString(3,error);
+        preparedStatement.setInt(2, ID);
+
+        preparedStatement.setString(1,error);
+        preparedStatement.executeUpdate();
 
 
-        int affectedRows = preparedStatement.executeUpdate();
-        return affectedRows > 0;
+        return true;
       }
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
@@ -48,8 +49,8 @@ public class Expenses{
 
       String updateQuery = "UPDATE BILLS SET ERROR_DESCRIPTION = ? WHERE ID = ?";
       try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-        preparedStatement.setInt(4, ID);
-        preparedStatement.setString(3,"");
+        preparedStatement.setInt(2, ID);
+        preparedStatement.setString(1,"");
 
 
         int affectedRows = preparedStatement.executeUpdate();
@@ -60,7 +61,40 @@ public class Expenses{
       return false;
     }
   }
-  public  String getError() {
+  public Boolean getError(int ID) {
+    Connection connection = null;
+
+    try {
+      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+      connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+      PreparedStatement selectQuery = connection.prepareStatement("SELECT * FROM BILLS WHERE ID = ?");
+      selectQuery.setInt(1, ID);
+      ResultSet rs = selectQuery.executeQuery();
+
+      if (rs.next()) {
+        String error = rs.getString("ERROR_DESCRIPTION");
+        this.errorDescription = error;
+
+
+
+        return true;
+      }
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (connection != null) {
+          connection.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return false;
+  }
+  public String getErrorDescription(){
     return errorDescription;
   }
   public void setPrice(Double newPrice){

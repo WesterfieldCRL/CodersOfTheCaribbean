@@ -6,6 +6,7 @@ import java.time.*;
 import java.util.List;
 
 
+import Billing.BillingInformation;
 import Cruise.*;
 
 /**
@@ -21,6 +22,7 @@ import Cruise.*;
  * </ul>
  */
 public class Guest extends Person {
+    BillingInformation creditCard;
     private ArrayList<Reservation> reservations;
 
     private Clock clock;
@@ -42,10 +44,14 @@ public class Guest extends Person {
      * @param address the address of the guest.
      * @param email the email address of the guest.
      */
-    public Guest(String username, String password, String name, String address, String email) {
+    public Guest(String username, String password, String name, String address, String email, String number, YearMonth expirationDate, Boolean isCorporateGuest) {
         super(username, password, name, address, email);
         this.reservations = new ArrayList<>();
         clock = Clock.systemDefaultZone();
+        creditCard= new BillingInformation(number, expirationDate, isCorporateGuest);
+    }
+    public Guest(String username, String password, String name, String address, String email){
+        this(username,password,name,address,email,"",YearMonth.now(), false);
     }
 
     /**
@@ -99,7 +105,45 @@ public class Guest extends Person {
     public boolean createAccount()
     {
 
-        return createGenericAccount("GUEST");
+       if( !createGenericAccount("GUEST")){
+           return false;
+       }
+
+
+
+            Connection connection = null;
+
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+                PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO BILLING_INFO " +
+                        "(GUEST, NUMBER, EXPIRATION_DATE, IS_CORPORATE_GUEST) " +
+                        "VALUES (?, ?, ?,?)");
+                insertQuery.setString(1, this.getUsername());
+                insertQuery.setString(2, creditCard.getCreditCardNumber());
+                LocalDate localDate = creditCard.getCreditCardExpirationDate().atDay(1);
+                insertQuery.setDate(3, Date.valueOf(localDate));
+                insertQuery.setBoolean(4, creditCard.getIsCorporateGuest());
+
+                insertQuery.executeUpdate();
+                connection.close();
+                return true;
+
+
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+
+
     }
 
     /**
@@ -288,9 +332,9 @@ public class Guest extends Person {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
-            PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO BILLS " +
-                    "(GUEST, DATE, AMOUNT) " +
-                    "VALUES (?, ?, ?)");
+            PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO BILLS" +
+                    "(GUEST, DATE, AMOUNT, ERROR_DESCRIPTION)" +
+                    "VALUES (?, ?, ?, ?)");
             LocalDateTime currentDateTime = LocalDateTime.now();
 
 
@@ -298,6 +342,7 @@ public class Guest extends Person {
             insertQuery.setString(1, this.getUsername());
             insertQuery.setDate(2, Date.valueOf(currentDate));
             insertQuery.setDouble(3, cost);
+            insertQuery.setString(4, "");
             insertQuery.executeUpdate();
             connection.close();
 
@@ -343,7 +388,7 @@ public class Guest extends Person {
                     }else {
                         selectRoom = connection.prepareStatement("SELECT * FROM CRUISE3 WHERE ID = ?");
                     }
-                    selectRoom.setInt(0,ID);
+                    selectRoom.setInt(1,ID);
                     ResultSet rsRoom = selectRoom.executeQuery();
                     int tempBedNum = rsRoom.getInt("BEDNUMBER");
                     Room.BedType tempBedType = Room.BedType.valueOf(rsRoom.getString("BEDTYPE"));
@@ -541,7 +586,7 @@ public class Guest extends Person {
             while (rs.next()) {
                 String cruiseName = rs.getString("CRUISE");
                 int roomID = rs.getInt("ROOMID");
-                LocalDate startDate = rs.getDate("START DATE").toLocalDate();
+                LocalDate startDate = rs.getDate("STARTDATE").toLocalDate();
                 LocalDate endDate = rs.getDate("ENDDATE").toLocalDate();
                 int id = rs.getInt("ID");
 
