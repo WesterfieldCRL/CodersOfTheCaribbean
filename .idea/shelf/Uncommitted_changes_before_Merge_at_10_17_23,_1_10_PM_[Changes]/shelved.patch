@@ -1,0 +1,91 @@
+Index: src/main/java/Room.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Room.java b/src/main/java/Cruise/Room.java
+rename from src/main/java/Room.java
+rename to src/main/java/Cruise/Room.java
+--- a/src/main/java/Room.java	
++++ b/src/main/java/Cruise/Room.java	
+@@ -1,3 +1,5 @@
++package Cruise;
++
+ public class Room {
+ 
+     public enum Quality {
+@@ -41,7 +43,7 @@
+         System.out.println(roomNum);
+         System.out.println("  # of Beds: " + numBeds);
+         System.out.println("  Bed Type: " + bedType);
+-        System.out.println("  Room Quality: " + quality);
++        System.out.println("  Cruise.Room Quality: " + quality);
+         if (!isSmoking) {
+             System.out.println("  Non-Smoking");
+         }
+Index: src/main/java/Cruise.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Cruise.java b/src/main/java/Cruise/Cruise.java
+rename from src/main/java/Cruise.java
+rename to src/main/java/Cruise/Cruise.java
+--- a/src/main/java/Cruise.java	
++++ b/src/main/java/Cruise/Cruise.java	
+@@ -1,3 +1,5 @@
++package Cruise;
++
+ import java.io.*;
+ import java.util.*;
+ 
+@@ -47,7 +49,7 @@
+             case 3:
+                 return Room.RoomStatus.DONE;
+             default:
+-                throw new IllegalArgumentException("Invalid Room Status: " + status);
++                throw new IllegalArgumentException("Invalid Cruise.Room Status: " + status);
+         }
+     }
+ 
+Index: src/main/java/Reservation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Reservation.java b/src/main/java/Cruise/Reservation.java
+rename from src/main/java/Reservation.java
+rename to src/main/java/Cruise/Reservation.java
+--- a/src/main/java/Reservation.java	
++++ b/src/main/java/Cruise/Reservation.java	
+@@ -1,3 +1,5 @@
++package Cruise;
++
+ import Person.Guest;
+ 
+ import java.util.ArrayList;
+@@ -141,7 +143,7 @@
+         //this.setStartDate(nights[0]); uncomment when picking room is implemented
+        // this.setEndDate(nights[nights.length - 1]); uncomment when picking room is implemented
+ 
+-      //  room.setReserved(Room.RoomStatus.RESERVED); uncomment when picking room is implemented
++      //  room.setReserved(Cruise.Room.RoomStatus.RESERVED); uncomment when picking room is implemented
+ 
+         System.out.println(this.printReceipt(cost));
+     }
+Index: src/main/java/TravelPath.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/TravelPath.java b/src/main/java/Cruise/TravelPath.java
+rename from src/main/java/TravelPath.java
+rename to src/main/java/Cruise/TravelPath.java
+--- a/src/main/java/TravelPath.java	
++++ b/src/main/java/Cruise/TravelPath.java	
+@@ -1,3 +1,5 @@
++package Cruise;
++
+ import java.util.ArrayList;
+ 
+ public class TravelPath {

@@ -3,6 +3,17 @@ package Person;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * The {@code Person} class represents a person in the cruise booking system.
+ *
+ * <p>This class provides functionality common to all types of people in the system, such as login and account creation.</p>
+ *
+ * <p>Key features of the {@code Person} class include:</p>
+ * <ul>
+ *   <li>Login functionality using the {@code login} method.</li>
+ *   <li>Account creation functionality using the {@code createGenericAccount} method.</li>
+ * </ul>
+ */
 public class Person {
     private String username;
     private String password;
@@ -10,6 +21,15 @@ public class Person {
     private String address;
     private String email;
 
+    /**
+     * Constructs a {@code Person} object with the specified username, password, name, address, and email.
+     *
+     * @param username the username of the person
+     * @param password the password of the person
+     * @param name the name of the person
+     * @param address the address of the person
+     * @param email the email of the person
+     */
     public Person(String username, String password, String name, String address, String email) {
         this.username = username;
         this.password = password;
@@ -19,26 +39,25 @@ public class Person {
     }
 
     /**
-     * login
+     * Authenticates a user login based on the provided username and password.
      * <p>
-     * takes a username and password, and checks if they match
-     * information in the database. Returns an Optional<Person>.
-     * Example for use:<p>
-     * Optional<Person> temp = login("username","password");
-     * <p>
-     * User temp.isPresent() to check if login was successful
-     * <p>
-     * to check for class, use getClass, ex:
-     * temp.get().getClass() == TravelAgent.Class
-     * <p>
-     * Can then be assigned to variable, ex:
-     * TravelAgent tav = (TravelAgent) temp.get();
-     * <p>
-     * Parameters:
-     *   username - username input
-     *   password - password input
-     * <p>
-     * Return value: Optional<Person>
+     * This method connects to the 'cruiseDatabase' using JDBC and performs the following steps:
+     * </p>
+     * <ol>
+     *   <li>Queries the 'LOGINDATA' table to verify the provided username and password.</li>
+     *   <li>If a matching user is found, constructs the corresponding type of person (Guest, TravelAgent, Manager, Admin).</li>
+     *   <li>Loads reservations for Guest accounts using the {@code getReservations} method.</li>
+     *   <li>Returns an {@code Optional} containing the authenticated person or an empty {@code Optional} if login fails.</li>
+     * </ol>
+     *
+     * @param username the username for the login attempt.
+     * @param password the password for the login attempt.
+     * @return an {@code Optional} containing the authenticated person or an empty {@code Optional} if login fails.
+     * @see Guest
+     * @see TravelAgent
+     * @see Manager
+     * @see Admin
+     * @see Guest#getReservations()
      */
     public static Optional<Person> login(String username, String password)
     {
@@ -122,20 +141,19 @@ public class Person {
     }
 
     /**
-     * createAccount
+     * Creates a new account with generic details based on the specified account type.
      * <p>
-     * takes the given information and adds a line in the appropriate file
-     * corresponding to that information.
-     * <p>
-     * Will first check to see if the given information is valid, and not
-     * a duplicate
-     * <p>
-     * If a duplicate, or contains commas, function will return false
-     * <p>
-     * Parameters:
-     *   self-explanatory
-     * <p>
-     * Return value: boolean
+     * This method connects to the 'cruiseDatabase' using JDBC and performs the following steps:
+     * </p>
+     * <ol>
+     *   <li>Checks if an account with the provided username and password already exists in the 'LOGINDATA' table.</li>
+     *   <li>If the account does not exist and the required fields (username, password, name, email, address) are not empty,
+     *   inserts a new account entry with generic details into the 'LOGINDATA' table.</li>
+     *   <li>Returns {@code true} if the account is successfully created, {@code false} otherwise.</li>
+     * </ol>
+     *
+     * @param accountType the type of account to be created (e.g., "GUEST", "TRAVELAGENT", "MANAGER", "ADMIN").
+     * @return {@code true} if the account is successfully created, {@code false} otherwise.
      */
     protected boolean createGenericAccount(String accountType)
     {
@@ -188,42 +206,92 @@ public class Person {
         return false;
     }
 
+    /**
+     * Retrieves the username of the person.
+     *
+     * @return the username of the person.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets the username of the person.
+     *
+     * @param username the new username of the person.
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Retrieves the password of the person.
+     *
+     * @return the password of the person.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password of the person.
+     *
+     * @param password the new password of the person.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Retrieves the name of the person.
+     *
+     * @return the name of the person.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the person.
+     *
+     * @param name the new name of the person.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the address of the person.
+     *
+     * @return the address of the person.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets the address of the person.
+     *
+     * @param address the new address of the person.
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Retrieves the email of the person.
+     *
+     * @return the email of the person.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets the email of the person.
+     *
+     * @param email the new email of the person.
+     */
     public void setEmail(String email) {
         this.email = email;
     }

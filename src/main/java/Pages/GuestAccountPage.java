@@ -117,7 +117,7 @@ public class GuestAccountPage {
 
         // Organize above components in a panel
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//        filterPanel.setVisible(false);
+        //filterPanel.setVisible(false);
         filterPanel.add(new JLabel("Quality:"));
         filterPanel.add(qualityComboBox);
         filterPanel.add(new JLabel("Num Beds:"));
@@ -417,10 +417,14 @@ public class GuestAccountPage {
 
         deleteButton.addActionListener(e -> {
             Reservation selectedReservation = reservationsList.getSelectedValue();
+            //double refundSubtractor = calculateRefund(selectedReservation.getID());
+            //double refund = selectedReservation.getCost() - refundSubtractor;
+
             if (selectedReservation != null) {
                 int confirm = JOptionPane.showConfirmDialog(
                         null,
                         "Are you sure you want to cancel this reservation?",
+                        //"Refund = " + refund
                         "Confirm Cancellation",
                         JOptionPane.YES_NO_OPTION
                 );

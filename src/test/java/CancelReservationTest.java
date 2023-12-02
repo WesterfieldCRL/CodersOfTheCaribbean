@@ -18,7 +18,29 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The {@code CancelReservationTest} class serves as a test driver for the application.
+ *
+ * <p>This class contains the test methods for canceling a reservation.</p>
+ *
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Canceling a reservation.</li>
+ * </ul>
+ */
 public class CancelReservationTest {
+
+    /**
+     * Runs before each test to backup the database
+     *
+     * <p>The method backs up the database before each test.</p>
+     *
+     * <ul>
+     *   <li>Backs up the database.</li>
+     * </ul>
+     *
+     * @throws SQLException if the database cannot be backed up
+     */
     @BeforeEach
     public void backupDB()
     {
@@ -32,6 +54,15 @@ public class CancelReservationTest {
 
     }
 
+    /**
+     * Runs after each test to restore the database
+     *
+     * <p>The method restores the database after each test.</p>
+     *
+     * <ul>
+     *   <li>Restores the database.</li>
+     * </ul>
+     */
     @AfterEach
     public void restoreDatabase() {
         try {
@@ -52,6 +83,15 @@ public class CancelReservationTest {
         }
     }
 
+    /**
+     * Replaces the database with the backup
+     *
+     * <p>The method replaces the database with the backup.</p>
+     *
+     * <ul>
+     *   <li>Replaces the database with the backup.</li>
+     * </ul>
+     */
     private void replaceDatabaseWithBackup() {
         try {
             File databaseDir = new File("cruiseDatabase");
@@ -64,6 +104,28 @@ public class CancelReservationTest {
         }
     }
 
+    /**
+     * Tests the successful cancellation of a reservation for a guest.
+     *
+     * <p>This method creates a new guest, registers the guest by creating an account, retrieves an existing cruise,
+     * checks for available rooms, makes a reservation, cancels the reservation, and verifies the successful cancellation.</p>
+     *
+     * <p>The method follows these steps:</p>
+     * <ol>
+     *   <li>Creates a new guest with predefined personal information using the {@link Guest} constructor.</li>
+     *   <li>Registers the guest by creating an account using the {@link Guest#createAccount()} method.</li>
+     *   <li>Retrieves an existing cruise by its identifier ("CRUISE1") using the {@link Cruise#getCruise(String)} method.</li>
+     *   <li>If the cruise is present, retrieves the valid reservation dates and available rooms for the cruise.</li>
+     *   <li>Checks if an available room is present for reservation using the {@link Cruise#isRoomAvailable(Room.Quality, int, Room.BedType, boolean, LocalDate, LocalDate)} method.</li>
+     *   <li>If a room is available, makes a reservation for the guest using the {@link Guest#makeReservation(Room, LocalDate, LocalDate, Cruise)} method.</li>
+     *   <li>Gets the list of reservations for the guest and cancels the first reservation using the {@link Guest#cancelReservation(long)} method.</li>
+     *   <li>Verifies that the cancellation is successful by checking the boolean output of the cancellation operation.</li>
+     *   <li>If the cancellation is successful, the test passes; otherwise, it fails.</li>
+     * </ol>
+     *
+     * <p>Note: The method relies on the functionality of the {@link Guest}, {@link Cruise}, and {@link Room} classes.
+     * It assumes a specific structure for reservations and may print error messages if certain conditions are not met.</p>
+     */
     @Test
     void testCancelReservationSuccess() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
@@ -96,6 +158,29 @@ public class CancelReservationTest {
         fail("could not find cruise");
     }
 
+    /**
+     * Tests the unsuccessful cancellation of a reservation for a guest.
+     *
+     * <p>This method creates a new guest, registers the guest by creating an account, retrieves an existing cruise,
+     * checks for available rooms, makes a reservation, sets the clock to a future date, and attempts to cancel the reservation.</p>
+     *
+     * <p>The method follows these steps:</p>
+     * <ol>
+     *   <li>Creates a new guest with predefined personal information using the {@link Guest} constructor.</li>
+     *   <li>Registers the guest by creating an account using the {@link Guest#createAccount()} method.</li>
+     *   <li>Retrieves an existing cruise by its identifier ("CRUISE1") using the {@link Cruise#getCruise(String)} method.</li>
+     *   <li>If the cruise is present, retrieves the valid reservation dates and available rooms for the cruise.</li>
+     *   <li>Checks if an available room is present for reservation using the {@link Cruise#isRoomAvailable(Room.Quality, int, Room.BedType, boolean, LocalDate, LocalDate)} method.</li>
+     *   <li>If a room is available, makes a reservation for the guest using the {@link Guest#makeReservation(Room, LocalDate, LocalDate, Cruise)} method.</li>
+     *   <li>Sets the clock to a future date using the {@link Guest#setClock(Clock)} method.</li>
+     *   <li>Gets the list of reservations for the guest and attempts to cancel the first reservation using the {@link Guest#cancelReservation(long)} method.</li>
+     *   <li>Verifies that the cancellation is unsuccessful by checking the boolean output of the cancellation operation.</li>
+     *   <li>If the cancellation is unsuccessful, the test passes; otherwise, it fails.</li>
+     * </ol>
+     *
+     * <p>Note: The method relies on the functionality of the {@link Guest}, {@link Cruise}, and {@link Room} classes.
+     * It assumes a specific structure for reservations and may print error messages if certain conditions are not met.</p>
+     */
     @Test
     void testCancelReservationFailure() {
         Guest guest = new Guest("test", "test", "test", "test", "test");
