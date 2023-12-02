@@ -6,9 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 import static Pages.CruiseAppUtilities.*;
@@ -31,6 +31,8 @@ public class CreateAccountPage {
     static JTextField nameField = new JTextField(15);
     static JTextField addressField = new JTextField(15);
     static JTextField emailField = new JTextField(15);
+    static JTextField ccNumberField = new JTextField(15);
+    static JTextField ccExpirationField = new JTextField(15);
 
     /**
      * Constructs a {@code JPanel} that allows for the creation of guest accounts.
@@ -65,10 +67,14 @@ public class CreateAccountPage {
         panel.add(titleLabel, gbc);
 
         gbc.gridwidth = 1;
-
-
-        String[] labels = {"Username:", "Password:", "Name:", "Address:", "Email:"};
-        JTextField[] fields = {usernameField, passwordField, nameField, addressField, emailField};
+        String[] labels = {
+                "Username:", "Password:", "Name:", "Address:", "Email:",
+                "Credit Card Number:", "Expiration Date (MM/YYYY):"
+        };
+        JTextField[] fields = {
+                usernameField, passwordField, nameField, addressField, emailField,
+                ccNumberField, ccExpirationField
+        };
 
         for (int i = 0; i < labels.length; i++) {
             gbc.gridx = 0;
@@ -79,11 +85,11 @@ public class CreateAccountPage {
             panel.add(fields[i], gbc);
         }
 
-
         JLabel passwordRequirementsLabel = new JLabel();
         updateRequirementsLabel(requirements, passwordRequirementsLabel);
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy++;
+//        gbc.gridy = 6;
         gbc.gridwidth = 2;
         panel.add(passwordRequirementsLabel, gbc);
 
@@ -96,6 +102,8 @@ public class CreateAccountPage {
                 panel.repaint();
             }
         });
+
+        gbc.gridy++;
 
         JCheckBox tosCheckBox = new JCheckBox("I agree to the Terms of Service.");
         tosCheckBox.setEnabled(false);
@@ -111,6 +119,10 @@ public class CreateAccountPage {
         gbc.gridy++;
         panel.add(tosCheckBox, gbc);
 
+        JCheckBox isCorporateGuestCheckBox = new JCheckBox("Corporate Guest");
+        gbc.gridy++;
+        panel.add(isCorporateGuestCheckBox, gbc);
+
 
         JButton submitButton = createStyledButton("Submit", BUTTON_FONT, BUTTON_COLOR);
         submitButton.setEnabled(false);
@@ -122,7 +134,27 @@ public class CreateAccountPage {
                 JOptionPane.showMessageDialog(frame, passwordValidationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 return;
             }
-            Guest guest = new Guest(usernameField.getText(), password, nameField.getText(), addressField.getText(), emailField.getText());
+            int ccLength = ccNumberField.getText().trim().length();
+
+            if (ccLength!= 15 && ccLength != 16 ){
+                JOptionPane.showMessageDialog(frame, "Invlaid Card Number. Must be 15 or 16 digits.", "Invalid Credit Card Number", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                return;
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+            YearMonth ccExpiration;
+            try {
+                ccExpiration = YearMonth.parse(ccExpirationField.getText(), formatter);
+                YearMonth currentYearMonth = YearMonth.now();
+
+                if (ccExpiration.isBefore(currentYearMonth)) {
+                    JOptionPane.showMessageDialog(frame, "The expiration date cannot be in the past. Please enter a valid date.", "Invalid Expiration Date", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    return;
+                }
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter the date in MM/yyyy format.", "Invalid Date", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                return;
+            }
+            Guest guest = new Guest(usernameField.getText(), password, nameField.getText(), addressField.getText(), emailField.getText(), ccNumberField.getText(), ccExpiration ,isCorporateGuestCheckBox.isSelected());
             boolean success = guest.createAccount();
             if (success) {
                 JOptionPane.showMessageDialog(frame, "Account created successfully!", "Create Account Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
