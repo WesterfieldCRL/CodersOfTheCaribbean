@@ -746,5 +746,13 @@ public class Guest extends Person {
         public int getId() {
             return id;
         }
+
+        public String toString() {
+            return "Reservation ID: " + this.getId() +
+                    ", Cruise: " + this.getCruiseName() +
+                    ", Room ID: " + this.getRoom().getID() +
+                    ", Quality: " + this.getRoom().getQuality() +
+                    ", Number of Beds: " + this.getRoom().getNumBeds();
+        }
     }
 }
