@@ -417,23 +417,26 @@ public class GuestAccountPage {
 
         deleteButton.addActionListener(e -> {
             Reservation selectedReservation = reservationsList.getSelectedValue();
-            //double refundSubtractor = calculateRefund(selectedReservation.getID());
-            //double refund = selectedReservation.getCost() - refundSubtractor;
 
             if (selectedReservation != null) {
                 int confirm = JOptionPane.showConfirmDialog(
                         null,
                         "Are you sure you want to cancel this reservation?",
-                        //"Refund = " + refund
                         "Confirm Cancellation",
                         JOptionPane.YES_NO_OPTION
                 );
                 if (confirm == JOptionPane.YES_OPTION) {
+                    double refundSub = currentGuest.calculateRefund(selectedReservation.getId());
+                    double reserveCost = selectedReservation.getRoom().getTotalCost(selectedReservation.getStartDate(),selectedReservation.getEndDate());
+                    double refundAmt = reserveCost - refundSub;
                     boolean success = currentGuest.cancelReservation(selectedReservation.getId());
                     if (success) {
                         reservationListModel.removeElement(selectedReservation);
+                        currentGuest.calculateRefund(selectedReservation.id);
                         currentGuest.getReservations().remove(selectedReservation);
-                        JOptionPane.showMessageDialog(null, "Reservation cancelled successfully.");
+                        JOptionPane.showMessageDialog(null,
+                                "Reservation cancelled successfully. You will be refunded: " + refundAmt
+                        );
                     } else {
                         JOptionPane.showMessageDialog(null, "You cannot cancel this reservation.",
                                 "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);

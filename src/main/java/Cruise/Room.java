@@ -1,5 +1,7 @@
 package Cruise;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -74,14 +76,14 @@ public class Room {
         return total;
     }
 
-    public double getTotalCost(LocalDate startDate, LocalDate endDate)
-    {
+    public double getTotalCost(LocalDate startDate, LocalDate endDate) {
         double rate = getMaximumDailyRate();
-
         long timeDifference = ChronoUnit.DAYS.between(startDate, endDate);
 
-        return rate*timeDifference;
+        BigDecimal totalCost = new BigDecimal(rate * timeDifference);
+        totalCost = totalCost.setScale(2, RoundingMode.HALF_EVEN);
 
+        return totalCost.doubleValue();
     }
 
     public double numBedsFactor() {
