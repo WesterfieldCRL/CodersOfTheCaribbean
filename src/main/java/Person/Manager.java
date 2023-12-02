@@ -27,14 +27,6 @@ public class Manager extends Person{
     }
 
     /**
-     * Gets the expense summary for the cruise line.
-     */
-    public void getExpenseSummary()
-    {
-        //TODO: figure out what to do with this
-    }
-
-    /**
      * Creates an manager account in the database.
      *
      * @return {@code true} if the account was created successfully, {@code false} otherwise
