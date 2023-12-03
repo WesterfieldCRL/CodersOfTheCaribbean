@@ -451,7 +451,9 @@ public class GuestAccountPage {
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             currentGuest = null;
+            reservationListModel.clear();
             switchToPanel(frame, "Login");
+            frame.repaint();
         });
 
         JPanel buttonsPanel = new JPanel();

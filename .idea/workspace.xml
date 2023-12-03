@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28420ba4-8d2c-434e-b64f-eac098304fea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Util/AppLogger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/db.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,27 +44,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "checkin",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/Users/alexbaratta/Documents/CodersOfTheCaribbean",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;checkin&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alexbaratta/Documents/CodersOfTheCaribbean&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "derby"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;derby&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -79,10 +79,22 @@
       <workItem from="1701487576354" duration="50000" />
       <workItem from="1701487689912" duration="5506000" />
       <workItem from="1701550245162" duration="5338000" />
+      <workItem from="1701568984801" duration="438000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
