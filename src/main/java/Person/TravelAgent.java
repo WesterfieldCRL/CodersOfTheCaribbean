@@ -95,4 +95,70 @@ public class TravelAgent extends Person {
 
         return updateSuccess;
     }
+
+    /**
+     * Checks in a guest by updating the check-in status in the database for each reservation.
+     *
+     * @param guest The guest to be checked in.
+     * @return True if the check-in is successful, false otherwise.
+     */
+    public boolean checkIn(int reservationId) {
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String updateSQL = "UPDATE CHECKIN SET ISCHECKEDIN = true WHERE ID = ?";
+            PreparedStatement updateStmt = connection.prepareStatement(updateSQL);
+
+            updateStmt.setInt(1, reservationId);
+            updateStmt.executeUpdate();
+            updateStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    public boolean checkOut(int reservationId) {
+        Connection connection = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String updateSQL = "UPDATE CHECKIN SET ISCHECKEDOUT = true WHERE ID = ?";
+            PreparedStatement updateStmt = connection.prepareStatement(updateSQL);
+
+            updateStmt.setInt(1, reservationId);
+            updateStmt.executeUpdate();
+            updateStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
+    }
 }

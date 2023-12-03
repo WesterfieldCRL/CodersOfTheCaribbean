@@ -7,6 +7,8 @@ import Person.Guest;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import static Cruise.Room.*;
 import static Pages.CruiseAppUtilities.*;
 import static Person.Guest.usernameExists;
 import static Person.TravelAgent.modifyTravelAgentAccount;
+import static Person.Guest.*;
 
 
 /**
@@ -60,6 +63,10 @@ public class TravelAgentAccountPage {
 
         JPanel modifyAccountPanel = createModifyAccountPanel(frame);
         tabbedPane.addTab("Account Options", null ,modifyAccountPanel, "Modify Account | Logout");
+
+        JPanel checkInOutPanel = createCheckInOutPanel(frame);
+        tabbedPane.addTab("Guest Check-In/Out", null, checkInOutPanel, "Check-In or Check-Out guests");
+
         return tabbedPane;
     }
 
@@ -544,5 +551,114 @@ public class TravelAgentAccountPage {
         addRoomDialog.pack();
         addRoomDialog.setLocationRelativeTo(parentFrame);
         addRoomDialog.setVisible(true);
+    }
+
+    public static JPanel createCheckInOutPanel(JFrame frame) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+
+        List<Guest> guests = GuestController.getGuestList();
+
+        DefaultListModel<Guest> guestListModel = new DefaultListModel<>();
+        for (Guest guest : guests) {
+            guestListModel.addElement(guest);
+        }
+
+        JList<Guest> guestJList = new JList<>(guestListModel);
+        guestJList.setCellRenderer(new ListCellRenderer<Guest>() {
+            @Override
+            public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                JLabel label = new JLabel(value.getUsername());
+                label.setOpaque(true);
+                if (isSelected) {
+                    label.setBackground(list.getSelectionBackground());
+                    label.setForeground(list.getSelectionForeground());
+                } else {
+                    label.setBackground(list.getBackground());
+                    label.setForeground(list.getForeground());
+                }
+                return label;
+            }
+        });
+
+        DefaultListModel<Guest.Reservation> reservationListModel = new DefaultListModel<>();
+        JList<Guest.Reservation> reservationJList = new JList<>(reservationListModel);
+        JScrollPane reservationScrollPane = new JScrollPane(reservationJList);
+
+        guestJList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                Guest selectedGuest = guestJList.getSelectedValue();
+                if (selectedGuest != null) {
+                    reservationListModel.clear();
+
+                    List<Guest.Reservation> reservations = selectedGuest.getReservations();
+                    for (Guest.Reservation reservation : reservations) {
+                        reservationListModel.addElement(reservation);
+                    }
+                }
+            }
+        });
+
+
+        JScrollPane guestScrollPane = new JScrollPane(guestJList);
+        gbc.gridy = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel.add(guestScrollPane, gbc);
+
+        JButton checkInButton = new JButton("Check In");
+        JButton checkOutButton = new JButton("Check Out");
+
+        checkInButton.addActionListener(e -> {
+            Guest.Reservation selectedReservation = reservationJList.getSelectedValue();
+            if (selectedReservation != null) {
+                boolean success = currentAgent.checkIn(selectedReservation.getId());
+                if (success) {
+                    JOptionPane.showMessageDialog(frame, "Guest checked in successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to check in guest.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        checkOutButton.addActionListener(e -> {
+            Guest.Reservation selectedReservation = reservationJList.getSelectedValue();
+            if (selectedReservation != null) {
+                boolean success = currentAgent.checkOut(selectedReservation.getId());
+                if (success) {
+                    JOptionPane.showMessageDialog(frame, "Guest checked out successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to check out guest.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.weightx = 1;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0.5;
+        panel.add(guestScrollPane, gbc);
+
+        gbc.gridy = 1;
+        gbc.weighty = 0.5;
+        panel.add(reservationScrollPane, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weighty = 0;
+        gbc.weightx = 0.5;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(checkInButton, gbc);
+
+        gbc.gridx = 1;
+        panel.add(checkOutButton, gbc);
+
+        return panel;
     }
 }

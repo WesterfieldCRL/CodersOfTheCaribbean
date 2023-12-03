@@ -284,38 +284,48 @@ public class Guest extends Person {
      * @return {@code true} if the reservation is successfully written to the database, {@code false} otherwise.
      * @see Room#getTotalCost(LocalDate, LocalDate)
      */
-    public boolean writeReservation(LocalDate start, LocalDate end, Cruise cruise, Room room){
-
+    public boolean writeReservation(LocalDate start, LocalDate end, Cruise cruise, Room room) {
         Clock clock = Clock.systemDefaultZone();
-
         Connection connection = null;
 
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
-            PreparedStatement insertQuery = connection.prepareStatement("INSERT INTO RESERVATIONS " +
-                    "(USERNAME, ROOMID, COST, STARTDATE, ENDDATE, DATERESERVED, CRUISE) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
-            insertQuery.setString(1, this.getUsername());
-            insertQuery.setInt(2, room.getID());
-            insertQuery.setDouble(3, room.getTotalCost(start, end));
-            insertQuery.setDate(4, Date.valueOf(start));
-            insertQuery.setDate(5, Date.valueOf(end));
-            insertQuery.setDate(6, Date.valueOf(LocalDate.now(clock)));
-            insertQuery.setString(7, cruise.getName());
 
-            insertQuery.executeUpdate();
+            PreparedStatement insertReservationQuery = connection.prepareStatement(
+                    "INSERT INTO RESERVATIONS (USERNAME, ROOMID, COST, STARTDATE, ENDDATE, DATERESERVED, CRUISE) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            insertReservationQuery.setString(1, this.getUsername());
+            insertReservationQuery.setInt(2, room.getID());
+            insertReservationQuery.setDouble(3, room.getTotalCost(start, end));
+            insertReservationQuery.setDate(4, Date.valueOf(start));
+            insertReservationQuery.setDate(5, Date.valueOf(end));
+            insertReservationQuery.setDate(6, Date.valueOf(LocalDate.now(clock)));
+            insertReservationQuery.setString(7, cruise.getName());
+
+            insertReservationQuery.executeUpdate();
+
+            ResultSet generatedKeys = insertReservationQuery.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int reservationId = generatedKeys.getInt(1);
+
+                PreparedStatement insertCheckinQuery = connection.prepareStatement(
+                        "INSERT INTO CHECKIN (ID, ISCHECKEDIN, ISCHECKEDOUT) VALUES (?, false, false)");
+                insertCheckinQuery.setInt(1, reservationId);
+                insertCheckinQuery.executeUpdate();
+                insertCheckinQuery.close();
+            }
+
+            insertReservationQuery.close();
             connection.close();
-            generateBilling(room.getTotalCost(start,end));
+            generateBilling(room.getTotalCost(start, end));
             return true;
 
-        } catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null)
-                {
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
@@ -460,7 +470,7 @@ public class Guest extends Person {
      * @return {@code true} if the reservation is successfully canceled, {@code false} otherwise.
      * @see #getReservations()
      * @see Reservation
-     */    
+     */
     public boolean cancelReservation(int reservationId) {
         Connection connection = null;
 
@@ -478,19 +488,22 @@ public class Guest extends Person {
                 if (reservedStart.isBefore(LocalDate.now(clock))) {
                     return false;
                 }
+
                 double refundSubtractor = calculateRefund(reservationId);
                 double refund = -1.0 * (rs.getDouble("COST") - refundSubtractor);
-
-
-
                 generateBilling(refund);
 
-                PreparedStatement deleteQuery = connection.prepareStatement("DELETE FROM RESERVATIONS WHERE ID = ?");
-                deleteQuery.setInt(1, reservationId);
-                deleteQuery.executeUpdate();
+                PreparedStatement deleteCheckinQuery = connection.prepareStatement("DELETE FROM CHECKIN WHERE ID = ?");
+                deleteCheckinQuery.setInt(1, reservationId);
+                deleteCheckinQuery.executeUpdate();
+                deleteCheckinQuery.close();
+
+                PreparedStatement deleteReservationQuery = connection.prepareStatement("DELETE FROM RESERVATIONS WHERE ID = ?");
+                deleteReservationQuery.setInt(1, reservationId);
+                deleteReservationQuery.executeUpdate();
+                deleteReservationQuery.close();
 
                 this.reservations.removeIf(r -> r.id == reservationId);
-
 
                 return true;
             }
@@ -732,6 +745,14 @@ public class Guest extends Person {
          */
         public int getId() {
             return id;
+        }
+
+        public String toString() {
+            return "Reservation ID: " + this.getId() +
+                    ", Cruise: " + this.getCruiseName() +
+                    ", Room ID: " + this.getRoom().getID() +
+                    ", Quality: " + this.getRoom().getQuality() +
+                    ", Number of Beds: " + this.getRoom().getNumBeds();
         }
     }
 }

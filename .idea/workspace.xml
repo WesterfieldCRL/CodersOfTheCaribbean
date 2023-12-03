@@ -5,92 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28420ba4-8d2c-434e-b64f-eac098304fea" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/BACKUP.HISTORY" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/BACKUP.HISTORY" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/log/log.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/log/log1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c101.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c101.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c111.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c111.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c121.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c121.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c150.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c150.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c161.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c161.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c171.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c171.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c20.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c20.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c200.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c200.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c211.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c211.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c221.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c221.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c31.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c31.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c400.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c41.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c41.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c411.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c411.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c421.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c421.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c490.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c490.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c51.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c51.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c60.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c60.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c71.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c71.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c81.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c81.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c90.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/c90.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/ca1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/ca1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/cb1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/cb1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/cf0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/seg0/cf0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/service.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/service.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/BACKUP.HISTORY" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/BACKUP.HISTORY" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Util/AppLogger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/db.lck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/dbex.lck" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c101.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c101.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c111.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c111.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c121.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c121.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c130.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c130.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c141.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c141.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c150.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c150.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c161.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c161.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c171.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c171.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c20.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c20.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c200.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c200.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c211.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c211.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c221.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c221.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c31.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c31.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c41.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c41.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c411.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c411.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c421.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c421.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4a0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4a0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c51.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c51.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c60.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c60.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c610.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c621.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c651.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c71.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c71.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c81.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c81.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c90.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c90.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/ca1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/ca1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/cb1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/cb1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/cf0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/cf0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d660.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d670.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d680.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d690.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d6a0.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/d6b0.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/service.properties" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/service.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Billing/BillingInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Billing/BillingInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Person/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Person/Guest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,29 +38,34 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2YxdjiXM1uazlSiLRUMOeOJHReR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;billing&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "checkin",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "/Users/alexbaratta/Documents/CodersOfTheCaribbean",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;derby&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "derby"
     ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -150,6 +78,7 @@
       <workItem from="1701474970600" duration="6544000" />
       <workItem from="1701487576354" duration="50000" />
       <workItem from="1701487689912" duration="5506000" />
+      <workItem from="1701550245162" duration="5338000" />
     </task>
     <servers />
   </component>
