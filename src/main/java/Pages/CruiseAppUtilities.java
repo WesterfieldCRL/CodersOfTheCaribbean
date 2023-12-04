@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 /**
- * Provides utility methods and constants.
+ * This {@code CruiseAppUtilities} in this {@code Pages} package provides utility methods and constants.
  *
  * <p>This class serves as a central repository for common utility methods and constants used throughout the application.
  * It includes methods for creating styled UI components, handling user authentication, updating UI elements based on password
