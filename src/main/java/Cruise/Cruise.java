@@ -11,15 +11,16 @@ public class Cruise {
 
     private ArrayList<Destination> travelPath;
 
+    private Clock clock;
+
     public Cruise(String name) {
         this.name = name;
         roomList = new ArrayList<>();
 
 
-        Clock clock = Clock.systemDefaultZone();
+        this.clock = Clock.systemDefaultZone();
 
         updateTravelPath();
-
 
         if (travelPath.get(travelPath.size()-1).arrival.isBefore(LocalDate.now(clock)))
         {
@@ -27,18 +28,10 @@ public class Cruise {
             saveTravelPath();
         }
 
-        //REMOVE THIS LATER, FOR TESTING SINCE NO OTHER WAY TO KNOW THE VALID DATES
-        ArrayList<LocalDate> validDates = getValidReservationDates();
-        for (LocalDate date : validDates)
-        {
-            System.out.println(date);
-        }
-
     }
 
     public boolean areDatesValid(LocalDate start, LocalDate end)
     {
-        Clock clock = Clock.systemDefaultZone();
         if (start.isAfter(LocalDate.now(clock))) {
             ArrayList<LocalDate> validDates = getValidReservationDates();
 
@@ -59,7 +52,7 @@ public class Cruise {
     }
 
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
-                                     boolean isSmoking, LocalDate startDate, LocalDate endDate)
+                                          boolean isSmoking, LocalDate startDate, LocalDate endDate)
     {
         if (areDatesValid(startDate, endDate)) {
 
@@ -292,7 +285,6 @@ public class Cruise {
     {
         travelPath = new ArrayList<>();
         Connection connection = null;
-        Clock clock = Clock.systemDefaultZone();
 
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -303,7 +295,7 @@ public class Cruise {
 
             ResultSet rs = statement.executeQuery();
 
-            int daysElapsed = 0;
+            int daysElapsed = 7;
 
             while (rs.next())
             {
