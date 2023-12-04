@@ -97,10 +97,15 @@ public class TravelAgent extends Person {
     }
 
     /**
-     * Checks in a guest by updating the check-in status in the database for each reservation.
+     * Marks a reservation as checked out in the database.
      *
-     * @param guest The guest to be checked in.
-     * @return True if the check-in is successful, false otherwise.
+     * This method updates the status of a reservation to indicate that the guest has checked out.
+     * It connects to the database, prepares a statement to update the check-out status, and executes the update.
+     * If the update is successful, the method returns true, otherwise, it returns false, indicating
+     * the check-out operation was not completed due to an error.
+     *
+     * @param reservationId The ID of the reservation to be checked out.
+     * @return true if the check-out was successful, false otherwise.
      */
     public boolean checkIn(int reservationId) {
         Connection connection = null;
@@ -132,6 +137,17 @@ public class TravelAgent extends Person {
         return true;
     }
 
+    /**
+     * Marks a reservation as checked in in the database.
+     *
+     * This method updates the status of a reservation to indicate that the guest has checked in.
+     * It connects to the database, prepares a statement to update the check-in status, and executes the update.
+     * If the update is successful, the method returns true, otherwise, it returns false, indicating
+     * the check-in operation was not completed due to an error.
+     *
+     * @param reservationId The ID of the reservation to be checked in.
+     * @return true if the check-in was successful, false otherwise.
+     */
     public boolean checkOut(int reservationId) {
         Connection connection = null;
 
@@ -160,5 +176,99 @@ public class TravelAgent extends Person {
         }
 
         return true;
+    }
+
+    /**
+     * Retrieves the check-in status for a reservation.
+     *
+     * Queries the database to determine if the reservation associated with the provided
+     * reservation ID has been marked as checked in. This method establishes a connection to
+     * the database, executes a SQL query, and returns the check-in status.
+     *
+     * @param reservationId The unique identifier for the reservation.
+     * @return A Boolean value representing the check-in status: {@code true} if checked in,
+     *         {@code false} if not, and {@code null} if the reservation ID is not found or
+     *         an error occurs.
+     */
+    public Boolean getCheckInStatus(int reservationId) {
+        Connection connection = null;
+        Boolean isCheckedIn = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String querySQL = "SELECT ISCHECKEDIN FROM CHECKIN WHERE ID = ?";
+            PreparedStatement queryStmt = connection.prepareStatement(querySQL);
+
+            queryStmt.setInt(1, reservationId);
+            ResultSet rs = queryStmt.executeQuery();
+
+            if (rs.next()) {
+                isCheckedIn = rs.getBoolean("ISCHECKEDIN");
+            }
+            rs.close();
+            queryStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return isCheckedIn;
+    }
+
+    /**
+     * Retrieves the check-out status for a reservation.
+     *
+     * Queries the database to determine if the reservation associated with the provided
+     * reservation ID has been marked as checked out. This method establishes a connection to
+     * the database, executes a SQL query, and returns the check-out status.
+     *
+     * @param reservationId The unique identifier for the reservation.
+     * @return A Boolean value representing the check-out status: {@code true} if checked out,
+     *         {@code false} if not, and {@code null} if the reservation ID is not found or
+     *         an error occurs.
+     */
+    public Boolean getCheckOutStatus(int reservationId) {
+        Connection connection = null;
+        Boolean isCheckedOut = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String querySQL = "SELECT ISCHECKEDOUT FROM CHECKIN WHERE ID = ?";
+            PreparedStatement queryStmt = connection.prepareStatement(querySQL);
+
+            queryStmt.setInt(1, reservationId);
+            ResultSet rs = queryStmt.executeQuery();
+
+            if (rs.next()) {
+                isCheckedOut = rs.getBoolean("ISCHECKEDOUT");
+            }
+            rs.close();
+            queryStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return isCheckedOut;
     }
 }

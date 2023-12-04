@@ -4,6 +4,7 @@ import Controllers.GuestController;
 import Cruise.Room;
 import Cruise.*;
 import Person.Guest;
+import Util.AppLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +54,7 @@ public class TravelAgentAccountPage {
      * @return a fully-configured {@code JTabbedPane} designed specifically to cater to the various tasks and responsibilities of travel agents
      */
     public static JTabbedPane createTravelAgentViewTabbedPane(JFrame frame){
+        AppLogger.getLogger().info("Creating travel agent view pane");
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JPanel addRoomPanel = createAddRoomPanel(frame);
@@ -121,12 +123,14 @@ public class TravelAgentAccountPage {
         panel.add(addRoomButton, gbc);
         updateRoomListForCruise(cruiseComboBox.getItemAt(0),roomListModel);
         cruiseComboBox.addActionListener(e -> {
+            AppLogger.getLogger().info("Cruise combo box selection");
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
                 updateRoomListForCruise(selectedCruise,roomListModel);
             }
         });
         addRoomButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Add room button clicked");
             String selectedCruise = (String) cruiseComboBox.getSelectedItem();
             if (selectedCruise != null) {
                 Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
@@ -149,6 +153,7 @@ public class TravelAgentAccountPage {
         panel.add(modifyRoomButton, gbc);
 
         modifyRoomButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Modify room button clicked");
             String selectedRoomInfo = roomList.getSelectedValue();
             if (selectedRoomInfo != null && !selectedRoomInfo.isEmpty()) {
                 String selectedCruise = (String) cruiseComboBox.getSelectedItem();
@@ -204,6 +209,7 @@ public class TravelAgentAccountPage {
      * @param onModificationSuccess a {@code Runnable} to be executed upon successful modification of the room, used for updating UI elements
      */
     private static void openModifyRoomDialog(JFrame frame, Cruise cruise, Room room, Runnable onModificationSuccess) {
+        AppLogger.getLogger().info("Opening modify room dialog");
         JDialog modifyDialog = new JDialog(frame, "Modify Room", true);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -245,6 +251,7 @@ public class TravelAgentAccountPage {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton modifyButton = new JButton("Modify");
         modifyButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Modify button clicked");
             int numBeds = Integer.parseInt(bedsField.getText());
             Room.Quality quality = (Room.Quality) qualityComboBox.getSelectedItem();
             Room.BedType bedType = (Room.BedType) bedTypeComboBox.getSelectedItem();
@@ -306,6 +313,7 @@ public class TravelAgentAccountPage {
      * @return a {@code JPanel} designed for travel agents to facilitate the booking of reservations on behalf of guests
      */
     public static JPanel createReserveForGuestPanel(JFrame frame){
+        AppLogger.getLogger().info("Create reserve for guest panel");
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -327,6 +335,7 @@ public class TravelAgentAccountPage {
             @Override
             public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index,
                                                           boolean isSelected, boolean cellHasFocus) {
+                AppLogger.getLogger().info("Guest list listener");
                 JLabel label = new JLabel(value.getUsername());
                 label.setOpaque(true);
                 if (isSelected) {
@@ -348,6 +357,7 @@ public class TravelAgentAccountPage {
 
         JButton bookButton = new JButton("Book Reservation");
             bookButton.addActionListener(e -> {
+                AppLogger.getLogger().info("Book button clicked");
                 if (guestJList.getSelectedValue() == null ){
                     JOptionPane.showMessageDialog(frame, "Please Select A Guest To Continue.", "Error",
                             JOptionPane.ERROR_MESSAGE, scaledErrorImage);
@@ -383,6 +393,7 @@ public class TravelAgentAccountPage {
      * @return a {@code JPanel} dedicated to enabling account modifications for travel agents
      */
     public static JPanel createModifyAccountPanel(JFrame frame){
+        AppLogger.getLogger().info("Modify account panel create");
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(4, 4, 4, 4);
@@ -401,6 +412,7 @@ public class TravelAgentAccountPage {
 
         JButton updateButton = new JButton("Update");
         updateButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Modify account update button clicked");
             String newUsername = usernameField.getText();
             String newPassword = new String(passwordField.getPassword());
             String newAddress = addressField.getText();
@@ -422,6 +434,7 @@ public class TravelAgentAccountPage {
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Travel agent logout");
             currentAgent = null;
             switchToPanel(frame, "Login");
         });
@@ -457,6 +470,7 @@ public class TravelAgentAccountPage {
      */
 
     private static void updateRoomListForCruise(String selectedCruise, DefaultListModel<String> roomListModel) {
+        AppLogger.getLogger().info("Updating cruise room list");
         Optional<Cruise> optCruise = Cruise.getCruise(selectedCruise);
         optCruise.ifPresent(cruise -> {
 
@@ -499,6 +513,7 @@ public class TravelAgentAccountPage {
      * @param onSuccessCallback a {@code Runnable} that is executed upon successful addition of the room
      */
     private static void openAddRoomDialog(JFrame parentFrame, Cruise cruiseInstance, Runnable onSuccessCallback) {
+        AppLogger.getLogger().info("Open add room dialog");
         JDialog addRoomDialog = new JDialog(parentFrame, "Add Room", true);
         addRoomDialog.setLayout(new GridLayout(7, 2));
 
@@ -518,6 +533,7 @@ public class TravelAgentAccountPage {
         // Submit Button
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Add room submit button");
             //int roomId = Integer.parseInt(idField.getText());
             int numBeds = (int) numOfBedsDropdown.getSelectedItem();
             Room.BedType bedType = (Room.BedType) bedTypeDropdown.getSelectedItem();
@@ -527,12 +543,13 @@ public class TravelAgentAccountPage {
             Room newRoom = new Room(0, numBeds, bedType, quality, isSmoking);
 
             boolean success = cruiseInstance.addRoom(newRoom);
-
             if (success){
                 Component reservationFrame = null;
-                JOptionPane.showMessageDialog(reservationFrame, "Room Added Successfully!",
+                JOptionPane.showMessageDialog(null, "Room Added Successfully!",
                         "Room Status", JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
                 onSuccessCallback.run();
+            } else {
+                JOptionPane.showMessageDialog(null, "Room could not be added", "Room status", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
             }
             addRoomDialog.dispose();
         });
@@ -554,6 +571,7 @@ public class TravelAgentAccountPage {
     }
 
     public static JPanel createCheckInOutPanel(JFrame frame) {
+        AppLogger.getLogger().info("Create checkout panel");
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -570,6 +588,8 @@ public class TravelAgentAccountPage {
             @Override
             public Component getListCellRendererComponent(JList<? extends Guest> list, Guest value, int index,
                                                           boolean isSelected, boolean cellHasFocus) {
+                AppLogger.getLogger().info("guest list renderer");
+
                 JLabel label = new JLabel(value.getUsername());
                 label.setOpaque(true);
                 if (isSelected) {
@@ -586,6 +606,30 @@ public class TravelAgentAccountPage {
         DefaultListModel<Guest.Reservation> reservationListModel = new DefaultListModel<>();
         JList<Guest.Reservation> reservationJList = new JList<>(reservationListModel);
         JScrollPane reservationScrollPane = new JScrollPane(reservationJList);
+
+        reservationJList.setCellRenderer(new ListCellRenderer<Guest.Reservation>() {
+            @Override
+            public Component getListCellRendererComponent(JList<? extends Guest.Reservation> list, Guest.Reservation value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                AppLogger.getLogger().info("reservation list renderer");
+
+                Boolean isCheckedIn = currentAgent.getCheckInStatus(value.getId());
+                Boolean isCheckedOut = currentAgent.getCheckOutStatus(value.getId());
+                String statusText = "Status: " + (isCheckedIn ? "Checked In" : "Not Checked In") +
+                        ", " + (isCheckedOut ? "Checked Out" : "Not Checked Out");
+                JLabel label = new JLabel(value + " - " + statusText);
+                label.setOpaque(true);
+                if (isSelected) {
+                    label.setBackground(list.getSelectionBackground());
+                    label.setForeground(list.getSelectionForeground());
+                } else {
+                    label.setBackground(list.getBackground());
+                    label.setForeground(list.getForeground());
+                }
+
+                return label;
+            }
+        });
 
         guestJList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -612,6 +656,7 @@ public class TravelAgentAccountPage {
         JButton checkOutButton = new JButton("Check Out");
 
         checkInButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Check in button clicked");
             Guest.Reservation selectedReservation = reservationJList.getSelectedValue();
             if (selectedReservation != null) {
                 boolean success = currentAgent.checkIn(selectedReservation.getId());
@@ -624,6 +669,7 @@ public class TravelAgentAccountPage {
         });
 
         checkOutButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Check out button clicked");
             Guest.Reservation selectedReservation = reservationJList.getSelectedValue();
             if (selectedReservation != null) {
                 boolean success = currentAgent.checkOut(selectedReservation.getId());
@@ -637,7 +683,7 @@ public class TravelAgentAccountPage {
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.weightx = 1;
+        gbc.weightx = 2;
 
         gbc.gridx = 0;
         gbc.gridy = 0;

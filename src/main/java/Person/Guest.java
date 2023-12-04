@@ -747,6 +747,11 @@ public class Guest extends Person {
             return id;
         }
 
+        /**
+         * Overloaded toString to print out all reservation details
+         *
+         * @return string of reservation details
+         */
         public String toString() {
             return "Reservation ID: " + this.getId() +
                     ", Cruise: " + this.getCruiseName() +

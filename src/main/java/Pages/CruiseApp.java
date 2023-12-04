@@ -1,5 +1,7 @@
 package Pages;
 
+import Util.AppLogger;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -67,9 +69,10 @@ public class CruiseApp {
      * @return the fully configured {@code JFrame} for the application
      */
     private static JFrame setupMainFrame() {
+        AppLogger.getLogger().info("Setting up mainframe");
         JFrame frame = new JFrame("Coders of the Caribbean");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 800);
+        frame.setSize(1400, 900);
         frame.setLayout(new CardLayout());
         frame.setLocationRelativeTo(null);
         return frame;

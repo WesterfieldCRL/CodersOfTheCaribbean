@@ -1,5 +1,7 @@
 package Pages;
 
+import Util.AppLogger;
+
 import javax.swing.*;
 import java.awt.*;
 import static Pages.CruiseAppUtilities.*;
@@ -37,6 +39,7 @@ public class TermsOfServicePanel {
      * @return a {@code JDialog} containing the Terms of Service
      */
     public static JDialog createTermsOfServiceDialog(JFrame frame) {
+        AppLogger.getLogger().info("TOS panel");
         JDialog dialog = new JDialog(frame, "Terms of Service", true);
         dialog.setLayout(new BorderLayout());
         dialog.setBackground(BACKGROUND_COLOR);

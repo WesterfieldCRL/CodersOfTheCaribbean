@@ -2,6 +2,7 @@ package Pages;
 
 import Person.Person;
 import Person.*;
+import Util.AppLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 
 /**
- * Provides utility methods and constants.
+ * This {@code CruiseAppUtilities} in this {@code Pages} package provides utility methods and constants.
  *
  * <p>This class serves as a central repository for common utility methods and constants used throughout the application.
  * It includes methods for creating styled UI components, handling user authentication, updating UI elements based on password
@@ -64,6 +65,7 @@ public class CruiseAppUtilities {
      * @return a {@code JLabel} instance styled with the given text, font, and background color
      */
     public static JLabel createStyledLabel(String text, Font font) {
+        AppLogger.getLogger().info("Creating styled label");
         JLabel label = new JLabel(text);
         label.setFont(font);
         label.setBackground(BACKGROUND_COLOR);
@@ -83,6 +85,7 @@ public class CruiseAppUtilities {
      * @return a {@code JButton} styled with the specified text, font, and background color
      */
     public static JButton createStyledButton(String text, Font font, Color color) {
+        AppLogger.getLogger().info("Creating styled button");
         JButton button = new JButton(text);
         button.setFont(font);
         button.setBackground(color);
@@ -108,6 +111,7 @@ public class CruiseAppUtilities {
      * @param frame the {@code JFrame} to which user-specific panels are added and where the view is switched
      */
     public static void handleLogin(JTextField usernameField, JPasswordField passwordField, JFrame frame) {
+        AppLogger.getLogger().info("Handling login info");
 
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
@@ -116,18 +120,22 @@ public class CruiseAppUtilities {
 
         if (user.isPresent()) {
             if (user.get().getClass().getSimpleName().equalsIgnoreCase("Guest")) {
+                AppLogger.getLogger().info("Guest login handling");
                 currentGuest = (Guest) user.get();
                 addGuestPanelToFrame(frame);
                 switchToPanel(frame, "Guest View");
             } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("TRAVELAGENT")){
+                AppLogger.getLogger().info("Agent login handling");
                 currentAgent = (TravelAgent) user.get();
                 addAgentPanelToFrame(frame);
                 switchToPanel(frame, "Agent View");
             } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("ADMIN")){
+                AppLogger.getLogger().info("Admin login handling");
                 currentAdmin = (Admin) user.get();
                 addAdminPanelToFrame(frame);
                 switchToPanel(frame, "Admin View");
             } else if (user.get().getClass().getSimpleName().equalsIgnoreCase("MANAGER")){
+                AppLogger.getLogger().info("Manager login handling");
                 currentManager = (Manager) user.get();
                 addManagerPanelToFrame(frame);
                 switchToPanel(frame, "Manager View");
@@ -137,6 +145,7 @@ public class CruiseAppUtilities {
             JOptionPane.showMessageDialog(null, "Login Successful. User type: "
                     + user.get().getClass().getSimpleName(),"Login Status",JOptionPane.DEFAULT_OPTION,scaledSuccessIcon);
         } else {
+            AppLogger.getLogger().info("Handling invalid login details");
             JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Error",
                     JOptionPane.ERROR_MESSAGE,scaledErrorImage);
         }
@@ -152,6 +161,7 @@ public class CruiseAppUtilities {
      * @param frame the {@code JFrame} to which the Admin panel is added
      */
     public static void addAdminPanelToFrame(JFrame frame) {
+        AppLogger.getLogger().info("Adding admin panel to frame");
         JTabbedPane adminPanel = AdminAccountPage.createAdminTabbedPane(frame);
         frame.add(adminPanel, "Admin View");
         frame.revalidate();
@@ -168,6 +178,7 @@ public class CruiseAppUtilities {
      * @param frame the {@code JFrame} to which the Guest panel is added
      */
     public static void addGuestPanelToFrame(JFrame frame){
+        AppLogger.getLogger().info("Adding guest panel to frame");
         JTabbedPane guestPanel = GuestAccountPage.createGuestViewTabbedPane(frame);
         frame.add(guestPanel, "Guest View");
         frame.revalidate();
@@ -184,6 +195,7 @@ public class CruiseAppUtilities {
      * @param frame the {@code JFrame} to which the Travel Agent panel is added
      */
     public static void addAgentPanelToFrame(JFrame frame){
+        AppLogger.getLogger().info("adding agent panel to frame");
         JTabbedPane agentPanel = TravelAgentAccountPage.createTravelAgentViewTabbedPane(frame);
         frame.add(agentPanel, "Agent View");
         frame.revalidate();
@@ -200,6 +212,7 @@ public class CruiseAppUtilities {
      * @param frame the {@code JFrame} to which the Manager panel is added
      */
     public static void addManagerPanelToFrame(JFrame frame){
+        AppLogger.getLogger().info("adding manager panel to frame");
         JPanel managerPanel = ManagerAccountPage.createManagerViewPanel(frame);
         frame.add(managerPanel, "Manager View");
         frame.revalidate();
@@ -217,6 +230,7 @@ public class CruiseAppUtilities {
      * @param panelName the name identifier of the panel to be displayed, as defined when added to the frame
      */
     public static void switchToPanel(JFrame frame, String panelName) {
+        AppLogger.getLogger().info("switching to panel");
         ((CardLayout) frame.getContentPane().getLayout()).show(frame.getContentPane(), panelName);
     }
 
@@ -266,6 +280,7 @@ public class CruiseAppUtilities {
      * @param requirementsLabel the {@code JLabel} to be updated with the HTML-formatted requirements
      */
     static void updateRequirementsLabel(java.util.List<String> requirements, JLabel requirementsLabel) {
+        AppLogger.getLogger().info("Updating requirements label");
         StringBuilder requirementsHtml = new StringBuilder("<html>");
         for (String requirement : requirements) {
             requirementsHtml.append(requirement).append("<br>");
@@ -288,6 +303,7 @@ public class CruiseAppUtilities {
      */
 
     static void updateRequirementsLabel(String password, List<String> requirements, JLabel requirementsLabel) {
+        AppLogger.getLogger().info("Overloaded update requirements label");
         requirements.clear();
         if (password.length() < 8) requirements.add("At least 8 characters");
         if (!password.matches(".*\\d.*")) requirements.add("At least one digit");

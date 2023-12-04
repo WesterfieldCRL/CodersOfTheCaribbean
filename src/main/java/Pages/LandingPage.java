@@ -1,5 +1,7 @@
 package Pages;
 
+import Util.AppLogger;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -54,7 +56,10 @@ public class LandingPage {
         panel.add(logoLabel, gbc);
 
         JButton loginButton = createStyledButton("Login", BUTTON_FONT, BUTTON_COLOR);
-        loginButton.addActionListener(e -> switchToPanel(frame, "Login"));
+        loginButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Login button clicked on landing page");
+            switchToPanel(frame, "Login");
+        });
         gbc.gridx = 0;
         gbc.gridy = 4;
         panel.add(loginButton, gbc);

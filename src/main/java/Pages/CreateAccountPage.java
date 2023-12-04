@@ -1,6 +1,7 @@
 package Pages;
 
 import Person.Guest;
+import Util.AppLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +52,8 @@ public class CreateAccountPage {
      * @return a {@code JPanel} designed for creating guest accounts, complete with validation and submission functionality
      */
     public static JPanel createAccountPanel(JFrame frame) {
+        AppLogger.getLogger().info("createAccountPanel");
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -96,6 +99,8 @@ public class CreateAccountPage {
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                AppLogger.getLogger().info("In passwordField key listener");
+
                 String password = new String(passwordField.getPassword());
                 updateRequirementsLabel(password, requirements, passwordRequirementsLabel);
                 panel.revalidate();
@@ -128,6 +133,8 @@ public class CreateAccountPage {
         submitButton.setEnabled(false);
         tosCheckBox.addActionListener(e -> submitButton.setEnabled(tosCheckBox.isSelected()));
         submitButton.addActionListener(e -> {
+            AppLogger.getLogger().info("In submit button");
+
             String password = new String(passwordField.getPassword());
             String passwordValidationMessage = validatePassword(password);
             if (!passwordValidationMessage.isEmpty()) {
@@ -143,6 +150,7 @@ public class CreateAccountPage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
             YearMonth ccExpiration;
             try {
+                AppLogger.getLogger().info("Checking ccExpirationField");
                 ccExpiration = YearMonth.parse(ccExpirationField.getText(), formatter);
                 YearMonth currentYearMonth = YearMonth.now();
 
@@ -151,12 +159,14 @@ public class CreateAccountPage {
                     return;
                 }
             } catch (DateTimeParseException ex) {
+                AppLogger.getLogger().warning("Invalid CC Date format");
                 JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter the date in MM/yyyy format.", "Invalid Date", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 return;
             }
             Guest guest = new Guest(usernameField.getText(), password, nameField.getText(), addressField.getText(), emailField.getText(), ccNumberField.getText(), ccExpiration ,isCorporateGuestCheckBox.isSelected());
             boolean success = guest.createAccount();
             if (success) {
+                AppLogger.getLogger().info("Success creating guest account");
                 JOptionPane.showMessageDialog(frame, "Account created successfully!", "Create Account Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
                 switchToPanel(frame, "Login");
             } else {

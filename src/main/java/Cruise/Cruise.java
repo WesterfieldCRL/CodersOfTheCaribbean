@@ -450,6 +450,10 @@ public class Cruise {
         }
     }
 
+    public ArrayList<Destination> getTravelPath(){
+        return travelPath;
+    }
+
     public ArrayList<LocalDate> getValidReservationDates()
     {
         ArrayList<LocalDate> dates = new ArrayList<>();
@@ -495,6 +499,10 @@ public class Cruise {
             this.arrival = arrival;
             this.departure = departure;
             this.location = location;
+        }
+
+        public String getLocation(){
+            return location;
         }
 
     }
