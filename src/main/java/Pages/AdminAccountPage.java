@@ -2,6 +2,7 @@ package Pages;
 
 import Person.Guest;
 import Person.TravelAgent;
+import Util.AppLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +44,8 @@ public class AdminAccountPage {
      * @return A {@code JTabbedPane} instance with tabs for 'Reset Password' and 'Create Travel Agent'.
      */
     public static JTabbedPane createAdminTabbedPane(JFrame frame) {
+        AppLogger.getLogger().info("Creating admin tabbed pane");
+
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JPanel resetPasswordPanel = createResetPasswordPanel(frame);
@@ -69,6 +72,8 @@ public class AdminAccountPage {
      * @return the initialized {@code JPanel} for password reset functionality
      */
     public static JPanel createResetPasswordPanel(JFrame frame) {
+        AppLogger.getLogger().info("In createResetPasswordPanel");
+
         JPanel resetPasswordPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -108,6 +113,8 @@ public class AdminAccountPage {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AppLogger.getLogger().info("Reset button clicked");
+
                 Guest selectedGuest = resetList.getSelectedValue();
                 if (selectedGuest != null) {
                     String desiredPassword = selectedGuest.getChangedPassword();
@@ -121,6 +128,7 @@ public class AdminAccountPage {
                     JButton changeButton = new JButton("Confirm Change");
                     changeButton.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                            AppLogger.getLogger().info("Confirm change clicked");
                             selectedGuest.resetPassword();
                             JOptionPane.showMessageDialog(resetDialog, "Password has been reset successfully.",
                                     "Password Reset", JOptionPane.INFORMATION_MESSAGE);
@@ -163,6 +171,7 @@ public class AdminAccountPage {
      * @return a {@code JPanel} that facilitates the creation of new travel agent accounts
      */
     public static JPanel createAccountPanel (JFrame frame){
+        AppLogger.getLogger().info("In createAccountPanel");
         JPanel createAccountPanel = new JPanel(new GridBagLayout());
         createAccountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         createAccountPanel.setBackground(BACKGROUND_COLOR);
@@ -214,6 +223,8 @@ public class AdminAccountPage {
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                AppLogger.getLogger().info("In password Field");
+
                 String password = new String(passwordField.getPassword());
                 updateRequirementsLabel(password, requirements, passwordRequirementsLabel);
                 createAccountPanel.revalidate();
@@ -232,6 +243,8 @@ public class AdminAccountPage {
 
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                AppLogger.getLogger().info("In createButton");
+
                 String password = new String(passwordField.getPassword());
                 String validationMessage = validatePassword(password);
                 if (!validationMessage.isEmpty()) {
@@ -256,6 +269,8 @@ public class AdminAccountPage {
                 } else {
                     JOptionPane.showMessageDialog(createAccountPanel, "Failed to create Travel Agent account. Please check the details and try again.", "Account Creation Failed", JOptionPane.ERROR_MESSAGE);
                 }
+                AppLogger.getLogger().info("Exiting create account button");
+
             }
         });
 

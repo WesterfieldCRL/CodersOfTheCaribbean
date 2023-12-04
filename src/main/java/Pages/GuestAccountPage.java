@@ -19,6 +19,7 @@ import Person.Guest.*;
 
 import Cruise.Cruise;
 import Cruise.Room;
+import Util.AppLogger;
 
 import static Pages.CruiseAppUtilities.*;
 import static Cruise.Cruise.*;
@@ -69,6 +70,7 @@ public class GuestAccountPage {
      * @return a {@code JTabbedPane} specifically designed for guest interactions
      */
     public static JTabbedPane createGuestViewTabbedPane(JFrame frame) {
+        AppLogger.getLogger().info("Creating guest view tabbed pane");
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JPanel roomSelectionPanel = createRoomSelectionPanel(frame);
@@ -153,7 +155,7 @@ public class GuestAccountPage {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
+                AppLogger.getLogger().info("Room list cell renderer");
                 label.setBackground(BACKGROUND_COLOR);
                 label.setForeground(Color.BLACK);
                 label.setOpaque(true);
@@ -186,12 +188,14 @@ public class GuestAccountPage {
         validDatesLabel.setForeground(Color.DARK_GRAY);
 
         cruiseTabs.addChangeListener(e -> {
+            AppLogger.getLogger().info("In cruise tabs");
             JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
             int index = sourceTabbedPane.getSelectedIndex();
 
             switch(index) {
                 case 0:
                     updateAllRoomsForCruise("cruise1", roomListModel);
+                    AppLogger.getLogger().info("In cruise 1 tab");
                     roomList.setVisible(false);
                     Optional<Cruise> optionalCruise = getCruise("cruise1");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
@@ -199,6 +203,7 @@ public class GuestAccountPage {
                     break;
                 case 1:
                     updateAllRoomsForCruise("cruise2", roomListModel);
+                    AppLogger.getLogger().info("In cruise 2 tab");
                     roomList.setVisible(false);
                     optionalCruise = getCruise("cruise2");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
@@ -206,6 +211,7 @@ public class GuestAccountPage {
                     break;
                 case 2:
                     updateAllRoomsForCruise("cruise3", roomListModel);
+                    AppLogger.getLogger().info("In cruise 3 tab");
                     roomList.setVisible(false);
                     optionalCruise = getCruise("cruise3");
                     optionalCruise.ifPresent(cruise -> currentCruise = cruise);
@@ -223,6 +229,7 @@ public class GuestAccountPage {
 
         JButton applyFiltersButton = createStyledButton("Apply Filters", DEFAULT_FONT, BUTTON_COLOR);
         applyFiltersButton.addActionListener((ActionEvent e) -> {
+            AppLogger.getLogger().info("Apply filters clicked");
             if (startDateField.getValue() == null || endDateField.getValue() == null) {
                 JOptionPane.showMessageDialog(null, "Please select a start and end date before selecting rooms.",
                         "Date Selection Required", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
@@ -238,6 +245,7 @@ public class GuestAccountPage {
         roomList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                AppLogger.getLogger().info("roomList action listener");
                 if (!filtersApplied) {
                     JOptionPane.showMessageDialog(null, "Please apply filters before selecting a room.",
                             "Apply Filters", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
@@ -250,6 +258,7 @@ public class GuestAccountPage {
 
                     Boolean isRoom = (Boolean) rendererComponent.getClientProperty("isRoom");
                     if (isRoom != null && !isRoom) {
+                        AppLogger.getLogger().info("Not a room");
                         return;
                     }
                     if (startDateField.getValue() == null || endDateField.getValue() == null) {
@@ -269,6 +278,7 @@ public class GuestAccountPage {
         getAllAvailableRoomsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AppLogger.getLogger().info("Getting all available rooms");
                 filtersApplied = true;
 
                 LocalDate startDate = null;
@@ -277,6 +287,7 @@ public class GuestAccountPage {
                     startDate = LocalDate.parse(startDateField.getText(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                     endDate = LocalDate.parse(endDateField.getText(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                 } catch (DateTimeParseException ex) {
+                    AppLogger.getLogger().warning("Invalid room dates");
                     JOptionPane.showMessageDialog(frame, "Please enter valid start and end dates in MM/dd/yyyy format.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     roomListModel.clear();
                     return;
@@ -287,8 +298,6 @@ public class GuestAccountPage {
                     JOptionPane.showMessageDialog(frame, "There are no cruises for these dates.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     return;
                 }
-
-
                     if (startDate == null || endDate == null || !startDate.isBefore(endDate)) {
                     JOptionPane.showMessageDialog(frame, "Start date must be before end date.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     return;
@@ -337,6 +346,7 @@ public class GuestAccountPage {
             backButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    AppLogger.getLogger().info("Travel agent back button clicked");
                     currentGuest = null;
                     addAgentPanelToFrame(frame);
                     switchToPanel(frame, "Agent View");
@@ -382,6 +392,7 @@ public class GuestAccountPage {
             @Override
             public Component getListCellRendererComponent(
                     JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                AppLogger.getLogger().info("Reservation list renderer");
                 Reservation reservation = (Reservation) value;
                 String text = String.format("Reservation ID: %d, Cruise: %s, Start: %s, End: %s",
                         reservation.getId(), reservation.getCruiseName(),
@@ -397,6 +408,7 @@ public class GuestAccountPage {
         JButton deleteButton = new JButton("Cancel Reservation");
 
         modifyButton.addActionListener(e -> {
+            AppLogger.getLogger().info("modify room button");
             Reservation selectedReservation = reservationsList.getSelectedValue();
             if (selectedReservation != null) {
                 JTextField startDateField = new JTextField(selectedReservation.getStartDate().toString());
@@ -460,7 +472,8 @@ public class GuestAccountPage {
                                     JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                         }
                     } catch (DateTimeParseException dtpe) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please use yyyy-mm-dd.",
+                        AppLogger.getLogger().info("invalid date format");
+                        JOptionPane.showMessageDialog(null, "Invalid date format. Please use mm/dd/yyyy.",
                                 "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     }
                 }
@@ -486,6 +499,7 @@ public class GuestAccountPage {
                     double refundAmt = reserveCost - refundSub;
                     boolean success = currentGuest.cancelReservation(selectedReservation.getId());
                     if (success) {
+                        AppLogger.getLogger().info("Succesful reservation confirmed");
                         reservationListModel.removeElement(selectedReservation);
                         currentGuest.calculateRefund(selectedReservation.id);
                         currentGuest.getReservations().remove(selectedReservation);
@@ -533,6 +547,7 @@ public class GuestAccountPage {
      * @param cruiseName the name of the cruise for which valid dates are to be retrieved
      */
     public static void updateValidDatesLabel(JLabel validDatesLabel, String cruiseName) {
+        AppLogger.getLogger().info("Updated valid dates label");
         Optional<Cruise> cruiseOpt = getCruise(cruiseName);
         if (cruiseOpt.isPresent()) {
             Cruise cruise = cruiseOpt.get();
@@ -574,7 +589,7 @@ public class GuestAccountPage {
      * @param model The DefaultListModel of Reservation objects to be updated with the guest's current reservations.
      */
     private static void updateReservationsList(DefaultListModel<Reservation> model) {
-
+        AppLogger.getLogger().info("Updating reservation list");
         currentGuest.getReservations();
         model.clear();
         for (Reservation reservation : currentGuest.getReservations()) {
@@ -594,6 +609,7 @@ public class GuestAccountPage {
      * @param roomListModel  the DefaultListModel of Room objects to be updated with rooms from the specified cruise
      */
     private static void updateAllRoomsForCruise(String cruiseName, DefaultListModel<Room> roomListModel) {
+        AppLogger.getLogger().info("Updating all rooms for cruise");
         filtersApplied = false;
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
@@ -627,6 +643,7 @@ public class GuestAccountPage {
                                        JComboBox<Integer> numBedsComboBox, JComboBox<Room.BedType> bedTypeComboBox,
                                        JCheckBox isSmokingCheckBox, JFormattedTextField startDateField,
                                        JFormattedTextField endDateField, DefaultListModel<Room> roomListModel) {
+        AppLogger.getLogger().info("Updating room list based on options");
         Optional<Cruise> cruise = getCruise(cruiseName);
         if (cruise.isPresent()) {
             Optional<Room> room = cruise.get().isRoomAvailable(
@@ -695,6 +712,7 @@ public class GuestAccountPage {
 
         JButton makeReservationButton = new JButton("Make Reservation");
         makeReservationButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Reservation button clicked");
             boolean success = currentGuest.makeReservation(room, start, end, cruise);
 
             if (success) {

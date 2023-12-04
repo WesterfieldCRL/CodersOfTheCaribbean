@@ -1,6 +1,7 @@
 package Pages;
 
 import Billing.Expenses;
+import Util.AppLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,7 @@ import static Pages.CruiseAppUtilities.*;
 public class ManagerAccountPage {
 
     public static JPanel createManagerViewPanel (JFrame frame){
+        AppLogger.getLogger().info("Manager account page");
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -26,6 +28,7 @@ public class ManagerAccountPage {
         scrollPane.setPreferredSize(new Dimension(500, 700));
 
         logoutButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Logout button clicked from manager");
             currentManager = null;
             switchToPanel(frame, "Login");
         });
@@ -74,6 +77,7 @@ public class ManagerAccountPage {
         reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AppLogger.getLogger().info("Report button clicked");
                 String selectedValue = reportList.getSelectedValue();
                 if (selectedValue == null || selectedValue.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Please select a bill from the list.", "No Bill Selected", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
@@ -97,10 +101,12 @@ public class ManagerAccountPage {
 
             private int extractBillId(String billInfo) {
                 try {
+                    AppLogger.getLogger().info("Exracting bill iD");
                     String[] parts = billInfo.split(",");
                     String idPart = parts[0];
                     return Integer.parseInt(idPart.split(":")[1].trim());
                 } catch (Exception ex) {
+                    AppLogger.getLogger().warning("Failed to extract bill");
                     JOptionPane.showMessageDialog(frame, "Failed to extract Bill ID from the selected item.", "Error", JOptionPane.ERROR_MESSAGE,scaledErrorImage);
                     return -1;
                 }

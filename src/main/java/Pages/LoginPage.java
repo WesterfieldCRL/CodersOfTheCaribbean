@@ -1,5 +1,7 @@
 package Pages;
 
+import Util.AppLogger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -95,6 +97,7 @@ public class LoginPage {
         JButton resetPasswordButton = createStyledButton("Reset Password", BUTTON_FONT, BUTTON_COLOR);
 
         resetPasswordButton.addActionListener(e -> {
+            AppLogger.getLogger().info("Reset password button clicked");
             JTextField usernameFieldForReset = new JTextField(15);
             int result = JOptionPane.showConfirmDialog(frame, new Object[]{"Username:", usernameFieldForReset},
                     "Password Reset Request", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);

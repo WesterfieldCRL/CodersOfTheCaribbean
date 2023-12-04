@@ -1,0 +1,124 @@
+Dec 04, 2023 4:11:37 PM Util.AppLogger <clinit>
+INFO: Logger initialized
+Dec 04, 2023 4:11:37 PM Pages.CruiseApp setupMainFrame
+INFO: Setting up mainframe
+Dec 04, 2023 4:11:37 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CreateAccountPage createAccountPanel
+INFO: createAccountPanel
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities updateRequirementsLabel
+INFO: Updating requirements label
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:38 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:11:56 PM Pages.LandingPage lambda$createLandingPagePanel$0
+INFO: Login button clicked on landing page
+Dec 04, 2023 4:11:56 PM Pages.CruiseAppUtilities switchToPanel
+INFO: switching to panel
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities handleLogin
+INFO: Handling login info
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities handleLogin
+INFO: Agent login handling
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities addAgentPanelToFrame
+INFO: adding agent panel to frame
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage createTravelAgentViewTabbedPane
+INFO: Creating travel agent view pane
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage updateRoomListForCruise
+INFO: Updating cruise room list
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities createStyledButton
+INFO: Creating styled button
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage createReserveForGuestPanel
+INFO: Create reserve for guest panel
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage createModifyAccountPanel
+INFO: Modify account panel create
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.TravelAgentAccountPage$1 getListCellRendererComponent
+INFO: Guest list listener
+Dec 04, 2023 4:12:02 PM Pages.CruiseAppUtilities switchToPanel
+INFO: switching to panel
+Dec 04, 2023 4:12:04 PM Pages.TravelAgentAccountPage lambda$createAddRoomPanel$2
+INFO: Add room button clicked
+Dec 04, 2023 4:12:04 PM Pages.TravelAgentAccountPage openAddRoomDialog
+INFO: Open add room dialog
+Dec 04, 2023 4:12:04 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:04 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:04 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:04 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:06 PM Pages.TravelAgentAccountPage lambda$openAddRoomDialog$11
+INFO: Add room submit button
+Dec 04, 2023 4:12:07 PM Pages.TravelAgentAccountPage updateRoomListForCruise
+INFO: Updating cruise room list
+Dec 04, 2023 4:12:10 PM Pages.TravelAgentAccountPage lambda$createAddRoomPanel$2
+INFO: Add room button clicked
+Dec 04, 2023 4:12:10 PM Pages.TravelAgentAccountPage openAddRoomDialog
+INFO: Open add room dialog
+Dec 04, 2023 4:12:10 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:10 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:10 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
+Dec 04, 2023 4:12:10 PM Pages.CruiseAppUtilities createStyledLabel
+INFO: Creating styled label
