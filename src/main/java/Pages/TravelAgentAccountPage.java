@@ -587,6 +587,28 @@ public class TravelAgentAccountPage {
         JList<Guest.Reservation> reservationJList = new JList<>(reservationListModel);
         JScrollPane reservationScrollPane = new JScrollPane(reservationJList);
 
+        reservationJList.setCellRenderer(new ListCellRenderer<Guest.Reservation>() {
+            @Override
+            public Component getListCellRendererComponent(JList<? extends Guest.Reservation> list, Guest.Reservation value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                Boolean isCheckedIn = currentAgent.getCheckInStatus(value.getId());
+                Boolean isCheckedOut = currentAgent.getCheckOutStatus(value.getId());
+                String statusText = "Status: " + (isCheckedIn ? "Checked In" : "Not Checked In") +
+                        ", " + (isCheckedOut ? "Checked Out" : "Not Checked Out");
+                JLabel label = new JLabel(value + " - " + statusText);
+                label.setOpaque(true);
+                if (isSelected) {
+                    label.setBackground(list.getSelectionBackground());
+                    label.setForeground(list.getSelectionForeground());
+                } else {
+                    label.setBackground(list.getBackground());
+                    label.setForeground(list.getForeground());
+                }
+
+                return label;
+            }
+        });
+
         guestJList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 Guest selectedGuest = guestJList.getSelectedValue();
@@ -637,7 +659,7 @@ public class TravelAgentAccountPage {
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.weightx = 1;
+        gbc.weightx = 2;
 
         gbc.gridx = 0;
         gbc.gridy = 0;

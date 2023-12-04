@@ -161,4 +161,74 @@ public class TravelAgent extends Person {
 
         return true;
     }
+
+    public Boolean getCheckInStatus(int reservationId) {
+        Connection connection = null;
+        Boolean isCheckedIn = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String querySQL = "SELECT ISCHECKEDIN FROM CHECKIN WHERE ID = ?";
+            PreparedStatement queryStmt = connection.prepareStatement(querySQL);
+
+            queryStmt.setInt(1, reservationId);
+            ResultSet rs = queryStmt.executeQuery();
+
+            if (rs.next()) {
+                isCheckedIn = rs.getBoolean("ISCHECKEDIN");
+            }
+            rs.close();
+            queryStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return isCheckedIn;
+    }
+
+    public Boolean getCheckOutStatus(int reservationId) {
+        Connection connection = null;
+        Boolean isCheckedOut = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+
+            String querySQL = "SELECT ISCHECKEDOUT FROM CHECKIN WHERE ID = ?";
+            PreparedStatement queryStmt = connection.prepareStatement(querySQL);
+
+            queryStmt.setInt(1, reservationId);
+            ResultSet rs = queryStmt.executeQuery();
+
+            if (rs.next()) {
+                isCheckedOut = rs.getBoolean("ISCHECKEDOUT");
+            }
+            rs.close();
+            queryStmt.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return isCheckedOut;
+    }
 }

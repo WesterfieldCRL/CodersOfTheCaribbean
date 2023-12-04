@@ -265,6 +265,61 @@ public class GuestAccountPage {
             }
         });
 
+        JButton getAllAvailableRoomsButton = new JButton("Get All Available Rooms");
+        getAllAvailableRoomsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filtersApplied = true;
+
+                LocalDate startDate = null;
+                LocalDate endDate = null;
+                try {
+                    startDate = LocalDate.parse(startDateField.getText(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                    endDate = LocalDate.parse(endDateField.getText(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid start and end dates in MM/dd/yyyy format.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    roomListModel.clear();
+                    return;
+                }
+
+                if (!currentCruise.areDatesValid(startDate, endDate)){
+                    System.out.println(currentCruise.getName());
+                    JOptionPane.showMessageDialog(frame, "There are no cruises for these dates.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    return;
+                }
+
+
+                    if (startDate == null || endDate == null || !startDate.isBefore(endDate)) {
+                    JOptionPane.showMessageDialog(frame, "Start date must be before end date.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    return;
+                }
+
+                LocalDate today = LocalDate.now();
+                if (startDate == null || endDate == null || !startDate.isBefore(endDate) || startDate.isBefore(today)) {
+                    if (startDate.isBefore(today)) {
+                        JOptionPane.showMessageDialog(frame, "Start date cannot be before today's date.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Start date must be before end date.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                    }
+                    return;
+                }
+
+                ArrayList<Room> availableRooms = currentCruise.getAvailableRoomsList(startDate, endDate);
+                roomListModel.clear();
+                if (availableRooms.isEmpty()) {
+                    roomListModel.addElement(NO_ROOMS_FOUND);
+                } else {
+                    for (Room room : availableRooms) {
+                        roomListModel.addElement(room);
+                    }
+                }
+                roomList.setVisible(true);
+            }
+        });
+
+        filterPanel.add(getAllAvailableRoomsButton);
+
+
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
         topPanel.add(validDatesLabel, BorderLayout.SOUTH);
@@ -482,16 +537,28 @@ public class GuestAccountPage {
         if (cruiseOpt.isPresent()) {
             Cruise cruise = cruiseOpt.get();
             ArrayList<LocalDate> validDates = cruise.getValidReservationDates();
+            ArrayList<Cruise.Destination> travelPath = cruise.getTravelPath();
             StringBuilder validDatesText = new StringBuilder("Valid reservation dates based on travel path: ");
+
             for (LocalDate date : validDates) {
                 validDatesText.append(date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))).append(", ");
             }
             if (validDates.size() > 0) {
                 validDatesText.setLength(validDatesText.length() - 2);
             }
+
+            if (!travelPath.isEmpty()) {
+                validDatesText.append(" | Travel Path: ");
+                for (Cruise.Destination destination : travelPath) {
+                    validDatesText.append(destination.getLocation()).append(" -> ");
+                }
+                //remove trailing arrow
+                validDatesText.setLength(validDatesText.length() - 4);
+            }
+
             validDatesLabel.setText(validDatesText.toString());
         } else {
-            validDatesLabel.setText("No valid dates available for this cruise.");
+            validDatesLabel.setText("No valid dates or travel path available for this cruise.");
         }
     }
 
@@ -574,6 +641,7 @@ public class GuestAccountPage {
             roomListModel.clear();
             room.ifPresent(roomListModel::addElement); // Directly add the Room object
             if (roomListModel.isEmpty()){
+                JOptionPane.showMessageDialog(null, "There are no cruises for these dates.", "Invalid Dates", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 roomListModel.addElement(NO_ROOMS_FOUND);
             }
         }
