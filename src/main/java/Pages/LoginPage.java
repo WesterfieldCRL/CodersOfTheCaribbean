@@ -93,14 +93,18 @@ public class LoginPage {
         JButton createAccountButton = createStyledButton("Create Account", BUTTON_FONT, BUTTON_COLOR);
 
         loginSubmitButton.addActionListener(e -> handleLogin(usernameField, passwordField, frame));
-        createAccountButton.addActionListener(e -> switchToPanel(frame, "Create Account"));
+        createAccountButton.addActionListener(e -> {
+            usernameField.setText("");
+            passwordField.setText("");
+            switchToPanel(frame, "Create Account");
+        });
         JButton resetPasswordButton = createStyledButton("Reset Password", BUTTON_FONT, BUTTON_COLOR);
 
         resetPasswordButton.addActionListener(e -> {
             AppLogger.getLogger().info("Reset password button clicked");
             JTextField usernameFieldForReset = new JTextField(15);
             int result = JOptionPane.showConfirmDialog(frame, new Object[]{"Username:", usernameFieldForReset},
-                    "Password Reset Request", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    "Password Reset Request", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, scaledSuccessIcon);
 
             if (result == JOptionPane.OK_OPTION) {
                 String username = usernameFieldForReset.getText().trim();

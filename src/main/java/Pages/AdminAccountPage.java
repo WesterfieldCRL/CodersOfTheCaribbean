@@ -131,7 +131,7 @@ public class AdminAccountPage {
                             AppLogger.getLogger().info("Confirm change clicked");
                             selectedGuest.resetPassword();
                             JOptionPane.showMessageDialog(resetDialog, "Password has been reset successfully.",
-                                    "Password Reset", JOptionPane.INFORMATION_MESSAGE);
+                                    "Password Reset", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                             resetDialog.dispose();
                             refreshResetRequestsList(resetList);
                         }
@@ -145,7 +145,7 @@ public class AdminAccountPage {
                     resetDialog.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(resetPasswordPanel, "Please select a guest from the list.",
-                            "No Guest Selected", JOptionPane.WARNING_MESSAGE);
+                            "No Guest Selected", JOptionPane.WARNING_MESSAGE, scaledErrorImage);
                 }
             }
         });
@@ -248,7 +248,7 @@ public class AdminAccountPage {
                 String password = new String(passwordField.getPassword());
                 String validationMessage = validatePassword(password);
                 if (!validationMessage.isEmpty()) {
-                    JOptionPane.showMessageDialog(createAccountPanel, validationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(createAccountPanel, validationMessage, "Invalid Password", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                     return;
                 }
 
@@ -260,14 +260,14 @@ public class AdminAccountPage {
                 TravelAgent newAgent = new TravelAgent(username, password, name, address, email);
 
                 if (newAgent.createAccount()) {
-                    JOptionPane.showMessageDialog(createAccountPanel, "Travel Agent account created successfully!", "Account Creation", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(createAccountPanel, "Travel Agent account created successfully!", "Account Creation", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                     usernameField.setText("");
                     passwordField.setText("");
                     nameField.setText("");
                     addressField.setText("");
                     emailField.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(createAccountPanel, "Failed to create Travel Agent account. Please check the details and try again.", "Account Creation Failed", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(createAccountPanel, "Failed to create Travel Agent account. Please check the details and try again.", "Account Creation Failed", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
                 AppLogger.getLogger().info("Exiting create account button");
 
