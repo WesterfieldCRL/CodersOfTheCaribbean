@@ -106,7 +106,7 @@ public class GuestAccountPage {
 
         // Drop downs and date fields
         JComboBox<Room.Quality> qualityComboBox = new JComboBox<>(Room.Quality.values());
-        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4});
+        JComboBox<Integer> numBedsComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
         JComboBox<Room.BedType> bedTypeComboBox = new JComboBox<>(Room.BedType.values());
         JCheckBox isSmokingCheckBox = new JCheckBox("Smoking?");
         JFormattedTextField startDateField = new JFormattedTextField(new SimpleDateFormat("MM/dd/yyyy"));
@@ -504,7 +504,7 @@ public class GuestAccountPage {
                         currentGuest.calculateRefund(selectedReservation.id);
                         currentGuest.getReservations().remove(selectedReservation);
                         JOptionPane.showMessageDialog(null,
-                                "Reservation cancelled successfully. You will be refunded: " + refundAmt
+                                "Reservation cancelled successfully. You will be refunded: " + refundAmt, "Refund Amount", JOptionPane.PLAIN_MESSAGE, scaledSuccessIcon
                         );
                     } else {
                         JOptionPane.showMessageDialog(null, "You cannot cancel this reservation.",
