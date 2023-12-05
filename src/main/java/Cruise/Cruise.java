@@ -13,6 +13,11 @@ public class Cruise {
 
     private Clock clock;
 
+    /**
+     * Constructor for creating a Cruise object with the specified name.
+     *
+     * @param name The name of the cruise.
+     */
     public Cruise(String name) {
         this.name = name;
         roomList = new ArrayList<>();
@@ -32,6 +37,13 @@ public class Cruise {
 
     }
 
+    /**
+     * Checks if the given start and end dates are valid for making a reservation on this cruise.
+     *
+     * @param start The start date of the reservation.
+     * @param end   The end date of the reservation.
+     * @return True if the dates are valid, false otherwise.
+     */
     public boolean areDatesValid(LocalDate start, LocalDate end)
     {
         if (start.isAfter(LocalDate.now(clock))) {
@@ -53,6 +65,18 @@ public class Cruise {
         return false;
     }
 
+
+    /**
+     * Checks if a room with specified characteristics is available for reservation during the given dates.
+     *
+     * @param quality     The quality level of the room.
+     * @param numBeds     The number of beds in the room.
+     * @param bedType     The type of bed in the room.
+     * @param isSmoking   True if the room is smoking, false otherwise.
+     * @param startDate   The start date of the reservation.
+     * @param endDate     The end date of the reservation.
+     * @return An Optional containing an available room or empty if no room is available.
+     */
     public Optional<Room> isRoomAvailable(Room.Quality quality, int numBeds, Room.BedType bedType,
                                           boolean isSmoking, LocalDate startDate, LocalDate endDate)
     {
@@ -126,6 +150,13 @@ public class Cruise {
         return Optional.empty();
     }
 
+    /**
+     * Retrieves a list of available rooms for reservations between the specified start and end dates.
+     *
+     * @param startDate The start date for reservations.
+     * @param endDate   The end date for reservations.
+     * @return An ArrayList of available rooms.
+     */
     public ArrayList<Room> getAvailableRoomsList(LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Room> roomsList = new ArrayList<>();
@@ -176,8 +207,6 @@ public class Cruise {
                 }
 
             }
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
@@ -193,6 +222,10 @@ public class Cruise {
         return roomsList;
     }
 
+    /**
+     * Test Function:
+     * Prints information about the cruise, including its name and details of each room.
+     */
     public void printCruise() {
         System.out.println(name);
         for (Room r : roomList) {
@@ -200,6 +233,12 @@ public class Cruise {
         }
     }
 
+    /**
+     * Adds a room to the cruise's database.
+     *
+     * @param room The room to be added.
+     * @return True if the room is successfully added, false otherwise.
+     */
     public boolean addRoom(Room room) {
         Connection connection = null;
         try {
@@ -236,6 +275,12 @@ public class Cruise {
         return true;
     }
 
+    /**
+     * Modifies the details of an existing room in the cruise's database.
+     *
+     * @param room The modified room.
+     * @return True if the room is successfully modified, false otherwise.
+     */
     public boolean modifyRoom(Room room) {
         Connection connection = null;
         try {
@@ -270,6 +315,12 @@ public class Cruise {
         }
     }
 
+    /**
+     * Retrieves a Cruise object from the database based on the provided cruise name.
+     *
+     * @param cruiseName The name of the cruise.
+     * @return An Optional containing the Cruise object or empty if not found.
+     */
     public static Optional<Cruise> getCruise(String cruiseName)
     {
         Cruise cruise = new Cruise(cruiseName);
@@ -320,6 +371,10 @@ public class Cruise {
         return Optional.empty();
     }
 
+    /**
+     * Retrieves the travel path for the cruise from the database and populates the 'travelPath' list with Destination objects.
+     * The travel path is initially created with default values and updated with the actual database values.
+     */
     public void createTravelPath()
     {
         travelPath = new ArrayList<>();
@@ -363,6 +418,9 @@ public class Cruise {
         }
     }
 
+    /**
+     * Updates the 'travelPath' list with actual values from the database, considering arrival dates and travel times.
+     */
     public void updateTravelPath()
     {
         travelPath = new ArrayList<>();
@@ -405,6 +463,9 @@ public class Cruise {
         }
     }
 
+    /**
+     * Saves the current 'travelPath' list to the database by updating the arrival dates of each destination.
+     */
     public void saveTravelPath()
     {
         Connection connection = null;
@@ -440,6 +501,10 @@ public class Cruise {
         }
     }
 
+    /**
+     * Test Function:
+     * Prints the travel path of the cruise, including destinations, departure, and arrival dates.
+     */
     public void printTravelPath()
     {
         for (Destination step : travelPath)
@@ -450,10 +515,21 @@ public class Cruise {
         }
     }
 
+    /**
+     * Retrieves the current travel path of the cruise.
+     *
+     * @return An ArrayList of Destination objects representing the travel path.
+     */
     public ArrayList<Destination> getTravelPath(){
         return travelPath;
     }
 
+
+    /**
+     * Retrieves a list of valid reservation start dates based on the departure dates of the travel path destinations.
+     *
+     * @return An ArrayList of LocalDate objects representing valid reservation start dates.
+     */
     public ArrayList<LocalDate> getValidReservationDates()
     {
         ArrayList<LocalDate> dates = new ArrayList<>();
@@ -477,11 +553,9 @@ public class Cruise {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public ArrayList<Room> getRoomList() {
         return roomList;
     }
@@ -495,12 +569,24 @@ public class Cruise {
         public LocalDate departure;
         public String location;
 
+        /**
+         * Constructor for creating a Destination object.
+         *
+         * @param location  The name of the destination.
+         * @param departure The departure date from the destination.
+         * @param arrival   The arrival date at the destination.
+         */
         public Destination(String location, LocalDate departure, LocalDate arrival) {
             this.arrival = arrival;
             this.departure = departure;
             this.location = location;
         }
 
+        /**
+         * Retrieves the location name of the destination.
+         *
+         * @return The location name.
+         */
         public String getLocation(){
             return location;
         }

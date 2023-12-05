@@ -190,7 +190,7 @@ public class TravelAgent extends Person {
      *         {@code false} if not, and {@code null} if the reservation ID is not found or
      *         an error occurs.
      */
-    public Boolean getCheckInStatus(int reservationId) {
+    public boolean getCheckInStatus(int reservationId) {
         Connection connection = null;
         Boolean isCheckedIn = null;
 
