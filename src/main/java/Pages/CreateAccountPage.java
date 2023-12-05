@@ -144,9 +144,17 @@ public class CreateAccountPage {
             int ccLength = ccNumberField.getText().trim().length();
 
             if (ccLength!= 15 && ccLength != 16 ){
-                JOptionPane.showMessageDialog(frame, "Invlaid Card Number. Must be 15 or 16 digits.", "Invalid Credit Card Number", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                JOptionPane.showMessageDialog(frame, "Invalid Card Number. Must be 15 or 16 digits.", "Invalid Credit Card Number", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 return;
             }
+
+            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+            if (!emailField.getText().matches(emailRegex)) {
+                JOptionPane.showMessageDialog(frame, "Invalid email format. Please enter a valid email.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                return;
+            }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
             YearMonth ccExpiration;
             try {
@@ -168,11 +176,15 @@ public class CreateAccountPage {
             if (success) {
                 AppLogger.getLogger().info("Success creating guest account");
                 JOptionPane.showMessageDialog(frame, "Account created successfully!", "Create Account Status", JOptionPane.DEFAULT_OPTION, scaledSuccessIcon);
+                clearLoginFields();
                 switchToPanel(frame, "Login");
             } else {
-                JOptionPane.showMessageDialog(frame, "Error creating account. Please ensure your details are correct and try again.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                if (Guest.usernameExists(usernameField.getText())){
+                    JOptionPane.showMessageDialog(frame, "A user with that username already exists.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Error creating account. Please ensure that all fields are filled. ", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
+                }
             }
-            clearLoginFields();
         });
 
         gbc.gridx = 0;
