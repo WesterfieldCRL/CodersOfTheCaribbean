@@ -108,9 +108,6 @@ public class Guest extends Person {
        if( !createGenericAccount("GUEST")){
            return false;
        }
-
-
-
             Connection connection = null;
 
             try {

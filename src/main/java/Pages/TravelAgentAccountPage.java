@@ -179,7 +179,7 @@ public class TravelAgentAccountPage {
                 }
             } else {
                 JOptionPane.showMessageDialog(frame, "Please select a room to modify.", "No Room Selected",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE, scaledErrorImage);
             }
         });
 
@@ -264,7 +264,7 @@ public class TravelAgentAccountPage {
 
 
             if (cruise.modifyRoom(room)) {
-                JOptionPane.showMessageDialog(frame, "Room updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Room updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                 onModificationSuccess.run();
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to update room.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
@@ -422,7 +422,7 @@ public class TravelAgentAccountPage {
             } else {
                 boolean success = modifyTravelAgentAccount( currentAgent.getUsername() ,newUsername, newPassword, newAddress);
                 if (success) {
-                    JOptionPane.showMessageDialog(frame, "Account updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Account updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                     currentAgent.setUsername(newUsername);
                     currentAgent.setPassword(newPassword);
                     currentAgent.setAddress(newAddress);
@@ -661,9 +661,9 @@ public class TravelAgentAccountPage {
             if (selectedReservation != null) {
                 boolean success = currentAgent.checkIn(selectedReservation.getId());
                 if (success) {
-                    JOptionPane.showMessageDialog(frame, "Guest checked in successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Guest checked in successfully.", "Success", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Failed to check in guest.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Failed to check in guest.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });
@@ -674,9 +674,9 @@ public class TravelAgentAccountPage {
             if (selectedReservation != null) {
                 boolean success = currentAgent.checkOut(selectedReservation.getId());
                 if (success) {
-                    JOptionPane.showMessageDialog(frame, "Guest checked out successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Guest checked out successfully.", "Success", JOptionPane.INFORMATION_MESSAGE, scaledSuccessIcon);
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Failed to check out guest.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Failed to check out guest.", "Error", JOptionPane.ERROR_MESSAGE, scaledErrorImage);
                 }
             }
         });

@@ -513,7 +513,7 @@ public class GuestAccountPage {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No reservation selected.", "Error",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE, scaledErrorImage);
             }
         });
 
