@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="28420ba4-8d2c-434e-b64f-eac098304fea" name="Changes" comment="added testing and documentation for billing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/cruiseDatabase/BACKUP.HISTORY" beforeDir="false" afterPath="$PROJECT_DIR$/backup/cruiseDatabase/BACKUP.HISTORY" afterDir="false" />
@@ -77,6 +78,9 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ProvideExpenseSummaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ProvideExpenseSummaryTest.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="28420ba4-8d2c-434e-b64f-eac098304fea" name="Changes" comment="CheckIn/Out Tests" />
+>>>>>>> main
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,9 +121,15 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
     "git-widget-placeholder": "willpotato",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/wlnec/IdeaProjects/CodersOfTheCaribbean",
+=======
+    "git-widget-placeholder": "carter-branch",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/carte/Documents/CSI 3471/CodersOfTheCaribbean",
+>>>>>>> main
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -150,6 +160,7 @@
       <workItem from="1701568984801" duration="438000" />
       <workItem from="1701709067275" duration="9215000" />
       <workItem from="1701733446746" duration="2192000" />
+<<<<<<< HEAD
       <workItem from="1701783034492" duration="4546000" />
       <workItem from="1701818317694" duration="6230000" />
     </task>
@@ -160,6 +171,18 @@
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1701821622669</updated>
+=======
+      <workItem from="1701783198261" duration="154000" />
+      <workItem from="1701788125619" duration="6075000" />
+    </task>
+    <task id="LOCAL-00001" summary="CheckIn/Out Tests">
+      <option name="closed" value="true" />
+      <created>1701819667630</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701819667630</updated>
+>>>>>>> main
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -179,7 +202,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+<<<<<<< HEAD
     <MESSAGE value="added testing and documentation for billing" />
     <option name="LAST_COMMIT_MESSAGE" value="added testing and documentation for billing" />
+=======
+    <MESSAGE value="CheckIn/Out Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="CheckIn/Out Tests" />
+>>>>>>> main
   </component>
 </project>
