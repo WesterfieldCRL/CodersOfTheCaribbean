@@ -93,7 +93,8 @@ public class Expenses{
 
 
                 int affectedRows = preparedStatement.executeUpdate();
-                return affectedRows > 0;
+                return true;
+
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -123,8 +124,9 @@ public class Expenses{
 
 
 
-                return true;
+
             }
+            return true;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {

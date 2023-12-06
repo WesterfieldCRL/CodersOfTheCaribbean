@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Test class for billing generation functionality.
  *
@@ -32,7 +34,8 @@ public class BillingGenerationTest {
      *   <li>Replaces the database with the backup.</li>
      * </ul>
      */
-    private void replaceDatabaseWithBackup() {
+    @BeforeEach
+    public void replaceDatabaseWithBackup() {
         try {
             File databaseDir = new File("cruiseDatabase");
             File backupDir = new File("backup/cruiseDatabase");
@@ -110,19 +113,21 @@ public class BillingGenerationTest {
     @Test
     void generateBillingTest(){
         Guest temp = new Guest("testing", "0", "String name", "String" , "String email");
+        temp.createAccount();
         temp.generateBilling(6.90);
-        Expenses tempExpense = new Expenses();
+
         Connection connection = null;
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
             PreparedStatement selectQuery = connection.prepareStatement(
-                    "SELECT * FROM BILLS");
+                    "SELECT * FROM BILLS WHERE GUEST = ?");
 
+            selectQuery.setString(1, "testing");
 
             ResultSet rs = selectQuery.executeQuery();
-            while (rs.next()){}
 
+            rs.next();
             String guestName = rs.getString("GUEST");
             Double amount = rs.getDouble("AMOUNT");
             LocalDate date = rs.getDate("DATE").toLocalDate();
@@ -139,7 +144,7 @@ public class BillingGenerationTest {
             assertEquals(amount,6.90);
             assertEquals("", error);
 
-
+            return;
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -153,7 +158,7 @@ public class BillingGenerationTest {
             }
         }
 
-
+        fail();
     }
 
 

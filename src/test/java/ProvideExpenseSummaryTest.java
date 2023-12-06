@@ -1,9 +1,15 @@
 import Billing.*;
+import Person.Guest;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.sql.*;
+import java.util.*;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the {@link Expenses} class.
@@ -31,6 +37,56 @@ public class ProvideExpenseSummaryTest {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Runs after each test to restore the database
+     *
+     * <p>The method restores the database after each test.</p>
+     *
+     * <ul>
+     *   <li>Restores the database.</li>
+     * </ul>
+     */
+    @AfterEach
+    public void restoreDatabase() {
+        try {
+            DriverManager.getConnection("jdbc:derby:cruiseDatabase;shutdown=true");
+
+        } catch (SQLException e) {
+            //Shutting down db always produces SQLException
+            //e.printStackTrace();
+        }
+
+        try {
+            replaceDatabaseWithBackup();
+
+            // Restart Derby
+            DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Replaces the database with the backup
+     *
+     * <p>The method replaces the database with the backup.</p>
+     *
+     * <ul>
+     *   <li>Replaces the database with the backup.</li>
+     * </ul>
+     */
+    private void replaceDatabaseWithBackup() {
+        try {
+            File databaseDir = new File("cruiseDatabase");
+            File backupDir = new File("backup/cruiseDatabase");
+
+            FileUtils.copyDirectory(backupDir, databaseDir);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private Expenses expenses;
     /**
@@ -77,6 +133,9 @@ public class ProvideExpenseSummaryTest {
      */
     @Test
     void testRemoveError() {
+        Guest guest = new Guest("testing", "0", "String name", "String" , "String email");
+        guest.createAccount();
+        guest.generateBilling(6.90);
 
         assertTrue(expenses.removeError(1));
     }
@@ -85,9 +144,40 @@ public class ProvideExpenseSummaryTest {
      */
     @Test
     void testGetError() {
+        Guest guest = new Guest("testing", "0", "String name", "String" , "String email");
+        guest.createAccount();
+        guest.generateBilling(6.90);
 
-        assertTrue(expenses.getError(1));
-        assertNotNull(expenses.getErrorDescription());
+        Connection connection = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+            connection = DriverManager.getConnection("jdbc:derby:cruiseDatabase;");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM BILLS WHERE GUEST = ?");
+            statement.setString(1, "testing");
+
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            int i = rs.getInt("ID");
+            expenses.getError(i);
+            assertEquals(expenses.getErrorDescription(), "");
+            return;
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        fail("oopsie");
+
     }
     /**
      * Tests the {@link Expenses#getExpenses()} method.
