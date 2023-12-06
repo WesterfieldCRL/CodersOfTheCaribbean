@@ -118,7 +118,7 @@ public class CancelReservationTest {
      *   <li>If the cruise is present, retrieves the valid reservation dates and available rooms for the cruise.</li>
      *   <li>Checks if an available room is present for reservation using the {@link Cruise#isRoomAvailable(Room.Quality, int, Room.BedType, boolean, LocalDate, LocalDate)} method.</li>
      *   <li>If a room is available, makes a reservation for the guest using the {@link Guest#makeReservation(Room, LocalDate, LocalDate, Cruise)} method.</li>
-     *   <li>Gets the list of reservations for the guest and cancels the first reservation using the {@link Guest#cancelReservation(long)} method.</li>
+     *   <li>Gets the list of reservations for the guest and cancels the first reservation using the {@link Guest#cancelReservation(int)} method.</li>
      *   <li>Verifies that the cancellation is successful by checking the boolean output of the cancellation operation.</li>
      *   <li>If the cancellation is successful, the test passes; otherwise, it fails.</li>
      * </ol>
@@ -173,7 +173,7 @@ public class CancelReservationTest {
      *   <li>Checks if an available room is present for reservation using the {@link Cruise#isRoomAvailable(Room.Quality, int, Room.BedType, boolean, LocalDate, LocalDate)} method.</li>
      *   <li>If a room is available, makes a reservation for the guest using the {@link Guest#makeReservation(Room, LocalDate, LocalDate, Cruise)} method.</li>
      *   <li>Sets the clock to a future date using the {@link Guest#setClock(Clock)} method.</li>
-     *   <li>Gets the list of reservations for the guest and attempts to cancel the first reservation using the {@link Guest#cancelReservation(long)} method.</li>
+     *   <li>Gets the list of reservations for the guest and attempts to cancel the first reservation using the {@link Guest#cancelReservation(int)} method.</li>
      *   <li>Verifies that the cancellation is unsuccessful by checking the boolean output of the cancellation operation.</li>
      *   <li>If the cancellation is unsuccessful, the test passes; otherwise, it fails.</li>
      * </ol>

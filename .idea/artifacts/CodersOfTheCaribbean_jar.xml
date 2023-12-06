@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CodersOfTheCaribbean:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CodersOfTheCaribbean_jar</output-path>
+    <root id="archive" name="CodersOfTheCaribbean.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="CodersOfTheCaribbean" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/derby/derbytools/10.15.2.0/derbytools-10.15.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/derby/derbyshared/10.16.1.1/derbyshared-10.16.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
