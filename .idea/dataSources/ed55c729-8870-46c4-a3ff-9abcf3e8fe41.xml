@@ -6,7 +6,7 @@
     </root>
     <schema id="2" parent="1" name="APP">
       <Current>1</Current>
-      <LocalIntrospectionTimestamp>2023-12-02.20:53:47</LocalIntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-12-02.04:28:54</LocalIntrospectionTimestamp>
     </schema>
     <schema id="3" parent="1" name="NULLID"/>
     <schema id="4" parent="1" name="SQLJ"/>
@@ -20,377 +20,346 @@
     <schema id="12" parent="1" name="SYSSTAT"/>
     <table id="13" parent="2" name="BILLING_INFO"/>
     <table id="14" parent="2" name="BILLS"/>
-    <table id="15" parent="2" name="CHECKIN"/>
-    <table id="16" parent="2" name="CRUISE1"/>
-    <table id="17" parent="2" name="CRUISE1PATH"/>
-    <table id="18" parent="2" name="CRUISE2"/>
-    <table id="19" parent="2" name="CRUISE2PATH"/>
-    <table id="20" parent="2" name="CRUISE3"/>
-    <table id="21" parent="2" name="CRUISE3PATH"/>
-    <table id="22" parent="2" name="LOGINDATA"/>
-    <table id="23" parent="2" name="PASSWORDRESETS"/>
-    <table id="24" parent="2" name="RESERVATIONS"/>
-    <column id="25" parent="13" name="GUEST">
+    <table id="15" parent="2" name="CRUISE1"/>
+    <table id="16" parent="2" name="CRUISE1PATH"/>
+    <table id="17" parent="2" name="CRUISE2"/>
+    <table id="18" parent="2" name="CRUISE2PATH"/>
+    <table id="19" parent="2" name="CRUISE3"/>
+    <table id="20" parent="2" name="CRUISE3PATH"/>
+    <table id="21" parent="2" name="LOGINDATA"/>
+    <table id="22" parent="2" name="PASSWORDRESETS"/>
+    <table id="23" parent="2" name="RESERVATIONS"/>
+    <column id="24" parent="13" name="GUEST">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="26" parent="13" name="NUMBER">
+    <column id="25" parent="13" name="NUMBER">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>2</Position>
     </column>
-    <column id="27" parent="13" name="EXPIRATION_DATE">
+    <column id="26" parent="13" name="EXPIRATION_DATE">
       <DasType>DATE|91s</DasType>
       <Position>3</Position>
     </column>
-    <column id="28" parent="13" name="IS_CORPORATE_GUEST">
+    <column id="27" parent="13" name="IS_CORPORATE_GUEST">
       <DasType>BOOLEAN|16s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="29" parent="13" name="BILLING_INFO_LOGINDATA_USERNAME_fk">
+    <foreign-key id="28" parent="13" name="BILLING_INFO_LOGINDATA_USERNAME_fk">
       <ColNames>GUEST</ColNames>
       <RefColNames>USERNAME</RefColNames>
       <RefTableName>LOGINDATA</RefTableName>
     </foreign-key>
-    <index id="30" parent="13" name="SQL0000000001-3ea3c0fb-018c-2892-3144-0000073811d8">
+    <index id="29" parent="13" name="SQL0000000001-3ea3c0fb-018c-2892-3144-0000073811d8">
       <ColNames>GUEST</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <column id="31" parent="14" name="GUEST">
+    <column id="30" parent="14" name="GUEST">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="32" parent="14" name="ERROR_DESCRIPTION">
+    <column id="31" parent="14" name="ERROR_DESCRIPTION">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>2</Position>
     </column>
-    <column id="33" parent="14" name="ID">
+    <column id="32" parent="14" name="ID">
       <DasType>INTEGER|4s</DasType>
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="34" parent="14" name="DATE">
+    <column id="33" parent="14" name="DATE">
       <DasType>DATE|91s</DasType>
       <Position>4</Position>
     </column>
-    <column id="35" parent="14" name="AMOUNT">
+    <column id="34" parent="14" name="AMOUNT">
       <DasType>DOUBLE|8s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="36" parent="14" name="BILLS_LOGINDATA_USERNAME_fk">
+    <foreign-key id="35" parent="14" name="BILLS_LOGINDATA_USERNAME_fk">
       <ColNames>GUEST</ColNames>
       <RefColNames>USERNAME</RefColNames>
       <RefTableName>LOGINDATA</RefTableName>
     </foreign-key>
-    <index id="37" parent="14" name="SQL0000000000-d8cd40ba-018c-28b9-6540-0000073811d8">
+    <index id="36" parent="14" name="SQL0000000000-d8cd40ba-018c-28b9-6540-0000073811d8">
       <ColNames>GUEST</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <column id="38" parent="15" name="ID">
-      <DasType>INTEGER|4s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="39" parent="15" name="ISCHECKEDIN">
-      <DasType>BOOLEAN|16s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="40" parent="15" name="ISCHECKEDOUT">
-      <DasType>BOOLEAN|16s</DasType>
-      <Position>3</Position>
-    </column>
-    <foreign-key id="41" parent="15" name="CHECKIN___fk">
-      <ColNames>ID</ColNames>
-      <RefColNames>ID</RefColNames>
-      <RefTableName>RESERVATIONS</RefTableName>
-    </foreign-key>
-    <index id="42" parent="15" name="SQL0000000000-582f8014-018c-2c4f-08db-000007313f70">
-      <ColNames>ID</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-    </index>
-    <column id="43" parent="16" name="ID">
+    <column id="37" parent="15" name="ID">
       <DasType>INTEGER|4s</DasType>
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="44" parent="16" name="BEDNUMBER">
+    <column id="38" parent="15" name="BEDNUMBER">
       <DasType>INTEGER|4s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="45" parent="16" name="BEDTYPE">
+    <column id="39" parent="15" name="BEDTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="46" parent="16" name="ROOMTYPE">
+    <column id="40" parent="15" name="ROOMTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="47" parent="16" name="ISSMOKING">
+    <column id="41" parent="15" name="ISSMOKING">
       <DasType>BOOLEAN|16s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="48" parent="16" name="SQL0000000002-65f6406f-018b-6895-b569-0000073853c8">
+    <index id="42" parent="15" name="SQL0000000002-65f6406f-018b-6895-b569-0000073853c8">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="49" parent="16" name="CRUISE1_pk">
+    <key id="43" parent="15" name="CRUISE1_pk">
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="50" parent="17" name="LOCATION">
+    <column id="44" parent="16" name="LOCATION">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="51" parent="17" name="TRAVELDAYS">
+    <column id="45" parent="16" name="TRAVELDAYS">
       <DasType>INTEGER|4s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="52" parent="17" name="ARRIVALDATE">
+    <column id="46" parent="16" name="ARRIVALDATE">
       <DasType>DATE|91s</DasType>
       <Position>3</Position>
     </column>
-    <index id="53" parent="17" name="SQL0000000000-a352c053-018b-98e3-19d6-0000073083d0">
+    <index id="47" parent="16" name="SQL0000000000-a352c053-018b-98e3-19d6-0000073083d0">
       <ColNames>LOCATION</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="54" parent="17" name="CRUISE1PATH_pk">
+    <key id="48" parent="16" name="CRUISE1PATH_pk">
       <ColNames>LOCATION</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="55" parent="18" name="ID">
+    <column id="49" parent="17" name="ID">
       <DasType>INTEGER|4s</DasType>
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="56" parent="18" name="BEDNUMBER">
+    <column id="50" parent="17" name="BEDNUMBER">
       <DasType>INTEGER|4s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="57" parent="18" name="BEDTYPE">
+    <column id="51" parent="17" name="BEDTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="58" parent="18" name="ROOMTYPE">
+    <column id="52" parent="17" name="ROOMTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="59" parent="18" name="ISSMOKING">
+    <column id="53" parent="17" name="ISSMOKING">
       <DasType>BOOLEAN|16s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="60" parent="18" name="SQL0000000003-eb0f4097-018b-6895-b569-0000073853c8">
+    <index id="54" parent="17" name="SQL0000000003-eb0f4097-018b-6895-b569-0000073853c8">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="61" parent="18" name="CRUISE2_pk">
+    <key id="55" parent="17" name="CRUISE2_pk">
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="62" parent="19" name="LOCATION">
+    <column id="56" parent="18" name="LOCATION">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="63" parent="19" name="TRAVELDAYS">
+    <column id="57" parent="18" name="TRAVELDAYS">
       <DasType>INTEGER|4s</DasType>
       <Position>2</Position>
     </column>
-    <column id="64" parent="19" name="ARRIVALDATE">
+    <column id="58" parent="18" name="ARRIVALDATE">
       <DasType>DATE|91s</DasType>
       <Position>3</Position>
     </column>
-    <index id="65" parent="19" name="SQL0000000001-1c16805c-018b-87b0-22c5-0000073853c8">
+    <index id="59" parent="18" name="SQL0000000001-1c16805c-018b-87b0-22c5-0000073853c8">
       <ColNames>LOCATION</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="66" parent="19" name="CRUISE2PATH_pk">
+    <key id="60" parent="18" name="CRUISE2PATH_pk">
       <ColNames>LOCATION</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="67" parent="20" name="ID">
+    <column id="61" parent="19" name="ID">
       <DasType>INTEGER|4s</DasType>
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="68" parent="20" name="BEDNUMBER">
+    <column id="62" parent="19" name="BEDNUMBER">
       <DasType>INTEGER|4s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="69" parent="20" name="BEDTYPE">
+    <column id="63" parent="19" name="BEDTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="70" parent="20" name="ROOMTYPE">
+    <column id="64" parent="19" name="ROOMTYPE">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="71" parent="20" name="ISSMOKING">
+    <column id="65" parent="19" name="ISSMOKING">
       <DasType>BOOLEAN|16s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="72" parent="20" name="SQL0000000004-71b840bf-018b-6895-b569-0000073853c8">
+    <index id="66" parent="19" name="SQL0000000004-71b840bf-018b-6895-b569-0000073853c8">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="73" parent="20" name="CRUISE3_pk">
+    <key id="67" parent="19" name="CRUISE3_pk">
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="74" parent="21" name="LOCATION">
+    <column id="68" parent="20" name="LOCATION">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="75" parent="21" name="TRAVELDAYS">
+    <column id="69" parent="20" name="TRAVELDAYS">
       <DasType>INTEGER|4s</DasType>
       <Position>2</Position>
     </column>
-    <column id="76" parent="21" name="ARRIVALDATE">
+    <column id="70" parent="20" name="ARRIVALDATE">
       <DasType>DATE|91s</DasType>
       <Position>3</Position>
     </column>
-    <index id="77" parent="21" name="SQL0000000002-69ea408f-018b-87b0-22c5-0000073853c8">
+    <index id="71" parent="20" name="SQL0000000002-69ea408f-018b-87b0-22c5-0000073853c8">
       <ColNames>LOCATION</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="78" parent="21" name="CRUISE3PATH_pk">
+    <key id="72" parent="20" name="CRUISE3PATH_pk">
       <ColNames>LOCATION</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="79" parent="22" name="USERNAME">
+    <column id="73" parent="21" name="USERNAME">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="80" parent="22" name="PASSWORD">
+    <column id="74" parent="21" name="PASSWORD">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="81" parent="22" name="NAME">
+    <column id="75" parent="21" name="NAME">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="82" parent="22" name="EMAIL">
+    <column id="76" parent="21" name="EMAIL">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="83" parent="22" name="ADDRESS">
+    <column id="77" parent="21" name="ADDRESS">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="84" parent="22" name="AccountType">
+    <column id="78" parent="21" name="AccountType">
       <DasType>VARCHAR(255)|12s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="85" parent="22" name="SQL0000000000-a02ac013-018b-6895-b569-0000073853c8">
+    <index id="79" parent="21" name="SQL0000000000-a02ac013-018b-6895-b569-0000073853c8">
       <ColNames>USERNAME</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="86" parent="22" name="LOGINDATA_pk">
+    <key id="80" parent="21" name="LOGINDATA_pk">
       <ColNames>USERNAME</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="87" parent="23" name="USERNAME">
+    <column id="81" parent="22" name="USERNAME">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="88" parent="23" name="NEWPASSWORD">
+    <column id="82" parent="22" name="NEWPASSWORD">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="89" parent="23" name="PASSWORDRESETS_LOGINDATA_USERNAME_fk">
+    <foreign-key id="83" parent="22" name="PASSWORDRESETS_LOGINDATA_USERNAME_fk">
       <ColNames>USERNAME</ColNames>
       <RefColNames>USERNAME</RefColNames>
       <RefTableName>LOGINDATA</RefTableName>
     </foreign-key>
-    <index id="90" parent="23" name="SQL0000000001-fb160050-018b-7194-baa6-0000073853c8">
+    <index id="84" parent="22" name="SQL0000000001-fb160050-018b-7194-baa6-0000073853c8">
       <ColNames>USERNAME</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <column id="91" parent="24" name="USERNAME">
+    <column id="85" parent="23" name="USERNAME">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="92" parent="24" name="ROOMID">
+    <column id="86" parent="23" name="ROOMID">
       <DasType>INTEGER|4s</DasType>
       <Position>2</Position>
     </column>
-    <column id="93" parent="24" name="COST">
+    <column id="87" parent="23" name="COST">
       <DasType>DOUBLE|8s</DasType>
       <Position>3</Position>
     </column>
-    <column id="94" parent="24" name="STARTDATE">
+    <column id="88" parent="23" name="STARTDATE">
       <DasType>DATE|91s</DasType>
       <Position>4</Position>
     </column>
-    <column id="95" parent="24" name="ENDDATE">
+    <column id="89" parent="23" name="ENDDATE">
       <DasType>DATE|91s</DasType>
       <Position>5</Position>
     </column>
-    <column id="96" parent="24" name="DATERESERVED">
+    <column id="90" parent="23" name="DATERESERVED">
       <DasType>DATE|91s</DasType>
       <Position>6</Position>
     </column>
-    <column id="97" parent="24" name="CRUISE">
+    <column id="91" parent="23" name="CRUISE">
       <DasType>VARCHAR(255)|12s</DasType>
       <Position>7</Position>
     </column>
-    <column id="98" parent="24" name="ID">
+    <column id="92" parent="23" name="ID">
       <DasType>INTEGER|4s</DasType>
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <foreign-key id="99" parent="24" name="RESERVATIONS_LOGINDATA_USERNAME_fk">
+    <foreign-key id="93" parent="23" name="RESERVATIONS_LOGINDATA_USERNAME_fk">
       <ColNames>USERNAME</ColNames>
       <RefColNames>USERNAME</RefColNames>
       <RefTableName>LOGINDATA</RefTableName>
     </foreign-key>
-    <index id="100" parent="24" name="SQL0000000001-4d6f406a-018c-2c4d-2ad8-000007314358">
-      <ColNames>ID</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Unique>1</Unique>
-    </index>
-    <index id="101" parent="24" name="SQL0000000000-30af4197-018b-a2c1-9181-000007300150">
+    <index id="94" parent="23" name="SQL0000000000-30af4197-018b-a2c1-9181-000007300150">
       <ColNames>USERNAME</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <key id="102" parent="24" name="RESERVATIONS_pk">
-      <ColNames>ID</ColNames>
-      <Primary>1</Primary>
-    </key>
   </database-model>
 </dataSource>

@@ -5,27 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28420ba4-8d2c-434e-b64f-eac098304fea" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed55c729-8870-46c4-a3ff-9abcf3e8fe41.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed55c729-8870-46c4-a3ff-9abcf3e8fe41.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_10_17_23__1_10_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_10_17_23__1_10_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/db.lck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/log1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c400.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c490.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4a0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4a0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4c0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4c0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c5f0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c601.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c630.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c641.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c650.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c661.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c661.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c691.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c6a0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c6a0.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cruiseDatabase/seg0/c6b1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cruiseDatabase/seg0/c6b1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pages/GuestAccountPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Billing/BillingInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Billing/BillingInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Billing/Expenses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BillingGenerationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BillingInformationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BillingInformationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CancelReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CancelReservationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ProvideExpenseSummaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ProvideExpenseSummaryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,28 +47,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/alexbaratta/Documents/CodersOfTheCaribbean&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/wlnec/IdeaProjects/CodersOfTheCaribbean",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;derby&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "derby"
     ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -96,6 +86,7 @@
       <workItem from="1701709067275" duration="9215000" />
       <workItem from="1701733446746" duration="2192000" />
       <workItem from="1701783034492" duration="4546000" />
+      <workItem from="1701818317694" duration="3136000" />
     </task>
     <servers />
   </component>
