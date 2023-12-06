@@ -346,6 +346,7 @@ public class GuestAccountPage {
             backButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    reservationListModel.clear();
                     AppLogger.getLogger().info("Travel agent back button clicked");
                     currentGuest = null;
                     addAgentPanelToFrame(frame);
