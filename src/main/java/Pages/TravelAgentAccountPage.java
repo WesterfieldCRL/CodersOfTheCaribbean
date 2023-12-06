@@ -317,11 +317,11 @@ public class TravelAgentAccountPage {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JComboBox<String> cruiseComboBox = new JComboBox<>(new String[]{"CRUISE1", "CRUISE2", "CRUISE3"});
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(cruiseComboBox, gbc);
+//        JComboBox<String> cruiseComboBox = new JComboBox<>(new String[]{"CRUISE1", "CRUISE2", "CRUISE3"});
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        panel.add(cruiseComboBox, gbc);
 
         List<Guest> guests = GuestController.getGuestList();
 
