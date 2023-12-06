@@ -1,45 +1,13 @@
 ----------------------------------------------------------------
-Tue Dec 05 17:33:33 CST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-3c54-6769-000006100000 
-on database directory C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-Loaded from file:/C:/Users/carte/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+Tue Dec 05 19:17:44 CST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-3cb3-c882-00000c689fb0 
+on database directory /home/wesley/Documents/CSI 3471/testing/CodersOfTheCaribbean/cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+Loaded from file:/home/wesley/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=21.0.1+12-29
-user.dir=C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean
-os.name=Windows 11
+user.dir=/home/wesley/Documents/CSI 3471/testing/CodersOfTheCaribbean
+os.name=Linux
 os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Dec 05 17:33:34 CST 2023:
-Shutting down instance a816c00e-018c-3c54-6769-000006100000 on database directory C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-----------------------------------------------------------------
-Tue Dec 05 17:33:35 CST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance dcd58064-018c-3c54-6769-000006100000 
-on database directory C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-Loaded from file:/C:/Users/carte/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=Oracle Corporation
-java.runtime.version=21.0.1+12-29
-user.dir=C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean
-os.name=Windows 11
-os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Dec 05 17:33:36 CST 2023:
-Shutting down instance dcd58064-018c-3c54-6769-000006100000 on database directory C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-----------------------------------------------------------------
-Tue Dec 05 17:33:36 CST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance d8cd40ba-018c-3c54-6769-000006100000 
-on database directory C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean\cruiseDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-Loaded from file:/C:/Users/carte/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=Oracle Corporation
-java.runtime.version=21.0.1+12-29
-user.dir=C:\Users\carte\Documents\CSI 3471\CodersOfTheCaribbean
-os.name=Windows 11
-os.arch=amd64
-os.version=10.0
+os.version=5.15.0-89-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
